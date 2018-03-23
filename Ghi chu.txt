@@ -1,0 +1,3 @@
+Truong bo mon luu trong thu muc viewAdmin
+Admin luu trong thu muc viewApp
+Can bo luu trong viewCB
