@@ -39,12 +39,15 @@
 		<li><a href="index.php?f=QuanTri_ChucVu">Chức vụ</a></li>	
 	</ul>
 </li>
-<li><a href="index.php?f=QuanTri_BoMon">Bộ môn</a></li>
+<li><a href="index.php?f=QuanTri_BoMon">Bộ môn</a>
+</li>
 <li><a href="index.php?f=QuanTri_Nganh">Ngành</a></li>
 <li><a href="index.php?f=QuanTri_Lop">Lớp</a></li>
 <li><a href="index.php?f=QuanTri_Mon">Môn học</a></li>
 <li><a href="index.php?f=QuanTri_DoiTuongGiam">Đối tượng giảm</a></li>
-<li><a href="index.php?f=QuanTri_KhGd">Kế hoạch dạy</a></li>
+<li><a href="index.php?f=QuanTri_KhGd">Kế hoạch dạy</a>
+<ul><li><a href="index.php?f=QuanTri_ThemKH">Thêm kế hoạch giảng dạy</a></li></ul>
+</li>
 <li><a href="index.php?f=QuanTri_ThongTinCanBo">Đổi mật khẩu</a></li>
 
 </div>
