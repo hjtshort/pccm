@@ -34,8 +34,13 @@
   <div>
 <ul id="nav">
 <li><a href="index.php?f=QuanTri_Pccm1">Trang chủ</a></li>
-<li><a href="index.php?f=...">Kế hoạch giảng dạy</a></li>
+<li><a href="index.php?f=">Kế hoạch giảng dạy</a>
+<ul>
 
+<li><a href="index.php?f=">Nhap khgd</a>
+<li><a href="index.php?f=">QLKHGD khgd</a>
+</ul>
+</li>
 <li><a href="index.php?f=QuanTri_Pccm1">Phân công</a>
 <ul>
 
