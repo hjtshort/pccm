@@ -182,7 +182,7 @@
                       <tr>
                         <td colspan="3" height="55">		
 							<!-- <input  type="submit" value="TÌM KIẾM" name="btn_tim">  -->
-							<input  type="button" value="THÊM MÔN HỌC" name="btn_them">     													
+							<input  type="button" value="THÊM MÔN HỌC" name="btn_them" id="btn-them">     													
 							<!--<input  type="submit" value="CHỈNH SỬA" name="btn_sua">    -->
 						</td>
                       </tr>                  
@@ -222,7 +222,7 @@
 </html>
 <script>
 	function gettable(){
-		var nganh = $('#nganh').val()
+			var nganh = $('#nganh').val()
 			var he =$('#he').val()
 			var sttKhoa=$('#sttKhoa').val()
 			var hocky =$('#hocky').val()
@@ -245,20 +245,70 @@
 	$(document).ready(function () {
 		gettable()
 	});
+	//lấy lại dữ liệu bảng nếu ngành thay đổi
 	$('#nganh').change(function (e) { 
 		gettable()
 	});
+		//lấy lại dữ liệu bảng nếu hệ thay đổi
 	$('#he').change(function (e) { 
 		gettable()		
 	});
+		//lấy lại dữ liệu bảng nếu khóa thay đổi
 	 $('#sttKhoa').change(function (e) { 
 	 	gettable()		
 	 });
+	 	//lấy lại dữ liệu bảng nếu học kỳ thay đổi
 	 $('#hocky').change(function (e) { 
 	 	gettable()		
 	 });
+	 	//lấy lại dữ liệu bảng nếu năm học thay đổi
 	 $('#namhoc').change(function (e) { 
 	 	gettable()		
+	 });
+	 //xóa môn học ra khỏi kế hoạch giản dạy của 1 lớp
+	 function del(a){
+		 $.ajax({
+			 type: "post",
+			 url: "index.php?f=function",
+			 data: {"data":a,
+					"action":"delete"
+			 },
+			 success: function (response) {
+				 if(response.trim()=="ok"){
+					 //lấy lại dữ liệu bảng
+					gettable()
+				 }
+				 else
+				 	alert("Không thể xóa!")
+			 }
+		 });
+	 }
+	 $('#btn-them').click(function (e) { 
+			var nganh = $('#nganh').val()
+			var he =$('#he').val()
+			var sttKhoa=$('#sttKhoa').val()
+			var hocky =$('#hocky').val()
+			var namHoc=$('#namhoc').val()
+			var mamon=$('#mamon').val()
+			$.ajax({
+				type: "post",
+				url: "index.php?f=function",
+				data: {"nganh":nganh,
+						"he":he,
+						"sttKhoa":sttKhoa,
+						"hocky":hocky,
+						"namhoc":namHoc,
+						"mamon":mamon,
+						"action":"insertcth"
+						},
+				success: function (response) {
+					if(response.trim()=="ok")
+						gettable()
+					else
+						alert('Không thể thêm')
+				}
+			});
+		  
 	 });
 
 </script>

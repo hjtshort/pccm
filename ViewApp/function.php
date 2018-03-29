@@ -1,13 +1,33 @@
 <?php 
 require_once "db.php";
-if(trim($_POST['action']=="gettable")){
-	echo hienthitable($_POST['nganh'],$_POST['he'],$_POST['sttKhoa'],$_POST['hocky'],$_POST['namhoc']);
-	//<input type="image" name="btn_xoa"  value="<?php echo  $chuoi;"src="img/delete.png" width="20" height="20">
+if(trim($_POST['action'])=="gettable"){
+	$maNganh= addslashes(strip_tags(trim($_POST['nganh'])));
+	$he= addslashes(strip_tags(trim($_POST['he'])));
+	$sttKhoa=addslashes(strip_tags(trim($_POST['sttKhoa'])));
+	$hk=addslashes(strip_tags(trim($_POST['hocky'])));
+	$namHoc=addslashes(strip_tags(trim($_POST['namhoc'])));
+	echo hienthitable($maNganh,$he,$sttKhoa,$hk,$namHoc);
+}
+else if(trim($_POST['action'])=="delete"){
+	 $data=explode("+",addslashes(strip_tags(trim($_POST['data']))));
+	 deletecth($data[0],$data[1],$data[2],$data[3],$data[4],$data[5]);
+}
+else if(trim($_POST['action'])=="insertcth"){
+	$maNganh= addslashes(strip_tags(trim($_POST['nganh'])));
+	$he= addslashes(strip_tags(trim($_POST['he'])));
+	$sttKhoa=addslashes(strip_tags(trim($_POST['sttKhoa'])));
+	$hk=addslashes(strip_tags(trim($_POST['hocky'])));
+	$namHoc=addslashes(strip_tags(trim($_POST['namhoc'])));
+	$maMon=addslashes(strip_tags(trim($_POST['mamon'])));
+	insertcth($maNganh,$maMon,$he,$sttKhoa,$hk,$namHoc);
+}
+else{
+
 }
 //Lấy dữ liệu table
 function hienthitable($maNganh,$he,$sttKhoa,$hk,$namHoc)
 {
-    $db=new db();
+	$db=new db();
     $sql_hienThi = 	"SELECT * FROM chuongtrinhhoc cth, monhoc mh, nganh n ".
 									" Where cth.maNganh = '".$maNganh."'" .
 									 "	 and cth.he = '".$he."'" .
@@ -24,6 +44,7 @@ function hienthitable($maNganh,$he,$sttKhoa,$hk,$namHoc)
 	$stt=1;
 	while($row=$data->fetch_assoc()){
 		$tong+=intval($row["soTc"]);
+		$chuoi=$row["maNganh"]."+".$row["maMon"]."+".$row["he"]."+".$row["sttKhoa"]."+".$row["hocKi"]."+".$row["namHoc"];		
 		$t.='<tr>
 				<td scope="row">'. $stt++ .'</td>
 				<td>'. $row["tenNganh"].' </td>	
@@ -32,11 +53,8 @@ function hienthitable($maNganh,$he,$sttKhoa,$hk,$namHoc)
 				<td>'. $row["namHoc"].'</td>
 				<td>'. $row["tenMon"].'</td>			
 				<td>'. $row["soTc"].'</td>			
-				<td>						
-			
-				
-
-		   <input type="image" name="btn_xoa" src="img/delete.png" width="20" height="20">		
+				<td>
+				<button type="button" onclick="del(\''.$chuoi.'\')" style="border:none; background-color:transparent"> <img src="img/delete.png" width="20" height="20" ></button>							
 		</td>
 	  </tr>	';
 	}
@@ -45,6 +63,24 @@ function hienthitable($maNganh,$he,$sttKhoa,$hk,$namHoc)
 	<td>'.$tong.' </td>
 	</tr>';
 }
-//$chuoi=$row["maNganh"]."+".$row["maMon"]."+".$row["he"]."+".$row["sttKhoa"]."+".$row["hocKi"]."+".$row["namHoc"];
+//xóa môn học trong bảng chương trình học
+function deletecth($maNganh,$maMon,$he,$sttKhoa,$hocKi,$namHoc){
+	$db=new db();
+	$query=$db->mysql->query("DELETE FROM `chuongtrinhhoc` WHERE maNganh=$maNganh and maMon='$maMon' and he=$he and sttKhoa=$sttKhoa and hocKi=$hocKi and namHoc=$namHoc");
+	if($query)
+		echo 'ok';
+	else
+		echo 'error';
+}
+function insertcth($maNganh,$maMon,$he,$sttKhoa,$hocKi,$namHoc)
+{
+	$db=new db();
+	$query=$db->mysql->query("INSERT INTO `chuongtrinhhoc`(`maNganh`, `maMon`, `he`, `sttKhoa`, `hocKi`, `namHoc`) VALUES ($maNganh,N'$maMon',$he,$sttKhoa,$hocKi,$namHoc)");
+	if($query)
+		echo 'ok';
+	else
+		echo 'error';
+}
+
 	
 ?>
