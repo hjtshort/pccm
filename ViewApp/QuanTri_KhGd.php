@@ -116,7 +116,7 @@
 			        <table width="800" border="1" >
 					  <tr>
                         <td height="35" width="140">Ngành: </td>
-                        <td ><select name="maNganh" title="chọn mã ngành" >							 	
+                        <td ><select name="maNganh" title="chọn mã ngành" id="nganh">							 	
 							<?php								
 								$sql4 ="SELECT * FROM nganh";
 								$query4 = mysqli_query($conn,$sql4);
@@ -133,14 +133,14 @@
                       </tr>
 					  <tr>
 					  	<td height="35" width="140"> Hệ: </td>
-                        <td ><select name="he" title="chọn hệ" >							 	
+                        <td ><select name="he" title="chọn hệ" id="he">							 	
 									<option value=1 selected="selected" >Cao đẳng</option>
 									<option value=2 >trung cấp</option>
 							 </select>						
 					  </tr>					  
                       <tr>
                         <td height="35" width="140"> Học kỳ: </td>
-                        <td ><select name="hk" >
+                        <td ><select name="hk"  id="hocky">
 								<option value=1 selected="selected" >1</option>
 								<option value=2 >2</option>
 							 </select>	
@@ -148,17 +148,17 @@
                       </tr>
                       <tr>
                         <td height="35"> Năm học: </td>
-						<td ><input type="text" name="namHoc" size="2"  onChange="this.form.submit()" value="<?php echo $namHoc; ?>"> - &nbsp;&nbsp;
+						<td ><input type="text" name="namHoc" size="2" id="namhoc" value="<?php echo $namHoc; ?>"> - &nbsp;&nbsp;
 							<input type="text" size="2" value="<?php echo ($namHoc+1); ?>" readonly="true">                 
 						</td>                       
                       </tr>
                       <tr>
                         <td height="35"> Khóa: </td>
-						<td ><input type="text" name="sttKhoa" size="1"  value="<?php echo $sttKhoa; ?>"> </td>                       
+						<td ><input type="text" name="sttKhoa" size="1" id="sttKhoa"  value="<?php echo $sttKhoa; ?>"> </td>                       
                       </tr>
 					   <tr>
                         <td height="35"> Môn học: </td>
-						<td ><select name="maMon" >							 	
+						<td ><select name="maMon"  id="mamon">							 	
 							<?php								
 								$sql4 ="SELECT * FROM monhoc order by tenMon";
 								$query4 = mysqli_query($conn,$sql4);
@@ -181,8 +181,8 @@
                       </tr>
                       <tr>
                         <td colspan="3" height="55">		
-							<input  type="submit" value="TÌM KIẾM" name="btn_tim"> 
-							<input  type="submit" value="THÊM MÔN HỌC" name="btn_them">     													
+							<!-- <input  type="submit" value="TÌM KIẾM" name="btn_tim">  -->
+							<input  type="button" value="THÊM MÔN HỌC" name="btn_them">     													
 							<!--<input  type="submit" value="CHỈNH SỬA" name="btn_sua">    -->
 						</td>
                       </tr>                  
@@ -206,48 +206,8 @@
 					  <th width="70">&nbsp;  </th>
 					</tr>
 				  </thead>
-			  <tbody>
-				  <?php
-				  	//B2: HIỂN THỊ
-					$stt = 1 ;	
-					$tong=0;											 						 						 
-					$sql_hienThi = 	"SELECT * FROM chuongtrinhhoc cth, monhoc mh, nganh n ".
-									" Where cth.maNganh like '%".$maNganh."%'" .
-									 "	 and cth.he = '".$he."'" .
-									 "	 and sttKhoa like '%".$sttKhoa."%'" .						 
-									 "	 and hocKi = '".$hk."'" .						 
-									 "	 and namHoc like '%".$namHoc."%'".
-									 "	 and cth.maMon=mh.maMon".
-									 "	 and cth.maNganh=n.maNganh".
-									" ORDER BY cth.namHoc, cth.hocKi ASC ";
+			  <tbody id="print">
 					
-									
-					$query = mysqli_query($conn,$sql_hienThi);
-					while ($row = mysqli_fetch_array($query)) {						    
-						$tong+=$row["soTc"];
-					?>
-						<tr>
-						  <th scope="row"><?php echo $stt++ ?></th>
-						  <td><?php echo $row["tenNganh"]; ?></td>	
-						  <td><?php echo $row["sttKhoa"]; ?></td>	
-						  <td><?php echo $row["hocKi"]; ?></td>	
-						  <td><?php echo $row["namHoc"]; ?></td>
-						  <td><?php echo $row["tenMon"]; ?></td>			
-  						  <td><?php echo $row["soTc"]; ?></td>			
-						  <td>						
-							  
-							  <?php
-							  	$chuoi=$row["maNganh"]."+".$row["maMon"]."+".$row["he"]."+".$row["sttKhoa"]."+".$row["hocKi"]."+".$row["namHoc"];
-							 ?>
-
-							 <input type="image" name="btn_xoa"  value="<?php echo  $chuoi;?>"src="img/delete.png" width="20" height="20">		
-						  </td>
-						</tr>					
-			  <?php }  ?>	
-			  <tr>
-			  	<td colspan="6" align="center"> Tổng số</td>
-				<td><?php echo $tong?> </td>
-			  </tr>				
 			  </tbody>
 			</table>	
       	</div>
@@ -256,13 +216,49 @@
 		</form>	
 	</div>
 	</div>
-	
-	
-
-
-	
-	
 <?php 	require_once("footer.php");?>
 </div><!--end wrapper--> 
 </body>
 </html>
+<script>
+	function gettable(){
+		var nganh = $('#nganh').val()
+			var he =$('#he').val()
+			var sttKhoa=$('#sttKhoa').val()
+			var hocky =$('#hocky').val()
+			var namHoc=$('#namhoc').val()
+			$.ajax({
+				type: "post",
+				url: "index.php?f=function",
+				data: {"nganh":nganh,
+						"he":he,
+						"sttKhoa":sttKhoa,
+						"hocky":hocky,
+						"namhoc":namHoc,
+						"action":"gettable"
+					},
+				success: function (response) {
+					$('#print').html(response)
+				}
+			});
+	}
+	$(document).ready(function () {
+		gettable()
+	});
+	$('#nganh').change(function (e) { 
+		gettable()
+	});
+	$('#he').change(function (e) { 
+		gettable()		
+	});
+	 $('#sttKhoa').change(function (e) { 
+	 	gettable()		
+	 });
+	 $('#hocky').change(function (e) { 
+	 	gettable()		
+	 });
+	 $('#namhoc').change(function (e) { 
+	 	gettable()		
+	 });
+
+</script>

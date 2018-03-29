@@ -71,7 +71,7 @@
 		</div>
     	
 		<div class="from-control">
-		<input type="submit" value="Upload Image" name="submit">
+		<input type="submit" value="Tải lên" name="submit">
 		</div>
 		
 		<div class="ketqua">
