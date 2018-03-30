@@ -1,10 +1,10 @@
-<?php	
-	if (!defined('IN_SITE')) 
- 	 	header('Location: ../index.php')	;	
-		
+<?php
+	if (!defined('IN_SITE'))
+ 	 	header('Location: ../index.php')	;
+
 ?>
 
- 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -17,13 +17,13 @@
 	<link href="ViewAdmin/style.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
-	
+
 	<SCRIPT LANGUAGE="JavaScript">
       function confirmAction() {
         return confirm("Bạn có chắc xóa không?")
       }
  	</SCRIPT>
-	
+
 	<style type="text/css">
 		.style1 {
 			color: #0000CC;
@@ -43,7 +43,7 @@
 		.from-control{
 			padding:5px;
 		}
-	</style>	
+	</style>
 
 
 </head>
@@ -52,12 +52,13 @@
 
 
 
- <div class="wrapper" style="background-color:#FFFFFF"> 
+ <div class="wrapper" style="background-color:#FFFFFF">
 
   <?php
-	require_once("lib/QuanTri_CanBo.php");	
-	require_once("ViewApp/header.php");	
-	//include("header.php");
+	 require_once("lib/QuanTri_CanBo.php");
+	 require_once("ViewApp/header.php");
+
+
 ?>
 
 		<div class="form-upload">
@@ -69,26 +70,26 @@
 		<div class="from-control">
 		<input type="file" name="file" id="files">
 		</div>
-    	
+
 		<div class="from-control">
 		<input type="submit" value="Tải lên" name="submit">
 		</div>
-		
+
 		<div class="ketqua">
 		</div>
 	</form>
 
 		</div>
- 
+
 <?php include("footer.php");?>
-</div><!--end wrapper--> 
+</div><!--end wrapper-->
 </body>
 <script>
 $(document).ready(function (e) {
 	$("#upload").on('submit',(function(e) {
 	e.preventDefault();
 	data = new FormData($("#upload"));
-	
+
 	console.log(data);
 	$.ajax({
 	url: "./Lib/upload.php", // Url to which the request is send

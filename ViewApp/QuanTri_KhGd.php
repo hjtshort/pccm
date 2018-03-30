@@ -149,12 +149,19 @@
                       <tr>
                         <td height="35"> Năm học: </td>
 						<td ><input type="text" name="namHoc" size="2" id="namhoc" value="<?php echo $namHoc; ?>"> - &nbsp;&nbsp;
-							<input type="text" size="2" value="<?php echo ($namHoc+1); ?>" readonly="true">                 
+							<input type="text" size="2" value="<?php echo ($namHoc+1); ?>" readonly="true"><br> 
+							<div style="color:red;" id="validationnamhoc">
+							</div>              
 						</td>                       
                       </tr>
                       <tr>
                         <td height="35"> Khóa: </td>
-						<td ><input type="text" name="sttKhoa" size="1" id="sttKhoa"  value="<?php echo $sttKhoa; ?>"> </td>                       
+						<td ><input type="text" name="sttKhoa" size="1" id="sttKhoa"  value="<?php echo $sttKhoa; ?>"><br> 
+						<div style="color:red;" id="validationkhoa">
+							
+						</div>  
+						</td>
+						               
                       </tr>
 					   <tr>
                         <td height="35"> Môn học: </td>
@@ -283,6 +290,17 @@
 			 }
 		 });
 	 }
+	 function TryParseInt(str,defaultValue) {
+     var retValue = defaultValue;
+     if(str !== null) {
+         if(str.length > 0) {
+             if (!isNaN(str)) {
+                 retValue = parseInt(str);
+             }
+         }
+     }
+     return retValue;
+	}
 	 $('#btn-them').click(function (e) { 
 			var nganh = $('#nganh').val()
 			var he =$('#he').val()
@@ -290,25 +308,50 @@
 			var hocky =$('#hocky').val()
 			var namHoc=$('#namhoc').val()
 			var mamon=$('#mamon').val()
-			$.ajax({
-				type: "post",
-				url: "index.php?f=function",
-				data: {"nganh":nganh,
-						"he":he,
-						"sttKhoa":sttKhoa,
-						"hocky":hocky,
-						"namhoc":namHoc,
-						"mamon":mamon,
-						"action":"insertcth"
-						},
-				success: function (response) {
-					if(response.trim()=="ok")
-						gettable()
-					else
-						alert('Không thể thêm')
-				}
-			});
-		  
+			var check=1;
+			if(namHoc.toString().length==0){
+				$('#validationnamhoc').html('<span>Năm học không được để trống</span><br>');
+				check=0
+			}
+			else if(TryParseInt(namHoc.toString(),0)==0){
+				$('#validationnamhoc').html('<span>Năm học phải là số</span><br>');
+				check=0
+			}
+			else if(parseInt(namHoc.toString())>2050 || parseInt(namHoc.toString())<2010 ){
+				$('#validationnamhoc').html('<span>Năm học không hợp lệ</span><br>');
+				check=0
+			}
+			if(sttKhoa.toString().length==0){
+				$('#validationkhoa').html('<span>Năm học không được để trống</span><br>');
+				check=0
+			}
+			else if(TryParseInt(sttKhoa.toString(),0)==0){
+				$('#validationkhoa').html('<span>Năm học phải là số</span><br>');
+				check=0
+			}
+			if(parseInt(check)==1){
+				$('#validationkhoa').html('');
+				$('#validationnamhoc').html('');
+				$.ajax({
+					type: "post",
+					url: "index.php?f=function",
+					data: {"nganh":nganh,
+							"he":he,
+							"sttKhoa":sttKhoa,
+							"hocky":hocky,
+							"namhoc":namHoc,
+							"mamon":mamon,
+							"action":"insertcth"
+							},
+					success: function (response) {
+						if(response.trim()=="ok")
+							gettable()
+						else
+							alert('Không thể thêm')
+					}
+				});
+
+			}  
 	 });
 
 </script>

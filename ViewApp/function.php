@@ -1,6 +1,6 @@
 <?php 
 require_once "db.php";
-if(trim($_POST['action'])=="gettable"){
+if(isset($_POST['action']) && trim($_POST['action'])=="gettable"){
 	$maNganh= addslashes(strip_tags(trim($_POST['nganh'])));
 	$he= addslashes(strip_tags(trim($_POST['he'])));
 	$sttKhoa=addslashes(strip_tags(trim($_POST['sttKhoa'])));
@@ -8,11 +8,11 @@ if(trim($_POST['action'])=="gettable"){
 	$namHoc=addslashes(strip_tags(trim($_POST['namhoc'])));
 	echo hienthitable($maNganh,$he,$sttKhoa,$hk,$namHoc);
 }
-else if(trim($_POST['action'])=="delete"){
+else if(isset($_POST['action']) && trim($_POST['action'])=="delete"){
 	 $data=explode("+",addslashes(strip_tags(trim($_POST['data']))));
 	 deletecth($data[0],$data[1],$data[2],$data[3],$data[4],$data[5]);
 }
-else if(trim($_POST['action'])=="insertcth"){
+else if(isset($_POST['action']) && trim($_POST['action'])=="insertcth"){
 	$maNganh= addslashes(strip_tags(trim($_POST['nganh'])));
 	$he= addslashes(strip_tags(trim($_POST['he'])));
 	$sttKhoa=addslashes(strip_tags(trim($_POST['sttKhoa'])));
@@ -81,6 +81,13 @@ function insertcth($maNganh,$maMon,$he,$sttKhoa,$hocKi,$namHoc)
 	else
 		echo 'error';
 }
-
-	
+function getvalue(){
+	$db=new db();
+	$value=array();
+	$data=$db->mysql->query("select maMon from monhoc");
+	while($row=$data->fetch_assoc()){
+		array_push($value,$row['maMon']);
+	}
+	return $value;
+}	
 ?>
