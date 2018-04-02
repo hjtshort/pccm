@@ -28,21 +28,7 @@
 		.style1 {
 			color: #0000CC;
 		}
-		.form-upload{
-			display: flex;
-  			align-items: center;
-  			justify-content: center;
-		}
-
-		.form-upload{
-			border-radius: 5px;
-   			background-color: #f2f2f2;
-    		padding: 20px;
-		}
-
-		.from-control{
-			padding:5px;
-		}
+		
 	</style>
 
 
@@ -85,29 +71,7 @@
 <?php include("footer.php");?>
 </div><!--end wrapper-->
 </body>
-<script>
-$(document).ready(function (e) {
-	$("#upload").on('submit',(function(e) {
-	e.preventDefault();
-	data = new FormData($("#upload"));
 
-	console.log(data);
-	$.ajax({
-	url: "./Lib/upload.php", // Url to which the request is send
-	type: "POST",             // Type of request to be send, called as method
-	data: new FormData(this), // Data sent to server, a set of key/value pairs (i.e. form fields and values)
-	contentType: false,       // The content type used when sending data to the server.
-	cache: false,             // To unable request pages to be cached
-	processData:false,        // To send DOMDocument or non processed data file it is set to false
-	success: function(data)   // A function to be called if request succeeds
-	{
-		$('.ketqua').html(data);
-		console.log(data);
-	}
-	});
-	}));
-});
-</script>
 </html>
 
 

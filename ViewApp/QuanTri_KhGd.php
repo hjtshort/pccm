@@ -189,7 +189,8 @@
                       <tr>
                         <td colspan="3" height="55">		
 							<!-- <input  type="submit" value="TÌM KIẾM" name="btn_tim">  -->
-							<input  type="button" value="THÊM MÔN HỌC" name="btn_them" id="btn-them">     													
+							<input  type="button" value="THÊM MÔN HỌC" class="btn btn-primary" name="btn_them" id="btn-them">
+							<input  type="button" value="XUẤT MÔN HỌC" class="btn btn-danger" name="btn_them" id="btn-xuat">     													
 							<!--<input  type="submit" value="CHỈNH SỬA" name="btn_sua">    -->
 						</td>
                       </tr>                  
@@ -301,6 +302,25 @@
      }
      return retValue;
 	}
+
+	$('#btn-xuat').click(function(event) {
+		var nganh = $('#nganh').val();
+		var he = $('#he').val();
+		var sttKhoa=$('#sttKhoa').val();
+		window.location = 'index.php?f=function&action=xuat&he='+he+'&sttKhoa='+sttKhoa+'&nganh='+nganh+'';
+			// $.ajax({
+			// 		type: "GET",
+			// 		url: "index.php?f=function",
+			// 		data: {"nganh":nganh,
+			// 				"he":he,
+			// 				"sttKhoa":sttKhoa,
+			// 				"action":"xuat"
+			// 				},
+			// 		success: function (response) {
+			// 			console.log(response);
+			// 		}
+			// 	});
+			 });
 	 $('#btn-them').click(function (e) { 
 			var nganh = $('#nganh').val()
 			var he =$('#he').val()

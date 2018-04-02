@@ -1,5 +1,5 @@
 <?php 
-require_once "db.php";
+require "xuat_kh.php";
 if(isset($_POST['action']) && trim($_POST['action'])=="gettable"){
 	$maNganh= addslashes(strip_tags(trim($_POST['nganh'])));
 	$he= addslashes(strip_tags(trim($_POST['he'])));
@@ -20,6 +20,15 @@ else if(isset($_POST['action']) && trim($_POST['action'])=="insertcth"){
 	$namHoc=addslashes(strip_tags(trim($_POST['namhoc'])));
 	$maMon=addslashes(strip_tags(trim($_POST['mamon'])));
 	insertcth($maNganh,$maMon,$he,$sttKhoa,$hk,$namHoc);
+}
+else if(isset($_GET['action']) && trim($_GET['action'])=="xuat")
+{
+	$maNganh= addslashes(strip_tags(trim($_GET['nganh'])));
+	$sttKhoa=addslashes(strip_tags(trim($_GET['sttKhoa'])));
+	$he= addslashes(strip_tags(trim($_GET['he'])));
+	$xuat = new xuat_khoahoc($sttKhoa,$maNganh,$he);
+	$xuat->xuly();
+
 }
 else{
 
