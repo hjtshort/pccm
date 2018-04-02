@@ -51,7 +51,7 @@
             <label for="">Chọn môn: </label>
           <div class="chonmon">
           <select name="" id="">
-                <option value="">DKM thằng buôi</option>
+                <option value="">Chọn môn</option>
             </select>
           </div>
        </div>
@@ -59,7 +59,7 @@
        <label for="">Chọn môn tiên quyết</label>
        <div class="chonmontienquyet">
        <select name="" id="">
-                <option value="">DKM thằng buôi</option>
+                <option value="">Chọn môn tiên quyết</option>
             </select>
        </div>
        </div>
