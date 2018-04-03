@@ -51,7 +51,8 @@ if(isset($_FILES['file']))
 			if($value['batbuot']=="x"){
 				$str3="insert into chuongtrinhhoc values";
 				$str3.="(".$data['ma_nghanh'].",'".str_replace(",",".",	$data['danhsach'][$key]['mamon'])."',".$data['he'].",".$data['khoa']."";
-				switch (mb_substr($value['hocki'],7,2,'utf8')){
+				$hocki=explode(" ",$value['hocki']);
+				switch (trim($hocki[2])){
 					case "I":
 						$str3.=",1,".intval($data['namhoc'])."";
 						break;
@@ -72,38 +73,30 @@ if(isset($_FILES['file']))
 						break;
 					default:
 				}
-				$value['tuchon']=="x" ? $str3.=",'x','0'":$str3.=",'0','x')";
+				$value['tuchon']=="x" ? $str3.=",'x',' ')":$str3.=",' ','x')";
 
 
 			}
 			// echo $str2;
-			 echo $str3;
+			// echo $str3;
 			//strcmp(mb_substr($value['hocki'],7,1,'utf8'),"I")==0? $str3.=",1,".(intval($data['namhoc'])+1).")" :'';				
-		// 	try{
-		// 		$db->mysql->query($str);
-		// 		$db->mysql->query($str2);
-		// 		$db->mysql->query($str3);
-		// 		$checked = true;
-		// 	}
-		// 	catch(Exception $e){
-		// 		$checked = false;
+		 	try{
+		 		$db->mysql->query($str);
+				$db->mysql->query($str2);
+		 		$db->mysql->query($str3);
+				$checked = true;
 		 	}
-		
-		
-		// 	//echo $str;
-			
-			
-		// 	//echo $str3;								
-		// }
-		
-
-		// if($checked)
-		// {
-		// 	echo "<label class='label label-success'>Upload va xu ly thanh cong !</label>";
-		// }
-		// else{
-		// 	echo "<label class='label label-danger'>Upload va xu ly that bai !</label>";
-		// }
+		 	catch(Exception $e){
+		 		$checked = false;
+		 	}
+		}								
+		if($checked)
+		{
+			echo "<label class='label label-success'>Upload và xử lý thành công !</label>";
+		}
+		else{
+			echo "<label class='label label-danger'>Upload và xử lý thất bại !</label>";
+		}
 		
 
 

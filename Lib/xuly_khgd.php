@@ -22,7 +22,7 @@ $objData->setReadDataOnly(true);
 
 $objPHPExcel = $objData->load($this->name);
 
-$sheet  = $objPHPExcel->setActiveSheetIndex(2);
+$sheet  = $objPHPExcel->setActiveSheetIndex(0);
 
 
 $Totalrow = $sheet->getHighestRow();

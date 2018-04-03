@@ -62,6 +62,15 @@ function get_nienkhoa()
 	return '';
 }
 
+function get_tenkhoa()
+{
+	$db = new db();
+	$ex = $db->mysql->query("select DISTINCT tenKhoa from nganh INNER join bomon on nganh.maBm=bomon.maBm INNER JOIN  khoa on bomon.maKhoa=khoa.maKhoa where nganh.maNganh={$this->manganh}");
+	if($value = $ex->fetch_assoc()){
+		return $value['tenKhoa'];
+	}
+	return '';
+}
 
 
 function xuly(){
@@ -78,7 +87,7 @@ $excel->getActiveSheet()->setTitle('Bảng kế hoạch giảng dạy');
 $excel->getActiveSheet()->getStyle('A1:J1')->getFont()->setBold(true);
 $excel->getActiveSheet()->getStyle('A2:J2')->getFont()->setBold(true);
 
-$excel->setActiveSheetIndex(0)->setCellValue('A1','TRƯỜNG CAO ĐẲNG CẦN THƠ')->setCellValue('F1', 'CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM')->setCellValue('A2','KHOA KT CÔNG NGHỆ - MÔI TRƯỜNG')->setCellValue('F2', 'Độc lập - Tự do - Hạnh phúc');
+$excel->setActiveSheetIndex(0)->setCellValue('A1','TRƯỜNG CAO ĐẲNG CẦN THƠ')->setCellValue('F1', 'CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM')->setCellValue('A2',$this->get_tenkhoa())->setCellValue('F2', 'Độc lập - Tự do - Hạnh phúc');
 
 $excel->getActiveSheet()->mergeCells('F2:J2');
 $excel->getActiveSheet()->getStyle('F2:J2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);

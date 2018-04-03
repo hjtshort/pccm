@@ -141,7 +141,6 @@ $('#insert').on('click', function () {
             "monhoctq":monhoctienquyet
             },
             success: function (response) {
-                alert(response)
                 table()
             }
         });
@@ -168,7 +167,6 @@ function del(e)
             "data":e
         },
         success: function (response) {
-            alert(response)
             table()
         }
     });

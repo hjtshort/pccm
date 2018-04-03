@@ -279,9 +279,6 @@
 	 	gettable()		
 	 });
 	 	//lấy lại dữ liệu bảng nếu năm học thay đổi
-	 $('#namhoc').change(function (e) { 
-	 	gettable()		
-	 });
 	 //xóa môn học ra khỏi kế hoạch giản dạy của 1 lớp
 	 function del(a){
 		 $.ajax({
