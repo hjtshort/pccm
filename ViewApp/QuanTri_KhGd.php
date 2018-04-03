@@ -143,13 +143,17 @@
                         <td ><select name="hk"  id="hocky">
 								<option value=1 selected="selected" >1</option>
 								<option value=2 >2</option>
+								<option value=3 >3</option>
+								<option value=4 >4</option>
+								<option value=5 >5</option>
+								<option value=6 >6</option>
 							 </select>	
 						 </td>						
                       </tr>
                       <tr>
                         <td height="35"> Năm học: </td>
 						<td ><input type="text" name="namHoc" size="2" id="namhoc" value="<?php echo $namHoc; ?>"> - &nbsp;&nbsp;
-							<input type="text" size="2" value="<?php echo ($namHoc+1); ?>" readonly="true"><br> 
+							<input type="text" size="2" value="<?php echo ($namHoc+1); ?>"><br> 
 							<div style="color:red;" id="validationnamhoc">
 							</div>              
 						</td>                       
