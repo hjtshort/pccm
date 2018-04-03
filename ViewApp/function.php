@@ -1,5 +1,5 @@
 <?php 
-require "xuat_kh.php";
+require_once "db.php";
 if(isset($_POST['action']) && trim($_POST['action'])=="gettable"){
 	$maNganh= addslashes(strip_tags(trim($_POST['nganh'])));
 	$he= addslashes(strip_tags(trim($_POST['he'])));
@@ -23,6 +23,7 @@ else if(isset($_POST['action']) && trim($_POST['action'])=="insertcth"){
 }
 else if(isset($_GET['action']) && trim($_GET['action'])=="xuat")
 {
+	require "xuat_kh.php";
 	$maNganh= addslashes(strip_tags(trim($_GET['nganh'])));
 	$sttKhoa=addslashes(strip_tags(trim($_GET['sttKhoa'])));
 	$he= addslashes(strip_tags(trim($_GET['he'])));
@@ -30,10 +31,22 @@ else if(isset($_GET['action']) && trim($_GET['action'])=="xuat")
 	$xuat->xuly();
 
 }
-else{
-
+else if (isset($_POST['action']) && trim($_POST['action'])=="laymonhoc"){
+	laymonhoc($_POST['nganh'],$_POST['he']);
 }
-//Lấy dữ liệu table
+else if(isset($_POST['action']) && trim($_POST['action'])=="laymonhocnganh"){
+	laymonhoc2($_POST['nganh']);	
+}
+else if(isset($_POST['action']) && trim($_POST['action'])=="themmontienquyet"){
+	themmontienquyet($_POST['monhoc'],$_POST['monhoctq']);
+}
+else if(isset($_POST['action']) && trim($_POST['action'])=="laybang"){
+	laybang();
+}
+else if(isset($_POST['action']) && trim($_POST['action'])=="xoatienquyet"){
+	$data=explode("+",$_POST['data']);
+	xoatienquyet($data[0],$data[1]);
+}
 function hienthitable($maNganh,$he,$sttKhoa,$hk,$namHoc)
 {
 	$db=new db();
@@ -84,11 +97,45 @@ function deletecth($maNganh,$maMon,$he,$sttKhoa,$hocKi,$namHoc){
 function insertcth($maNganh,$maMon,$he,$sttKhoa,$hocKi,$namHoc)
 {
 	$db=new db();
-	$query=$db->mysql->query("INSERT INTO `chuongtrinhhoc`(`maNganh`, `maMon`, `he`, `sttKhoa`, `hocKi`, `namHoc`) VALUES ($maNganh,N'$maMon',$he,$sttKhoa,$hocKi,$namHoc)");
-	if($query)
-		echo 'ok';
-	else
-		echo 'error';
+	$t="";
+	$dem1=0;
+	$dem2=0;
+	$check=array();
+	$montienquyet=$db->mysql->query("select maMonTq from montienquyet where maMon='".$maMon."'");
+	while($row=$montienquyet->fetch_assoc()){
+		$t.="'".$row['maMonTq']."'";
+		$dem1++;
+		array_push($check,$row['maMonTq']);
+	}
+	if($t==""){
+		$query=$db->mysql->query("INSERT INTO `chuongtrinhhoc`(`maNganh`, `maMon`, `he`, `sttKhoa`, `hocKi`, `namHoc`) VALUES ($maNganh,N'$maMon',$he,$sttKhoa,$hocKi,$namHoc)");
+		if($query)
+			echo 'ok';
+		else
+			echo 'error';
+	}else{
+		$checked=true;
+	
+		foreach($check as $value)
+		{
+			$qq=$db->mysql->query("select * from chuongtrinhhoc where maNganh=".$maNganh." and he=".$he." and maMon='".$value."'")->num_rows;	
+			if($qq==0){
+				$checked=false;
+			}
+
+		}
+		if($checked==true){
+			$query=$db->mysql->query("INSERT INTO `chuongtrinhhoc`(`maNganh`, `maMon`, `he`, `sttKhoa`, `hocKi`, `namHoc`) VALUES ($maNganh,N'$maMon',$he,$sttKhoa,$hocKi,$namHoc)");
+			if($query)
+				echo 'ok';
+			else
+				echo 'error';
+		}
+		else
+			echo "no";
+		
+	}
+
 }
 function getvalue(){
 	$db=new db();
@@ -98,5 +145,89 @@ function getvalue(){
 		array_push($value,$row['maMon']);
 	}
 	return $value;
+}
+function laymonhoc($malop,$he){
+	$db=new db();
+	$maNganh=$db->mysql->escape_string($malop);
+	$He=$db->mysql->escape_string($he);
+	$data=$db->mysql->query("select * from monhoc inner join monhocnganh on monhoc.maMon=monhocnganh.maMon where maNganh=".$maNganh." and he=".$He."");
+	$t="";
+	while($data4=$data->fetch_assoc()){
+		$t.='<option value="'.$data4["maMon"].'" selected="selected">'.$data4["tenMon"].'('.$data4["maMon"].')-'.$data4["soTc"].' tín chỉ							
+		</option>';
+	}
+	echo $t;
+	
 }	
+function laynganh(){
+	$db=new db();
+	$result=array();
+	$value=$db->mysql->query("select maNganh,tenNganh from nganh");
+	while($row=$value->fetch_assoc()){
+		array_push($result,$row);
+	}
+	return $result;
+}
+function laymonhoc2($nganh){
+	$db=new db();
+	$maNganh=$db->mysql->escape_string($nganh);
+	
+	$data=$db->mysql->query("select monhocnganh.maMon,tenMon from monhocnganh inner join monhoc on monhocnganh.maMon=monhoc.maMon where maNganh=".$maNganh."");
+	$t="";
+	while($row=$data->fetch_assoc()){
+		$t.= '<option value="'.$row['maMon'].'">'.$row['tenMon'].'</option>';
+	}
+	echo $t;
+}
+function themmontienquyet($monhoc,$monhoctq){
+	$db=new db();
+	$mh=$db->mysql->escape_string($monhoc);
+	$mhtq=$db->mysql->escape_string($monhoctq);
+	$query=$db->mysql->query("insert into montienquyet values('".$mh."','".$mhtq."')");
+	if($query)
+		echo "ok";
+	else
+		echo "error";
+}
+function laybang()
+{
+	$db=new db();
+	$stt=1;
+	$t="";
+	$mang1=array();
+	$mang2=array();
+	$query=$db->mysql->query("select montienquyet.maMon,tenMon from montienquyet inner join monhoc on montienquyet.maMon=monhoc.maMon ");
+	$query2=$db->mysql->query("select montienquyet.maMonTq,tenMon from montienquyet inner join monhoc on montienquyet.maMonTq=monhoc.maMon  ");
+	while($row=$query->fetch_assoc()){
+		array_push($mang1,$row);
+	}
+	while($row=$query2->fetch_assoc()){
+		array_push($mang2,$row);
+	}
+	foreach($mang1 as $key=>$value)
+	{
+		$k=$mang1[$key]['maMon']."+".$mang2[$key]['maMonTq'];
+		$t.="<tr>
+			<td>".$stt."</td>
+			<td>".$mang1[$key]['maMon']."</td>
+			<td>".$mang1[$key]['tenMon']."</td>
+			<td>".$mang2[$key]['maMonTq']."</td>
+			<td>".$mang2[$key]['tenMon']."</td>
+			<td><button type='button' onclick= 'del(\"".$k."\")' class='del'><img src='img/delete.png' width='20' height='20' ></button></td>
+		</tr>";
+		$stt++;
+	}
+	echo $t;
+}
+function xoatienquyet($ma1,$ma2)
+{
+	$db=new db();
+	$mamon=$db->mysql->escape_string($ma1);
+	$mamontq=$db->mysql->escape_string($ma2);
+	$query=$db->mysql->query("delete from montienquyet where maMon='".$mamon."' and maMonTq='".$mamontq."'");
+	if($query)
+		echo "ok";
+	else
+		echo "error";
+}
 ?>

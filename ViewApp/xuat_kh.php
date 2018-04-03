@@ -1,13 +1,13 @@
 <?php
-include './Lib/Classes/PHPExcel.php';
-include './Lib/Classes/PHPExcel/IOFactory.php';
-include 'db.php';
+include './Classes/PHPExcel.php';
+include './Classes/PHPExcel/IOFactory.php';
+require_once 'db.php';
 
 
 
 class xuat_khoahoc{
 
-public $lama = array('I','II','III','IV','VI');
+public $lama = array('I','II','III','IV','V','VI');
 
 
 function __construct($sttk,$maNganh,$he){
@@ -113,7 +113,6 @@ if (is_array($hocki) || is_object($hocki))
 	$rows = 1;
 	// $excel->setActiveSheetIndex(0)->setCellValue('A'.$dimstart -1 ,'KẾ HOẠCH GIẢNG DẠY HỆ CAO ĐẲNG - KHÓA 42')->setCellValue('A5','Nghành đào tạo: Tin học ứng dụng    Mã Nghành: 6480205')->setCellValue('A6','Khóa học 42 (2017-2020)');
 	array_unshift($ds, array('t1'=>'HỌC KỲ '.$this->lama[$hk-1].': ………….. TC/ĐVHT (Bắt buộc: ………….TC/ ĐVHT, Tự chọn:…0…… TC/ ĐVHT)'));
-	
 	while ($row = $data->fetch_assoc() ) {
 		$ds[] = array('STT' => $rows,'mahocphan'=>$row['maMon'],'tenmon'=>$row['tenMon'],'sotc' =>$row['soTc'],'batbuoc'=>$row['batbuoc'],'tuchon'=>$row['tuchon'],'tongsotiet'=>($row['soTietLt']+$row['soTietTh']),'sotietlt'=>$row['soTietLt'],'sot_th' => $row['soTietTh'],'kt'=> '');
 		$rows++;

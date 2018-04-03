@@ -1,25 +1,27 @@
 <?php
 require_once("xuly_khgd.php");
 require_once("../ViewApp/function.php");
+require_once("../ViewApp/db.php");
 if(isset($_FILES['file']))
 {
 	$validextensions = array("xlsx","xls");
 	$temporary = explode(".", $_FILES["file"]["name"]);
 	$file_extension = end($temporary);
-
+	$checked = false;
 	if(in_array($file_extension, $validextensions))
 	{
 		move_uploaded_file($_FILES["file"]["tmp_name"], '../upload/'.$_FILES["file"]["name"]);
-		echo "success";
+		
 	
 		
 	}
 	else
 	{
-		echo "error";
+		echo "<label class='label label-danger'>Tap tin khong hop le !</label>";
 	}
 	if(file_exists('../upload/'.$_FILES["file"]["name"]))
 	{
+		
 		$xuly=new xuly('../upload/'.$_FILES["file"]["name"]);
 		$data=$xuly->mother_of_xl();
 		$db=new db();
@@ -27,7 +29,7 @@ if(isset($_FILES['file']))
 		$data['khoa']=mb_substr(str_replace(' ','',$data['khoahoc']),7,2,'utf8');
 		// echo "<pre>";
 		// print_r($data);
-		// echo "</pre>";	
+		// echo "</pre>"; t in sert  hết r đâu insert đc nữau 	
 		foreach($data['danhsach'] as $key=> $value){
 			$str="insert into monhoc values";
 			$str2="insert into monhocnganh values";
@@ -42,42 +44,63 @@ if(isset($_FILES['file']))
 			$str.="('".str_replace(",",".",	$data['danhsach'][$key]['mamon'])."',N'".$value['tenhocphan']."'";
 			$value['sotc']!=''? $str.=",".$value['sotc']:$str.=",0";
 			$value['sotietlt']!=''? $str.=",".$value['sotietlt']:$str.=",0";
-			$value['sotietbt']!=''? $str.=",".$value['sotietbt'].")":$str.=",0)";
+			$value['sotietbt']!=''? $str.=",0,".$value['sotietbt'].",0)":$str.=",0,0,0)";
 			$str2.="(".$data['ma_nghanh'].",'".str_replace(",",".",	$data['danhsach'][$key]['mamon'])."',".$data['he'].")";
 			if($value['batbuot']=="x"){
 				$str3="insert into chuongtrinhhoc values";
 				$str3.="(".$data['ma_nghanh'].",'".str_replace(",",".",	$data['danhsach'][$key]['mamon'])."',".$data['he'].",".$data['khoa']."";
 				switch (mb_substr($value['hocki'],7,2,'utf8')){
 					case "I":
-						$str3.=",1,".intval($data['namhoc']).")";
+						$str3.=",1,".intval($data['namhoc'])."";
 						break;
 					case "II":
-						$str3.=",2,".(intval($data['namhoc'])+1).")";
+						$str3.=",2,".(intval($data['namhoc'])+1)."";
 						break;
 					case "III";
-						$str3.=",1,".(intval($data['namhoc'])+1).")";
+						$str3.=",3,".(intval($data['namhoc'])+1)."";
 						break;
 					case "IV";
-						$str3.=",2,".(intval($data['namhoc'])+2).")";
+						$str3.=",4,".(intval($data['namhoc'])+2)."";
 						break;
 					case "V";
-						$str3.=",1,".(intval($data['namhoc'])+2).")";
+						$str3.=",5,".(intval($data['namhoc'])+2)."";
 						break;
 					case "VI";
-						$str3.=",2,".(intval($data['namhoc'])+3).")";
+						$str3.=",6,".(intval($data['namhoc'])+3)."";
 						break;
 					default:
 				}
+				$value['tuchon']=="x" ? $str3.=",'x',''":$str3.=",'','x')";
+
 
 			}
 			//echo $str3;
 			//strcmp(mb_substr($value['hocki'],7,1,'utf8'),"I")==0? $str3.=",1,".(intval($data['namhoc'])+1).")" :'';				
-			$db->mysql->query($str);
-			$db->mysql->query($str2);
-			$db->mysql->query($str3);
+			try{
+				$db->mysql->query($str);
+				$db->mysql->query($str2);
+				$db->mysql->query($str3);
+				$checked = true;
+			}
+			catch(Exception $e){
+				$checked = false;
+			}
+		
+		
+			//echo $str;
+			
+			
 										
 		}
 
+		if($checked)
+		{
+			echo "<label class='label label-success'>Upload va xu ly thanh cong !</label>";
+		}
+		else{
+			echo "<label class='label label-danger'>Upload va xu ly that bai !</label>";
+		}
+		
 
 
 		//Hàm trong function.php

@@ -165,22 +165,9 @@
                       </tr>
 					   <tr>
                         <td height="35"> Môn học: </td>
-						<td ><select name="maMon"  id="mamon">							 	
-							<?php								
-								$sql4 ="SELECT * FROM monhoc order by tenMon";
-								$query4 = mysqli_query($conn,$sql4);
-								while ($data4 = mysqli_fetch_array($query4)) {
-									  if($maNganh==$data4["maMon"]) 											
-									  {  ?>
-										<option value='<?php echo $data4["maMon"]; ?>' selected="selected"><?php echo $data4["tenMon"]."(".$data4["maMon"].")-".$data4["soTc"]." tín chỉ"; ?>								
-										</option>
-									<?php 	} else {?>	
- 										<option value='<?php echo $data4["maMon"]; ?>' ><?php echo $data4["tenMon"]."(".$data4["maMon"].")-".$data4["soTc"]." tín chỉ"; ?>
-										</option>
-										
-									<?php }	}?>
+						<td ><select name="maMon"  id="mamon">							 							
 								
-						  </select>	
+						  	</select>	
 						 </td>                       
                       </tr>
 					  <tr>
@@ -229,6 +216,22 @@
 </body>
 </html>
 <script>
+	function laymonhoc(){
+		var nganh = $('#nganh').val()
+		var he =$('#he').val()
+		$.ajax({
+			type: "post",
+			url: "index.php?f=function",
+			data: {
+				"nganh":nganh,
+				"he":he,
+				"action":"laymonhoc"
+			},
+			success: function (response) {
+				$('#mamon').html(response)
+			}
+		});
+	}
 	function gettable(){
 			var nganh = $('#nganh').val()
 			var he =$('#he').val()
@@ -252,14 +255,17 @@
 	}
 	$(document).ready(function () {
 		gettable()
+		laymonhoc()
 	});
 	//lấy lại dữ liệu bảng nếu ngành thay đổi
 	$('#nganh').change(function (e) { 
 		gettable()
+		laymonhoc()
 	});
 		//lấy lại dữ liệu bảng nếu hệ thay đổi
 	$('#he').change(function (e) { 
-		gettable()		
+		gettable()
+		laymonhoc()		
 	});
 		//lấy lại dữ liệu bảng nếu khóa thay đổi
 	 $('#sttKhoa').change(function (e) { 
@@ -302,7 +308,6 @@
      }
      return retValue;
 	}
-
 	$('#btn-xuat').click(function(event) {
 		var nganh = $('#nganh').val();
 		var he = $('#he').val();
@@ -366,8 +371,10 @@
 					success: function (response) {
 						if(response.trim()=="ok")
 							gettable()
-						else
-							alert('Không thể thêm')
+						else if(response.trim()=="no")
+							alert('Không thể thêm do môn tiên quyết chưa có trong chương trình học!')
+						else 
+							alert('Môn học đã có trong chương trình học!')
 					}
 				});
 
