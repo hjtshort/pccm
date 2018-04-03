@@ -1,6 +1,6 @@
 <?php
 
-		function ThemMon($conn, $address, $maMon, $tenMon, $soTC, $LT, $TH)
+		function ThemMon($conn, $address, $maMon, $tenMon, $soTC, $LT, $BT,$TH,$KT)
 		{			
 			// Làm sạch chuổi nhập vào 	
 			$maMon = trim($maMon);
@@ -19,10 +19,17 @@
 			$LT = strip_tags($LT);
 			$LT = addslashes($LT);
 
+			$BT = trim($BT);						
+			$BT = strip_tags($BT);
+			$BT = addslashes($BT);
+			
 			$TH = trim($TH);						
 			$TH = strip_tags($TH);
 			$TH = addslashes($TH);
 			
+			$KT = trim($KT);						
+			$KT = strip_tags($KT);
+			$KT = addslashes($KT);
   			//Kiểm tra nội dung không được rỗng
 			  if ( $maMon == "" ) {
 				  	thongBao(" Bạn vui lòng nhập mã môn học!");
@@ -37,9 +44,17 @@
 			  else if (!is_numeric( $LT)) {
 				  	thongBao(" Bạn vui lòng nhập số tiết lý thuyết là GIÁ TRỊ SỐ.");
   			  }
+  			  else if (!is_numeric( $BT)) {
+				  	thongBao(" Bạn vui lòng nhập số tiết bài tập là GIÁ TRỊ SỐ.");
+  			  }
+
 			  else if (!is_numeric( $TH)) {
 				  	thongBao(" Bạn vui lòng nhập số tiết thực hành là GIÁ TRỊ SỐ.");
   			  }			  
+			  else if (!is_numeric( $KT)) {
+				  	thongBao(" Bạn vui lòng nhập số tiết kiểm tra là GIÁ TRỊ SỐ.");
+  			  }			  
+
 			  else{
 					//kiem tra trung các Unique và primary		  
 					$sql_ten =   "Select count(*) as sl from monhoc ".
@@ -65,8 +80,8 @@
 					//	 $maMon =  $data["maMon"]+1; 
 								  
 					   //them vao bang MONHOC
-						 $sql = "INSERT INTO monhoc( maMon, tenMon, soTc, soTietLt, soTietTh) ".
-								" VALUES ('".$maMon."','".$tenMon."',".$soTC.",".$LT.",".$TH.")";												
+						 $sql = "INSERT INTO monhoc( maMon, tenMon, soTc, soTietLt, soTietBt,soTietTh, soTietKt) ".
+								" VALUES ('".$maMon."','".$tenMon."',".$soTC.",".$LT.",".$BT.",".$TH.",".$KT.")";												
 						mysqli_query($conn,$sql); 
 						header('Location: index.php?f='.$address);	
 					}									   								
@@ -89,7 +104,7 @@
 		}
 
 
-	function Sua($conn, $address, $ma_old, $maMon, $tenMon, $soTC, $LT, $TH)
+	function Sua($conn, $address, $ma_old, $maMon, $tenMon, $soTC, $LT, $BT,$TH, $KT)
 		{			
 			// Làm sạch chuổi nhập vào 	
 			$maMon = trim($maMon);
@@ -108,10 +123,17 @@
 			$LT = strip_tags($LT);
 			$LT = addslashes($LT);
 
+			$BT = trim($BT);						
+			$BT = strip_tags($BT);
+			$BT = addslashes($BT);
+			
 			$TH = trim($TH);						
 			$TH = strip_tags($TH);
 			$TH = addslashes($TH);
 			
+			$KT = trim($KT);						
+			$KT = strip_tags($KT);
+			$KT = addslashes($KT);
   			//Kiểm tra nội dung không được rỗng
 			  if ( $maMon == "" ) {
 				  	thongBao(" Bạn vui lòng nhập mã môn học!");
@@ -121,13 +143,21 @@
   			   }
 		    //kiểm tra là số 
 			  else if (!is_numeric( $soTC)) {
-				  	thongBao(" Bạn vui lòng nhập số tính chỉ là GIÁ TRỊ SỐ.");
+				  	thongBao(" Bạn vui lòng nhập số tín chỉ là GIÁ TRỊ SỐ.");
   			  }
 			  else if (!is_numeric( $LT)) {
 				  	thongBao(" Bạn vui lòng nhập số tiết lý thuyết là GIÁ TRỊ SỐ.");
   			  }
+
+			  else if (!is_numeric( $BT)) {
+				  	thongBao(" Bạn vui lòng nhập số tiết bài tập là GIÁ TRỊ SỐ.");
+  			  }
 			  else if (!is_numeric( $TH)) {
 				  	thongBao(" Bạn vui lòng nhập số tiết thực hành là GIÁ TRỊ SỐ.");
+  			  }			  
+
+			  else if (!is_numeric( $KT)) {
+				  	thongBao(" Bạn vui lòng nhập số tiết kiểm tra là GIÁ TRỊ SỐ.");
   			  }			  
 			  else{
 					//kiem tra trung các Unique và primary		  
@@ -154,9 +184,11 @@
 						$sql = 	"UPDATE monhoc ".
 								" SET maMon 	= '".$maMon."' ," .
 								"	  tenMon 	= '".$tenMon."' ," .
-								"	  soTc		= '".$soTC."' ," .
-								"	  soTietLt  = '".$LT."' ," .
-								"	  soTietTh  = '".$TH."'" .																								
+								"	  soTc		= ".$soTC." ," .
+								"	  soTietLt  = ".$LT." ," .
+								"	  soTietBt  = ".$BT." ," .
+								"	  soTietTh  = ".$TH." ," .																								
+								"	  soTietKt  = ".$KT." " .																								
 								" where maMon = '" .  $ma_old."'";			
 								
 						$query = mysqli_query($conn,$sql); 
