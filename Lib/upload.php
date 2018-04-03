@@ -77,33 +77,33 @@ if(isset($_FILES['file']))
 
 			}
 			// echo $str2;
-			 //echo $str3;
+			 echo $str3;
 			//strcmp(mb_substr($value['hocki'],7,1,'utf8'),"I")==0? $str3.=",1,".(intval($data['namhoc'])+1).")" :'';				
-			try{
-				$db->mysql->query($str);
-				$db->mysql->query($str2);
-				$db->mysql->query($str3);
-				$checked = true;
-			}
-			catch(Exception $e){
-				$checked = false;
-			}
+		// 	try{
+		// 		$db->mysql->query($str);
+		// 		$db->mysql->query($str2);
+		// 		$db->mysql->query($str3);
+		// 		$checked = true;
+		// 	}
+		// 	catch(Exception $e){
+		// 		$checked = false;
+		 	}
 		
 		
-			//echo $str;
+		// 	//echo $str;
 			
 			
-			//echo $str3;								
-		}
+		// 	//echo $str3;								
+		// }
 		
 
-		if($checked)
-		{
-			echo "<label class='label label-success'>Upload va xu ly thanh cong !</label>";
-		}
-		else{
-			echo "<label class='label label-danger'>Upload va xu ly that bai !</label>";
-		}
+		// if($checked)
+		// {
+		// 	echo "<label class='label label-success'>Upload va xu ly thanh cong !</label>";
+		// }
+		// else{
+		// 	echo "<label class='label label-danger'>Upload va xu ly that bai !</label>";
+		// }
 		
 
 
