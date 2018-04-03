@@ -13,39 +13,39 @@
 	<link href="ViewAdmin/style.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
+
+   	<style type="text/css">
+		.style1 {
+			color: #0000CC;
+		}
+	</style>
 	
 	
 	<SCRIPT LANGUAGE="JavaScript">
       function confirmAction() {
         return confirm("Bạn có chắc xóa không?")
       }
- 	</SCRIPT>
  
-   	<style type="text/css">
-		.style1 {
-			color: #0000CC;
-		}
-	</style>
+	</SCRIPT>
+	
 </head>
 <body>
  <div class="wrapper" style="background-color:#FFFFFF"> 
 <?php
 	require_once("lib/QuanTri_Mon.php");	
-	require_once("ViewAdmin/header.php");
+	require_once("ViewApp/header.php");
 	
 	isset($_POST["maMon"])  ? $maMon	=trim($_POST["maMon"]) 	:	$maMon= '';	
 	isset($_POST["tenMon"]) ? $tenMon	=trim($_POST["tenMon"]) :	$tenMon= '';	
 	isset($_POST["soTC"]) 	? $soTC 	=$_POST["soTC"]  	:	$soTC = '';	
 	isset($_POST["LT"]) 	? $LT	 	=$_POST["LT"] 		:	$LT= '';	
-	isset($_POST["BT"]) 	? $BT	 	=$_POST["BT"] 		:	$BT= '';	
 	isset($_POST["TH"]) 	? $TH	 	=$_POST["TH"] 		:	$TH= '';	
-	isset($_POST["KT"]) 	? $KT	 	=$_POST["KT"] 		:	$KT= '';	
 	isset($_POST["chon"])	? $chon=trim($_POST["chon"])	:	$chon= '';	
 	
 	//////////////////////////////////
 	if (isset($_POST["btn_them"])) {					
 			$address = "QuanTri_Mon";
-			ThemMon($conn, $address, $maMon, $tenMon, $soTC, $LT, $BT, $TH , $KT);		
+			ThemMon($conn, $address, $maMon, $tenMon, $soTC, $LT, $TH);		
 	}	
 	
 	if (isset($_POST["btn_xoa"])) {		  								
@@ -64,7 +64,7 @@
 			{
 				$ma_old = $_POST["chon"];
 				$address = "QuanTri_Mon";							
-				Sua($conn, $address, $ma_old, $maMon, $tenMon, $soTC, $LT, $BT,$TH, $KT);		
+				Sua($conn, $address, $ma_old, $maMon, $tenMon, $soTC, $LT, $TH);		
 			}	
 	}	
 	
@@ -79,9 +79,7 @@
 		$tenMon = $data_chon["tenMon"];	
 		$soTC 	= $data_chon["soTc"];	
 		$LT	 	= $data_chon["soTietLt"];	
-		$BT	 	= $data_chon["soTietBt"];	
 		$TH 	= $data_chon["soTietTh"];							
-		$KT 	= $data_chon["soTietKt"];							
 	}
 ?>
 	
@@ -102,25 +100,19 @@
                       <tr>
                         <td height="35" width="140"> Tên môn học: </td>
                         <td ><input type="text" name="tenMon" size="25"  value="<?php echo $tenMon; ?>"> </td>						
-                      
+                      </tr>
+                      <tr>
                         <td height="35"> Số tín chỉ: </td>
-						<td ><input  type="number" name="soTC" size="1" min="1" max="6"  value="<?php echo $soTC; ?>"> </td>                       
+						<td ><input type="text" name="soTC" size="1"  value="<?php echo $soTC; ?>"> </td>                       
                       </tr>
                       <tr>
                         <td height="35"> Số tiết lý thuyết: </td>
 						<td ><input type="text" name="LT" size="1"  value="<?php echo $LT; ?>"> </td>                       
-                      
-                        <td height="35"> Số tiết bài tập: </td>
-						<td ><input type="text" name="BT" size="1"  value="<?php echo $BT; ?>"> </td>                       
-	                     </tr>
+                      </tr>
 					   <tr>
                         <td height="35"> Số tiết thực hành: </td>
 						<td ><input type="text" name="TH" size="1"  value="<?php echo $TH; ?>"> </td>                       
-                     
-                        <td height="35"> Số tiết kiểm tra: </td>
-						<td ><input type="text" name="KT" size="1"  value="<?php echo $KT; ?>"> </td>                       
                       </tr>
-
 					  <tr>
                         <td colspan="5" height="10"></td>
                       </tr>
@@ -137,17 +129,15 @@
 			
 			
     	    <table class="table"  >
-
+          		<h3 class="style1"> Danh sách các môn học</h3>
 	          	<thead>
 					<tr >
 					  <th width="20"> STT </th>
 					  <th width="100"><center>Mã Môn học</center></th>
  					  <th width="320"><center>Tên Môn học</center></th>
-				  	  <th width="130"><center>Số tín chỉ</center></th>
+				  	  <th width="130"><center>Số tính chỉ</center></th>
 					  <th width="130"><center>Số tiết Lý thuyết</center></th>
-  					  <th width="130"><center>Số tiết Bài tập</center></th>
 					  <th width="130"><center>Số tiết Thực hành</center></th>
-  					  <th width="130"><center>Số tiết kiểm tra</center></th>
 					  <th width="70">&nbsp;  </th>
 					</tr>
 				  </thead>
@@ -160,9 +150,7 @@
 									 "	 and tenMon like '%".$tenMon."%'" .
 									 "	 and soTc like '%".$soTC."%'" .						 
 									 "	 and soTietLt like '%".$LT."%'" .						 
- 									 "	 and soTietBt like '%".$BT."%'" .						 
 									 "	 and soTietTh like '%".$TH."%'".
- 									 "	 and soTietKt like '%".$KT."%'".
 									" ORDER BY maMon DESC ";
 					$query = mysqli_query($conn,$sql_hienThi);
 					while ($row = mysqli_fetch_array($query)) {						    
@@ -171,11 +159,9 @@
 						  <th scope="row"><?php echo $stt++ ?></th>
 						  <td><?php echo $row["maMon"]; ?></td>	
 						  <td><?php echo $row["tenMon"]; ?></td>	
-							<td><center><?php echo $row["soTc"]; ?></center></td>	
-						  <td><center><?php echo $row["soTietLt"]; ?></center></td>
-  						  <td><center><?php echo $row["soTietBt"]; ?></center></td>
-						  <td><center><?php echo $row["soTietTh"]; ?></center></td>			
-  						  <td><center><?php echo $row["soTietKt"]; ?></center></td>			
+						  <td><?php echo $row["soTc"]; ?></td>	
+						  <td><?php echo $row["soTietLt"]." tiết"; ?></td>
+						  <td><?php echo $row["soTietTh"]." tiết"; ?></td>			
 						  <td>						
 							  
 							  <?php
@@ -187,7 +173,7 @@
 									<input type="radio" name="chon" value='<?php echo $row["maMon"]; ?>' onClick="this.form.submit();">
 							  <?php } ?>
 
-							 <input type="image" name="btn_xoa" onClick=" return confirmAction()"  value="<?php echo  $row["maMon"];?>"src="img/delete.png" width="20" height="20">		
+							 <input type="image" name="btn_xoa" onclick=" return confirmAction()" value="<?php echo  $row["maMon"];?>"src="img/delete.png" width="20" height="20">		
 						  </td>
 						</tr>					
 			  <?php }  ?>					
