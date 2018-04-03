@@ -100,15 +100,15 @@ function insertcth($maNganh,$maMon,$he,$sttKhoa,$hocKi,$namHoc)
 	$montienquyet=$db->mysql->query("select maMonTq from montienquyet where maMon='".$maMon."'");
 	while($row=$montienquyet->fetch_assoc()){
 		$t.="'".$row['maMonTq']."'";
-		$dem1++;
 		array_push($check,$row['maMonTq']);
 	}
 	if($t==""){
-		$query=$db->mysql->query("INSERT INTO `chuongtrinhhoc`(`maNganh`, `maMon`, `he`, `sttKhoa`, `hocKi`, `namHoc`) VALUES ($maNganh,N'$maMon',$he,$sttKhoa,$hocKi,$namHoc)");
+		$query=$db->mysql->query("insert into chuongtrinhhoc values (".$maNganh.",'".$maMon."',".$he.",".$sttKhoa.",".$hocKi.",".$namHoc.",' ','x')");
 		if($query)
 			echo 'ok';
 		else
 			echo 'error';
+		
 	}else{
 		$checked=true;
 	
@@ -121,11 +121,13 @@ function insertcth($maNganh,$maMon,$he,$sttKhoa,$hocKi,$namHoc)
 
 		}
 		if($checked==true){
-			$query=$db->mysql->query("INSERT INTO `chuongtrinhhoc`(`maNganh`, `maMon`, `he`, `sttKhoa`, `hocKi`, `namHoc`) VALUES ($maNganh,N'$maMon',$he,$sttKhoa,$hocKi,$namHoc)");
+			$query=$db->mysql->query("insert into chuongtrinhhoc values (".$maNganh.",'".$maMon."',".$he.",".$sttKhoa.",".$hocKi.",".$namHoc.",' ','x')");
 			if($query)
 				echo 'ok';
 			else
 				echo 'error';
+			
+			
 		}
 		else
 			echo "no";
@@ -225,8 +227,5 @@ function xoatienquyet($ma1,$ma2)
 		echo "ok";
 	else
 		echo "error";
-}
-function checktienquyet($mamon){
-	
 }
 ?>

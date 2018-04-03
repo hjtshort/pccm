@@ -12,8 +12,6 @@ if(isset($_FILES['file']))
 	{
 		move_uploaded_file($_FILES["file"]["tmp_name"], '../upload/'.$_FILES["file"]["name"]);
 		
-	
-		
 	}
 	else
 	{
@@ -27,11 +25,6 @@ if(isset($_FILES['file']))
 		$db=new db();
 		$data['namhoc']=mb_substr(str_replace(' ','',$data['khoahoc']),10,4,'utf8');
 		$data['khoa']=mb_substr(str_replace(' ','',$data['khoahoc']),7,2,'utf8');
-
-		// echo "<pre>";
-		// print_r($data);
-		// echo "</pre>";
-		// t in sert  hết r đâu insert đc nữau 	
 		foreach($data['danhsach'] as $key=> $value){
 			$str="insert into monhoc values";
 			$str2="insert into monhocnganh values";
@@ -77,9 +70,6 @@ if(isset($_FILES['file']))
 
 
 			}
-			// echo $str2;
-			// echo $str3;
-			//strcmp(mb_substr($value['hocki'],7,1,'utf8'),"I")==0? $str3.=",1,".(intval($data['namhoc'])+1).")" :'';				
 		 	try{
 		 		$db->mysql->query($str);
 				$db->mysql->query($str2);
@@ -97,31 +87,7 @@ if(isset($_FILES['file']))
 		else{
 			echo "<label class='label label-danger'>Upload và xử lý thất bại !</label>";
 		}
-		
-
-
-		//Hàm trong function.php
-		// $search=getvalue();
-		// $str="";
-		// foreach($data['danhsach'] as $key=>$value){
-		// 	if(array_search(str_replace(",",".",	$value['mamon']),$search)==null){
-		// 		$str.="('".str_replace(",",".",	$value['mamon'])."',N'".$value['tenhocphan']."'";
-		// 		$value['sotc']!=''? $str.=",".$value['sotc']:$str.=",0";
-		// 		$value['sotietlt']!=''? $str.=",".$value['sotietlt']:$str.=",0";
-		// 		$value['sotietbt']!=''? $str.=",".$value['sotietbt'].",".$value['sotietbt']."),":$str.=",0,0),";	
-		// 	}
 			
-		// }
-		//  //echo "insert into monhoc values".substr($str,0,strlen($str)-1);
-		 
-
-		// $query=$db->mysql->query("insert into monhocmoi values".substr($str,0,strlen($str)-1));
-		// if($query)
-		// {
-		// 	echo 'success';
-		// }
-		// else
-		// 	echo "error";		
 	}
 }
 ?>
