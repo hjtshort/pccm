@@ -27,9 +27,11 @@ if(isset($_FILES['file']))
 		$db=new db();
 		$data['namhoc']=mb_substr(str_replace(' ','',$data['khoahoc']),10,4,'utf8');
 		$data['khoa']=mb_substr(str_replace(' ','',$data['khoahoc']),7,2,'utf8');
+
 		// echo "<pre>";
 		// print_r($data);
-		// echo "</pre>"; t in sert  hết r đâu insert đc nữau 	
+		// echo "</pre>";
+		// t in sert  hết r đâu insert đc nữau 	
 		foreach($data['danhsach'] as $key=> $value){
 			$str="insert into monhoc values";
 			$str2="insert into monhocnganh values";
@@ -70,11 +72,12 @@ if(isset($_FILES['file']))
 						break;
 					default:
 				}
-				$value['tuchon']=="x" ? $str3.=",'x',''":$str3.=",'','x')";
+				$value['tuchon']=="x" ? $str3.=",'x','0'":$str3.=",'0','x')";
 
 
 			}
-			//echo $str3;
+			// echo $str2;
+			 //echo $str3;
 			//strcmp(mb_substr($value['hocki'],7,1,'utf8'),"I")==0? $str3.=",1,".(intval($data['namhoc'])+1).")" :'';				
 			try{
 				$db->mysql->query($str);
@@ -90,8 +93,9 @@ if(isset($_FILES['file']))
 			//echo $str;
 			
 			
-										
+			//echo $str3;								
 		}
+		
 
 		if($checked)
 		{

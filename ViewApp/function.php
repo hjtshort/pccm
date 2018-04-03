@@ -98,8 +98,6 @@ function insertcth($maNganh,$maMon,$he,$sttKhoa,$hocKi,$namHoc)
 {
 	$db=new db();
 	$t="";
-	$dem1=0;
-	$dem2=0;
 	$check=array();
 	$montienquyet=$db->mysql->query("select maMonTq from montienquyet where maMon='".$maMon."'");
 	while($row=$montienquyet->fetch_assoc()){
@@ -229,5 +227,8 @@ function xoatienquyet($ma1,$ma2)
 		echo "ok";
 	else
 		echo "error";
+}
+function checktienquyet($mamon){
+	
 }
 ?>
