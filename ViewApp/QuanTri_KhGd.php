@@ -245,7 +245,6 @@
 						"he":he,
 						"sttKhoa":sttKhoa,
 						"hocky":hocky,
-						"namhoc":namHoc,
 						"action":"gettable"
 					},
 				success: function (response) {

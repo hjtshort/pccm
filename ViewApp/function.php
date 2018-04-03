@@ -5,8 +5,7 @@ if(isset($_POST['action']) && trim($_POST['action'])=="gettable"){
 	$he= addslashes(strip_tags(trim($_POST['he'])));
 	$sttKhoa=addslashes(strip_tags(trim($_POST['sttKhoa'])));
 	$hk=addslashes(strip_tags(trim($_POST['hocky'])));
-	$namHoc=addslashes(strip_tags(trim($_POST['namhoc'])));
-	echo hienthitable($maNganh,$he,$sttKhoa,$hk,$namHoc);
+	echo hienthitable($maNganh,$he,$sttKhoa,$hk);
 }
 else if(isset($_POST['action']) && trim($_POST['action'])=="delete"){
 	 $data=explode("+",addslashes(strip_tags(trim($_POST['data']))));
@@ -47,7 +46,7 @@ else if(isset($_POST['action']) && trim($_POST['action'])=="xoatienquyet"){
 	$data=explode("+",$_POST['data']);
 	xoatienquyet($data[0],$data[1]);
 }
-function hienthitable($maNganh,$he,$sttKhoa,$hk,$namHoc)
+function hienthitable($maNganh,$he,$sttKhoa,$hk)
 {
 	$db=new db();
     $sql_hienThi = 	"SELECT * FROM chuongtrinhhoc cth, monhoc mh, nganh n ".
@@ -55,7 +54,6 @@ function hienthitable($maNganh,$he,$sttKhoa,$hk,$namHoc)
 									 "	 and cth.he = '".$he."'" .
 									 "	 and sttKhoa = '".$sttKhoa."'" .						 
 									 "	 and hocKi = '".$hk."'" .						 
-									 "	 and namHoc = '".$namHoc."'".
 									 "	 and cth.maMon=mh.maMon".
 									 "	 and cth.maNganh=n.maNganh".
                                     " ORDER BY cth.namHoc, cth.hocKi ASC ";
