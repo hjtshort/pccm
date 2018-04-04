@@ -7,10 +7,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>trang dang nhap</title>
+<title>Đăng nhập</title>
 <link type="text/css" rel="stylesheet" href="ViewCommon/css/menu_left.css" />
 <link href="ViewCommon/css/menu_left.css" rel="stylesheet" type="text/css" />
-<link rel="stylesheet" href="w3.css">
+<link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <SCRIPT>
@@ -149,53 +150,47 @@ document.write(weekdayNames[thisDay] + ", " + thisDate + " / " + monthNamesR[cur
 ?>
 
 
-<body topmargin = " 0" bottommargin = "0 " leftmargin = "0 " rightmargin = "0 ">
-	<table align="center" width="950" border="1" cellspacing="0" cellpadding="0">
-	<tr><td valign="top" colspan = "2" height = "100" background="">	
-	<!--<object align="left" height="25" width="209">
-        <embed  align="left" src="./image/ball.swf" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" ; type="application/x-shockwave-flash" menu="false" wmode="transparent" height="100" width="600"></object>-->
-<div align="right" style="color:#996600; font-size:14px; padding:1px; margin:2px;" ></div>
-  <img src="ViewCommon/image/bn copy.jpg" alt="Không có hình" width="1024" height="184" />
-	<tr>
-    <td colspan="2" align="left" style="color:#990000; font-size:18px; font-weight:bold;" background="ViewCommon/image/bg03.gif" width="205"><script language="javascript">
-		
-  datetime();
-      </script></td>
-    
-  </tr>
-  <tr height=100%>
-        <td height="400" colspan="2" valign="top" background="ViewCommon/image/bg12322.gif">
-
-		<table align="center" border="1" cellpadding="0" cellspacing="0">
-	<tr><td bordercolor="#006699">
-		<form action="index.php" method="post" enctype="multipart/form-data" name="dang_nhap" id="dang_nhap" >
-		<table border="0" cellpadding="5" cellspacing="0" style="color:#003366;">
-
-			
-			<tr align="center" ><td colspan="2" style=" background:url(ViewCommon/image/bg03.gif)"><span class="style2">ĐĂNG NHẬP</span></td>
-			</tr>
-			<tr><td>Username</td><td><input name="username" type="text" id="username" /></td></tr>
-			<tr><td>Password</td><td><input name="password" type="password" id="password" /></td></tr>
-			<tr><td align="center" colspan="2"><input name="btn_submit" type="submit" id="ok" value="  OK  " />&nbsp;&nbsp;<input name="cancel" type="reset" id="cancel" value="Cancel" /></td></tr>
-			
-		</table>
-	  </form>
-	</td></tr>
-</table>
-	&nbsp;
-	
-	</td>
-  </tr>
-  <tr>
-  	  
-  <tr>
-    <td colspan="2" height="20px" background="ViewCommon/image/bg03.gif" nowrap="nowrap" align="center">
-	
-			 TRƯỜNG CAO ĐẲNG CẦN THƠ 
-			 Số 413 - Đường 30/4 - Phường Hưng Lợi - Quận Ninh Kiều - TP.Cần Thơ 			</td>
-
-  </tr>
-</table>
-
+<body>
+	<div class="login container">
+		<div class="header">
+			<img src="ViewCommon/image/bn copy.jpg" width="100%" alt="" />
+		</div>
+		<div class="content">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h3 class="panel-title"><script language="javascript">datetime();</script></h3>
+				</div>
+				<div class="panel-body">
+					<div class="center">
+						<div class="col-md-6">
+							<div class="panel panel-login">
+								<div class="panel-body body">
+									<h1>ĐĂNG NHẬP</h1>
+									<form action="index.php" method="post" enctype="multipart/form-data" name="dang_nhap" id="dang_nhap" >
+										<div class="form-group">
+											<label for="username">Username</label>
+											<input type="text" class="form-control" id="username" name="username" placeholder="Username">
+										</div>
+										<div class="form-group">
+											<label for="exampleInputPassword1">Password</label>
+											<input type="password" class="form-control" id="password" name="password" placeholder="Password">
+										</div>
+										<div class="form-group">
+											<input type="submit" name="btn_submit" class="btn btn-primary" id="ok" value="OK">
+											<input type="submit" name="cancel" class="btn btn-danger" id="cancel" value="Cancel">
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel-footer">
+					<p>TRƯỜNG CAO ĐẲNG CẦN THƠ 
+			 Số 413 - Đường 30/4 - Phường Hưng Lợi - Quận Ninh Kiều - TP.Cần Thơ </p>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

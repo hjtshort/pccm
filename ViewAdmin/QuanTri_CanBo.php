@@ -14,6 +14,7 @@
 	<link rel="stylesheet" type="text/css" href="css/reset.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="css/style.css" />
 	<link href="ViewAdmin/style.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
@@ -114,7 +115,7 @@
 			  <form name="form1" method="POST" action="index.php?f=QuanTri_CanBo">
 	 	<div class="container">
       		<div class="row">	
-			<h3 class="style1" style="color: #0000CC"> THÊM CÁN BỘ BỘ MÔN <font color="#FF0000"><?php echo $data_Bm['tenBm']; ?></font> </h3>
+			<h3 class="style1" style="color: #333"> THÊM CÁN BỘ BỘ MÔN: <font color="#c70000"><?php echo $data_Bm['tenBm']; ?></font> </h3>
 			
 			<Center>				 		  
 					<input type="image" name="test"  value=""  width="3" height="3">
@@ -139,9 +140,9 @@
                       </tr>
                       <tr>
                         <td colspan="3" height="55">		
-							<input  type="submit" value="TÌM KIẾM" name="btn_tim"> 
-							<input  type="submit" value="THÊM CÁN BỘ" name="btn_them">     													
-							<input  type="submit" value="CHỈNH SỬA" name="btn_sua"> 						  
+							<input class="btn btn-custom"  type="submit" value="TÌM KIẾM" name="btn_tim"> 
+							<input class="btn btn-custom"  type="submit" value="THÊM CÁN BỘ" name="btn_them">     													
+							<input class="btn btn-custom"  type="submit" value="CHỈNH SỬA" name="btn_sua"> 						  
 						</td>
                       </tr>                  
                     </table>

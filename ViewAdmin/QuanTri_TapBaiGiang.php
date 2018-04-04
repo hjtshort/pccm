@@ -171,8 +171,8 @@
                      
                       
 					  <tr>
-                        <td colspan="5" height="10"> <input  type="submit" value="Ghi nhận" name="btn_them">
-                        <input  type="submit" value="CHỈNH SỬA" name="btn_sua" /></td>
+                        <td colspan="5" height="10"> <input class="btn btn-custom"  type="submit" value="Ghi nhận" name="btn_them">
+                        <input class="btn btn-custom"  type="submit" value="CHỈNH SỬA" name="btn_sua" /></td>
                       </tr>
                       <tr>
                         <td colspan="3" height="30"></td>

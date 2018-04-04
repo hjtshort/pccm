@@ -16,7 +16,7 @@
 
    	<style type="text/css">
 		.style1 {
-			color: #0000CC;
+			color: #333;
 		}
 		.table>thead>tr>th
 {
@@ -136,9 +136,9 @@ vertical-align:middle !important;
 	     <form name="form1" method="POST" action='index.php?f=QuanTri_Pccm1&idMau=<?php echo $maCb; ?>'>
 	 	<div class="container">
       		<div class="row">	
-			<h3 class="style1">Phân công chuyên môn bộ môn <font color="#990000"><?php echo $data1["tenBm"]  ?></font> &nbsp;&nbsp;	Năm học: 
-							<input type="text" name="namHoc" size="2"  onChange="this.form.submit()" value="<?php echo $namHoc; ?>"> - &nbsp;&nbsp;
-							<input type="text" size="2" value="<?php echo ($namHoc+1); ?>" readonly="true">
+			<h3 class="style1">Phân công chuyên môn bộ môn: <font color="#c70000"><?php echo $data1["tenBm"]  ?></font> &nbsp;&nbsp;	Năm học: 
+							<input type="text" name="namHoc" size="4"  onChange="this.form.submit()" value="<?php echo $namHoc; ?>"> - &nbsp;&nbsp;
+							<input type="text" size="4" value="<?php echo ($namHoc+1); ?>" readonly="true">
 
 
 			<a href="index.php?f=xuat&idMau=<?php $chuoi=$data["maBm"]." ".$namHoc; echo $chuoi; ?>"><img src="img/excel.jpg" title="Xuất file Excel" height="30" width="30" /></a>
@@ -158,7 +158,7 @@ vertical-align:middle !important;
                     </table>
 			</center>		
 			
-    	    <table class="table" border="1"  >
+    	    <table class="table table-hover" border="1"  >
 
 	          	<thead>
 					<tr >

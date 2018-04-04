@@ -120,11 +120,11 @@
                       </tr>
 					  <tr>
                         <td height="35"> Khóa: </td>
-                        <td ><input type="text" name="sttKhoa" size="1"  value="<?php echo $sttKhoa; ?>"> 	</td>						
+                        <td ><input type="text" name="sttKhoa" size="2"  value="<?php echo $sttKhoa; ?>"> 	</td>						
                       </tr>
 					   <tr>
                         <td height="35"> Số lượng: </td>
-                        <td ><input type="text" name="siSo" size="1"  value="<?php echo $siSo; ?>"> 	</td>						
+                        <td ><input type="text" name="siSo" size="2"  value="<?php echo $siSo; ?>"> 	</td>						
                       </tr>
                       <tr>
                         <td height="35"> Ngành: </td>
@@ -171,9 +171,9 @@
                       </tr>
                       <tr>
                         <td colspan="3" height="55">		
-							<input  type="submit" value="TÌM KIẾM" name="btn_tim"> 
-							<input  type="submit" value="THÊM LỚP" name="btn_them">     													
-							<input  type="submit" value="CHỈNH SỬA" name="btn_sua">     
+							<input class="btn btn-custom" type="submit" value="TÌM KIẾM" name="btn_tim"> 
+							<input class="btn btn-custom" type="submit" value="THÊM LỚP" name="btn_them">     													
+							<input class="btn btn-custom" type="submit" value="CHỈNH SỬA" name="btn_sua">     
 						</td>
                       </tr>                
                     </table>
@@ -181,7 +181,7 @@
 			
 			
 			
-    	    <table class="table"  >
+    	    <table class="table table-hover"  >
 
 	          	<thead>
 					<tr >

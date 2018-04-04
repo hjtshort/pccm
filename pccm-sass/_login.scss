@@ -1,0 +1,57 @@
+.login{
+	.content{
+		.panel-primary{
+
+			border-radius: 0;
+			.panel-heading{
+				background-color: $blue;
+				border-radius: 0;
+			}
+			.panel-body{
+				border-radius: 0;
+				.center{
+					display: flex;
+					justify-content: center;
+					.panel-login{
+						border-color: #eee;
+						border-radius: 0;
+						.body{
+							h1{
+								text-align: center;
+								color: #333;
+							}
+							.form-control{
+								border-radius: 0 !important;
+							}
+							.form-group:last-child{
+								margin-bottom:0;
+								text-align: right;
+							}
+							.btn{
+								width: 120px;
+								border-radius: 0;
+								background-color: #fff;
+								border: 2px solid $blue;
+								color: $blue;
+								transition: 0.3s;
+								&:hover{
+									background-color: $blue;
+									color: #fff;
+								}
+							}
+						}
+					}
+				}
+			}
+			.panel-footer{
+				border-radius: 0;
+				text-align: center;
+				padding:8px;
+				background-color: #CCCCCC;
+				p{
+					margin: 0;
+				}
+			}
+		}
+	}
+}

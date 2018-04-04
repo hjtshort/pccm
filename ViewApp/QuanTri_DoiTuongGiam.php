@@ -100,9 +100,9 @@
                       </tr>
                       <tr>
                         <td colspan="3" height="55">		
-							<input  type="submit" value="TÌM KIẾM" name="btn_tim"> 
-							<input  type="submit" value="THÊM ĐỐI TƯỢNG" name="btn_them">     													
-							<input  type="submit" value="CHỈNH SỬA" name="btn_sua">    
+							<input class="btn btn-custom" style="width: 150px" type="submit" value="TÌM KIẾM" name="btn_tim"> 
+							<input class="btn btn-custom" style="width: 150px" type="submit" value="THÊM ĐỐI TƯỢNG" name="btn_them">     													
+							<input class="btn btn-custom" style="width: 150px" type="submit" value="CHỈNH SỬA" name="btn_sua">    
 						</td>
                       </tr>                  
                     </table>
@@ -110,7 +110,7 @@
 			
 			
 			
-    	    <table class="table"  >
+    	    <table class="table table-hover"  >
           		<h3 class="style1"> Danh sách các đối tượng</h3>
 	          	<thead>
 					<tr >

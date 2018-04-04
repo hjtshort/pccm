@@ -16,7 +16,7 @@
 
    	<style type="text/css">
 		.style1 {
-			color: #0000CC;
+			color: #333;
 		}
 	</style>
 	
@@ -124,8 +124,8 @@
 	 	<div class="container">
       		<div class="row">	
 			<h3 class="style1">PHÂN CÔNG CỐ VẤN HỌC TẬP/GVCN </font> &nbsp;&nbsp;	Năm học: 
-							<input type="text" name="namHoc" size="2"  onChange="this.form.submit()" value="<?php echo $namHoc; ?>"> - &nbsp;&nbsp;
-							<input type="text" size="2" value="<?php echo ($namHoc+1); ?>" readonly="true">
+							<input type="text" name="namHoc" size="4"  onChange="this.form.submit()" value="<?php echo $namHoc; ?>"> - &nbsp;&nbsp;
+							<input type="text" size="4" value="<?php echo ($namHoc+1); ?>" readonly="true">
 
 			
 			</h3>
@@ -209,7 +209,7 @@
 							   }
 							   ?>
 					    </select>	 </td>
-					    <td width="84" height="44" colspan="3"><input  type="submit" value="PHÂN CÔNG" name="btn_them"></td>							
+					    <td width="84" height="44" colspan="3"><input class="btn btn-custom"  type="submit" value="PHÂN CÔNG" name="btn_them"></td>							
 					  <tr>
 						  	<td></td>
 							<td></td>
@@ -228,7 +228,7 @@
 			
 			
 			
-    	    <table class="table"  >
+    	    <table class="table table-hover"  >
 
 	          	<thead>
 					<tr >

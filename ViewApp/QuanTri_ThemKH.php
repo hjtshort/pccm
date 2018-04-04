@@ -72,7 +72,7 @@
 		</div>
 
 		<div class="from-control">
-		<input type="submit" value="Tải lên" name="submit">
+		<input class="btn btn-custom" type="submit" value="Tải lên" name="submit">
 		</div>
 
 		<div class="ketqua">

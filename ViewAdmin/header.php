@@ -12,6 +12,10 @@
 <title>Website Truong bo mon</title>
 <link href="ViewAdmin/style.css" rel="stylesheet" type="text/css" />
 <link href="ViewAdmin/style1.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+<link rel="stylesheet" href="css/style.css" />
+ <script src="js/functions.js"></script>
+
 </head>
 
 <body>
@@ -25,13 +29,14 @@
 	            if (isset($user))
         		    {
 ?>
- <ul id="nav1"><div align="right" style="color: #000099; font-size:14px;">Xin chào cán bộ <i style="color:#990000; font-size:18px;"> <?php echo $user['ten']; ?></i>, <a style=" color:#003366; font-size:14px; text-decoration:none; font-weight:bold;" href="index.php?f=logout" title="Đăng xuất">Đăng xuất</a></div> </ul>
+ <ul id="nav1"><div align="right" style="color: #fff; font-size:14px;">Xin chào cán bộ <span style="color:#c70000; font-size:18px;"> <?php echo $user['ten']; ?></span>, <a style=" color:#fff; font-size:14px; text-decoration:none; font-weight:bold;" href="index.php?f=logout" title="Đăng xuất"><i class="fa fa-power-off"></i> Đăng xuất</a></div> </ul>
    <?php  				  
 				  	}
          		  ?>
   
   
   <div>
+
 <ul id="nav">
 <li><a href="index.php?f=QuanTri_Pccm1">Trang chủ</a></li>
 <li><a href="index.php?f=">Kế hoạch giảng dạy</a>

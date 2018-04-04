@@ -11,6 +11,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Website Truong bo mon</title>
 <link href="ViewAdmin/style.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+<link href="css/style.css" rel="stylesheet" type="text/css" />
 <link href="ViewAdmin/style1.css" rel="stylesheet" type="text/css" />
 </head>
 
@@ -25,7 +27,7 @@
 	            if (isset($user))
         		    {
 ?>
- <ul id="nav1"><div align="right" style="color: #000099; font-size:14px;">Xin chào <i style="color:#990000; font-size:18px;"> Admin <?php echo $user['ten']; ?></i>, <a style=" color:#003366; font-size:14px; text-decoration:none; font-weight:bold;" href="index.php?f=logout" title="Đăng xuất">Đăng xuất</a></div> </ul>
+ <ul id="nav1"><div align="right" style="color: #fff; font-size:14px;">Xin chào <i style="color:#c70000; font-size:18px;"> Admin <?php echo $user['ten']; ?></i>, <a style=" color:#fff; font-size:14px; text-decoration:none; font-weight:bold;" href="index.php?f=logout" title="Đăng xuất"><i class="fa fa-power-off"></i> Đăng xuất</a></div> </ul>
    <?php  				  
 				  	}
          		  ?>

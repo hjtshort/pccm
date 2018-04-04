@@ -129,7 +129,7 @@
                       </tr>
                       <tr>
                         <td colspan="3" height="55">		
-							<input  type="submit" value="Đổi mật khẩu" name="btn_submit"> 
+							<input class="btn btn-custom"  type="submit" value="Đổi mật khẩu" name="btn_submit"> 
 						</td>
                       </tr>                  
                     </table>

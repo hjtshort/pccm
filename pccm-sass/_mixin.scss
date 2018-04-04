@@ -1,0 +1,12 @@
+@mixin button($width){
+	width: $width;
+	border-radius: 0;
+	background-color: #fff;
+	border: 2px solid $blue;
+	color: $blue;
+	transition: 0.3s;
+	&:hover{
+		background-color: $blue;
+		color: #fff;
+	}
+}

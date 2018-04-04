@@ -108,17 +108,17 @@
                       </tr>
                       <tr>
                         <td height="35"> Số tiết lý thuyết: </td>
-						<td ><input type="text" name="LT" size="1"  value="<?php echo $LT; ?>"> </td>                       
+						<td ><input type="text" name="LT" size="3"  value="<?php echo $LT; ?>"> </td>                       
                       
                         <td height="35"> Số tiết bài tập: </td>
-						<td ><input type="text" name="BT" size="1"  value="<?php echo $BT; ?>"> </td>                       
+						<td ><input type="text" name="BT" size="3"  value="<?php echo $BT; ?>"> </td>                       
 	                     </tr>
 					   <tr>
                         <td height="35"> Số tiết thực hành: </td>
-						<td ><input type="text" name="TH" size="1"  value="<?php echo $TH; ?>"> </td>                       
+						<td ><input type="text" name="TH" size="3"  value="<?php echo $TH; ?>"> </td>                       
                      
                         <td height="35"> Số tiết kiểm tra: </td>
-						<td ><input type="text" name="KT" size="1"  value="<?php echo $KT; ?>"> </td>                       
+						<td ><input type="text" name="KT" size="3"  value="<?php echo $KT; ?>"> </td>                       
                       </tr>
 
 					  <tr>
@@ -126,9 +126,9 @@
                       </tr>
                       <tr>
                         <td colspan="3" height="55">		
-							<input  type="submit" value="TÌM KIẾM" name="btn_tim"> 
-							<input  type="submit" value="THÊM MÔN HỌC" name="btn_them">     													
-							<input  type="submit" value="CHỈNH SỬA" name="btn_sua">    
+							<input class="btn btn-custom" style="width: 150px" type="submit" value="TÌM KIẾM" name="btn_tim"> 
+							<input class="btn btn-custom" style="width: 150px" type="submit" value="THÊM MÔN HỌC" name="btn_them">     													
+							<input class="btn btn-custom" style="width: 150px" type="submit" value="CHỈNH SỬA" name="btn_sua">    
 						</td>
                       </tr>                  
                     </table>
@@ -136,7 +136,7 @@
 			
 			
 			
-    	    <table class="table"  >
+    	    <table class="table table-hover"  >
 
 	          	<thead>
 					<tr >

@@ -79,10 +79,10 @@
             </div>
             
         </div>
-        <div style="float:right"><button type="button" id="insert">Thêm</button></div>
+        <div style="float:right;margin-bottom: 30px"><button class="btn btn-custom" type="button" id="insert">Thêm</button></div>
     
         <div class="row">
-             <table class="table"  >
+             <table class="table table-hover"  >
           		<h3 class="style1"> Danh sách các môn học    </h3>
 
 	          	<thead>

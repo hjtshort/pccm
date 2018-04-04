@@ -1,0 +1,57 @@
+.login .content .panel-primary {
+  border-radius: 0; }
+  .login .content .panel-primary .panel-heading {
+    background-color: #2196F3;
+    border-radius: 0; }
+  .login .content .panel-primary .panel-body {
+    border-radius: 0; }
+    .login .content .panel-primary .panel-body .center {
+      display: flex;
+      justify-content: center; }
+      .login .content .panel-primary .panel-body .center .panel-login {
+        border-color: #eee;
+        border-radius: 0; }
+        .login .content .panel-primary .panel-body .center .panel-login .body h1 {
+          text-align: center;
+          color: #333; }
+        .login .content .panel-primary .panel-body .center .panel-login .body .form-control {
+          border-radius: 0 !important; }
+        .login .content .panel-primary .panel-body .center .panel-login .body .form-group:last-child {
+          margin-bottom: 0;
+          text-align: right; }
+        .login .content .panel-primary .panel-body .center .panel-login .body .btn {
+          width: 120px;
+          border-radius: 0;
+          background-color: #fff;
+          border: 2px solid #2196F3;
+          color: #2196F3;
+          transition: 0.3s; }
+          .login .content .panel-primary .panel-body .center .panel-login .body .btn:hover {
+            background-color: #2196F3;
+            color: #fff; }
+  .login .content .panel-primary .panel-footer {
+    border-radius: 0;
+    text-align: center;
+    padding: 8px;
+    background-color: #CCCCCC; }
+    .login .content .panel-primary .panel-footer p {
+      margin: 0; }
+
+table thead {
+  background-color: #2196F3; }
+  table thead th {
+    background: #2196F3 !important;
+    color: #fff; }
+
+.btn-custom {
+  width: 120px;
+  border-radius: 0;
+  background-color: #fff;
+  border: 2px solid #2196F3;
+  color: #2196F3;
+  transition: 0.3s; }
+  .btn-custom:hover {
+    background-color: #2196F3;
+    color: #fff; }
+
+/*# sourceMappingURL=style.css.map */

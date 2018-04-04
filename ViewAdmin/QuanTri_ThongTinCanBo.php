@@ -99,7 +99,7 @@
 			  <form name="form1" method="POST" action="index.php?f=QuanTri_ThongTinCanBo">
 	 	<div class="container">
       		<div class="row">	
-			<h3 class="style1" style="color: #0000CC">THÔNG TIN CÁN BỘ </h3>
+			<h3 class="style1" style="color: #333">THÔNG TIN CÁN BỘ </h3>
 			
 			<Center>				 		  
 					<input type="image" name="test"  value=""  width="3" height="3">
@@ -129,7 +129,7 @@
                       </tr>
                       <tr>
                         <td colspan="3" height="55">		
-							<input  type="submit" value="Đổi mật khẩu" name="btn_submit"> 
+							<input class="btn btn-custom" type="submit" value="Đổi mật khẩu" name="btn_submit"> 
 						</td>
                       </tr>                  
                     </table>

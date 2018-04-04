@@ -102,9 +102,9 @@
                         <td height="35" width="100"> Tên ngành: </td>
                         <td ><input type="text" name="tenNganh" size="40"  value="<?php echo $tenNganh; ?>"> 	</td>						
 						<td colspan="3" height="55">		
-							<input  type="submit" value="TÌM KIẾM" name="btn_tim"> 
-							<input  type="submit" value="THÊM NGÀNH" name="btn_them">     													
-							<input  type="submit" value="CHỈNH SỬA" name="btn_sua">     
+							<input class="btn btn-custom" type="submit" value="TÌM KIẾM" name="btn_tim"> 
+							<input class="btn btn-custom" type="submit" value="THÊM NGÀNH" name="btn_them">     													
+							<input class="btn btn-custom" type="submit" value="CHỈNH SỬA" name="btn_sua">     
 						</td>
                       </tr>
                     
@@ -119,7 +119,7 @@
 			
 			
 			
-    	    <table class="table"  >
+    	    <table class="table table-hover"  >
 
 	          	<thead>
 					<tr >

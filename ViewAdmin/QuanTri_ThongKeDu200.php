@@ -137,8 +137,8 @@ vertical-align:middle !important;
 	 	<div class="container">
       		<div class="row">	
 			<h3 class="style1">Cán bộ thừa trên 200 tiết - Bộ môn <font color="#990000"><?php echo $data1["tenBm"]  ?></font> &nbsp;&nbsp;	Năm học: 
-							<input type="text" name="namHoc" size="2"  onChange="this.form.submit()" value="<?php echo $namHoc; ?>"> - &nbsp;&nbsp;
-							<input type="text" size="2" value="<?php echo ($namHoc+1); ?>" readonly="true">
+							<input type="text" name="namHoc" size="4"  onChange="this.form.submit()" value="<?php echo $namHoc; ?>"> - &nbsp;&nbsp;
+							<input type="text" size="4" value="<?php echo ($namHoc+1); ?>" readonly="true">
 
 
 
@@ -147,7 +147,7 @@ vertical-align:middle !important;
 				
 			
 			
-    	    <table class="table" border="1"  >
+    	    <table class="table table-hover" border="1"  >
 
 	          	<thead>
 					<tr >
