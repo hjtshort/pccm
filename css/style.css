@@ -54,4 +54,106 @@ table thead {
     background-color: #2196F3;
     color: #fff; }
 
+/* CSS Document */
+body {
+  background: #eee;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  font-family: "Open Sans",Helvetica,Arial,sans-serif; }
+
+.example {
+  width: 770px;
+  height: 570px;
+  margin: 20px auto;
+  padding: 15px;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px; }
+
+/* main menu styles */
+#nav1 {
+  display: inline-block;
+  width: 100%;
+  margin: 0px auto;
+  padding: 5px 0;
+  background: #000; }
+
+#nav {
+  display: inline-block;
+  width: 1024px;
+  margin: 0px auto;
+  padding: 0;
+  background-color: #2196F3;
+  box-shadow: 0 1px 1px #999;
+  -moz-box-shadow: 0 1px 1px #999;
+  -webkit-box-shadow: 0 1px 1px #999; }
+
+#nav li {
+  margin: 0 10px;
+  float: left;
+  position: relative;
+  list-style: none; }
+
+#nav a {
+  font-weight: bold;
+  color: #e7e5e5;
+  text-decoration: none;
+  display: block;
+  padding: 15px 20px; }
+
+#nav .current a, #nav li {
+  -moz-transition: opacity .25s linear, visibility .1s linear .1s;
+  -webkit-transition: opacity .25s linear, visibility .1s linear .1s;
+  -o-transition: opacity .25s linear, visibility .1s linear .1s;
+  transition: opacity .25s linear, visibility .1s linear .1s; }
+
+/* selected menu element */
+#nav .current a, #nav li:hover > a {
+  color: #000;
+  background-color: #1976D2;
+  color: #fff;
+  text-shadow: none !important;
+  border: none;
+  box-shadow: none; }
+
+/* sublevels */
+#nav ul li:hover a, #nav li:hover li a {
+  background: none;
+  border: none;
+  color: #fff; }
+
+#nav ul li a:hover {
+  background-color: #42A5F5;
+  color: #fff; }
+
+/* drop down */
+#nav li:hover > ul {
+  opacity: 1;
+  visibility: visible; }
+
+#nav ul {
+  opacity: 0;
+  visibility: hidden;
+  padding: 0;
+  width: 175px;
+  position: absolute;
+  background-color: #1976D2;
+  -moz-transition: opacity .25s linear, visibility .1s linear .1s;
+  -webkit-transition: opacity .25s linear, visibility .1s linear .1s;
+  -o-transition: opacity .25s linear, visibility .1s linear .1s;
+  transition: opacity .25s linear, visibility .1s linear .1s; }
+
+#nav ul li {
+  float: none;
+  margin: 0; }
+
+#nav ul a {
+  font-weight: normal;
+  color: #fff; }
+
+#nav ul ul {
+  left: 160px;
+  top: 0px; }
+
 /*# sourceMappingURL=style.css.map */
