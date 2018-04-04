@@ -369,6 +369,7 @@
 							"action":"insertcth"
 							},
 					success: function (response) {
+						//alert(response)
 						if(response.trim()=="ok")
 							gettable()
 						else if(response.trim()=="no")

@@ -110,14 +110,22 @@ function insertcth($maNganh,$maMon,$he,$sttKhoa,$hocKi,$namHoc)
 			echo 'error';
 		
 	}else{
+		$i=1;
+		$in="";
+		while($i<=$hocKi){
+			$in.=$i.",";
+			$i++;
+			
+		}
 		$checked=true;
 	
 		foreach($check as $value)
 		{
-			$qq=$db->mysql->query("select * from chuongtrinhhoc where maNganh=".$maNganh." and he=".$he." and maMon='".$value."'")->num_rows;	
+			$qq=$db->mysql->query("select * from chuongtrinhhoc where maNganh=".$maNganh." and he=".$he." and maMon='".$value."' and hocKi in (".substr($in,0,strlen($in)-1).")")->num_rows;	
 			if($qq==0){
 				$checked=false;
 			}
+			//echo "select * from chuongtrinhhoc where maNganh=".$maNganh." and he=".$he." and maMon='".$value."' and hocKi in (".substr($in,0,strlen($in)-1).")";
 
 		}
 		if($checked==true){
