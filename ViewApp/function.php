@@ -1,5 +1,6 @@
 <?php 
 require_once "db.php";
+//var_dump(checkmontienquyet(1,1,'TU090',1));
 if(isset($_POST['action']) && trim($_POST['action'])=="gettable"){
 	$maNganh= addslashes(strip_tags(trim($_POST['nganh'])));
 	$he= addslashes(strip_tags(trim($_POST['he'])));
@@ -46,6 +47,9 @@ else if(isset($_POST['action']) && trim($_POST['action'])=="xoatienquyet"){
 	$data=explode("+",$_POST['data']);
 	xoatienquyet($data[0],$data[1]);
 }
+else if(isset($_POST['action']) && trim($_POST['action'])=="laygido"){
+	laygido($_POST['nganh'],$_POST['sttKhoa']);
+}
 function hienthitable($maNganh,$he,$sttKhoa,$hk)
 {
 	$db=new db();
@@ -64,14 +68,15 @@ function hienthitable($maNganh,$he,$sttKhoa,$hk)
 	$stt=1;
 	while($row=$data->fetch_assoc()){
 		$tong+=intval($row["soTc"]);
-		$chuoi=$row["maNganh"]."+".$row["maMon"]."+".$row["he"]."+".$row["sttKhoa"]."+".$row["hocKi"]."+".$row["namHoc"];		
+		$chuoi=$row["maNganh"]."+".$row["maMon"]."+".$row["he"]."+".$row["sttKhoa"]."+".$row["hocKi"]."+".$row["namHoc"];	
+		$kk=checkmontienquyet($row["maNganh"],$row["he"],$row["maMon"],$row["hocKi"],$row["sttKhoa"])==false ? "<p><span style='color:red;'>Cần phải xóa vì môn tiên quyết chưa có trong chương trình</span></p>": "";	
 		$t.='<tr>
 				<td scope="row">'. $stt++ .'</td>
 				<td>'. $row["tenNganh"].' </td>	
 				<td>'. $row["sttKhoa"].'</td>	
 				<td>'. $row["hocKi"].'</td>	
 				<td>'. $row["namHoc"].'</td>
-				<td>'. $row["tenMon"].'</td>			
+				<td>'. $row["tenMon"].$kk.'</td>			
 				<td>'. $row["soTc"].'</td>			
 				<td>
 				<button type="button" onclick="del(\''.$chuoi.'\')" style="border:none; background-color:transparent"> <img src="img/delete.png" width="20" height="20" ></button>							
@@ -95,39 +100,40 @@ function deletecth($maNganh,$maMon,$he,$sttKhoa,$hocKi,$namHoc){
 function insertcth($maNganh,$maMon,$he,$sttKhoa,$hocKi,$namHoc)
 {
 	$db=new db();
-	$t="";
-	$check=array();
-	$montienquyet=$db->mysql->query("select maMonTq from montienquyet where maMon='".$maMon."'");
-	while($row=$montienquyet->fetch_assoc()){
-		$t.="'".$row['maMonTq']."'";
-		array_push($check,$row['maMonTq']);
-	}
-	if($t==""){
-		$query=$db->mysql->query("insert into chuongtrinhhoc values (".$maNganh.",'".$maMon."',".$he.",".$sttKhoa.",".$hocKi.",".$namHoc.",' ','x')");
-		if($query)
-			echo 'ok';
-		else
-			echo 'error';
+	// $t="";
+	// $check=array();
+	// $montienquyet=$db->mysql->query("select maMonTq from montienquyet where maMon='".$maMon."'");
+	// while($row=$montienquyet->fetch_assoc()){
+	// 	$t.="'".$row['maMonTq']."'";
+	// 	array_push($check,$row['maMonTq']);
+	// }
+	// if($t==""){
+	// 	$query=$db->mysql->query("insert into chuongtrinhhoc values (".$maNganh.",'".$maMon."',".$he.",".$sttKhoa.",".$hocKi.",".$namHoc.",' ','x')");
+	// 	if($query)
+	// 		echo 'ok';
+	// 	else
+	// 		echo 'error';
 		
-	}else{
-		$i=1;
-		$in="";
-		while($i<=$hocKi){
-			$in.=$i.",";
-			$i++;
+	// }else{
+	// 	$i=1;
+	// 	$in="";
+	// 	while($i<=$hocKi){
+	// 		$in.=$i.",";
+	// 		$i++;
 			
-		}
-		$checked=true;
+	// 	}
+	// 	$checked=true;
 	
-		foreach($check as $value)
-		{
-			$qq=$db->mysql->query("select * from chuongtrinhhoc where maNganh=".$maNganh." and he=".$he." and maMon='".$value."' and hocKi in (".substr($in,0,strlen($in)-1).")")->num_rows;	
-			if($qq==0){
-				$checked=false;
-			}
-			//echo "select * from chuongtrinhhoc where maNganh=".$maNganh." and he=".$he." and maMon='".$value."' and hocKi in (".substr($in,0,strlen($in)-1).")";
+	// 	foreach($check as $value)
+	// 	{
+	// 		$qq=$db->mysql->query("select * from chuongtrinhhoc where maNganh=".$maNganh." and he=".$he." and maMon='".$value."' and hocKi in (".substr($in,0,strlen($in)-1).")")->num_rows;	
+	// 		if($qq==0){
+	// 			$checked=false;
+	// 		}
+	// 		//echo "select * from chuongtrinhhoc where maNganh=".$maNganh." and he=".$he." and maMon='".$value."' and hocKi in (".substr($in,0,strlen($in)-1).")";
 
-		}
+	// 	}
+		$checked=checkmontienquyet($maNganh,$he,$maMon,$hocKi,$sttKhoa);
 		if($checked==true){
 			$query=$db->mysql->query("insert into chuongtrinhhoc values (".$maNganh.",'".$maMon."',".$he.",".$sttKhoa.",".$hocKi.",".$namHoc.",' ','x')");
 			if($query)
@@ -140,7 +146,7 @@ function insertcth($maNganh,$maMon,$he,$sttKhoa,$hocKi,$namHoc)
 		else
 			echo "no";
 		
-	}
+	//}
 
 }
 function getvalue(){
@@ -235,5 +241,50 @@ function xoatienquyet($ma1,$ma2)
 		echo "ok";
 	else
 		echo "error";
+}
+function checkmontienquyet($maNganh,$he,$maMon,$hocKi,$sttKhoa)
+{
+	$db=new db();
+	$check=array();
+	$montienquyet=$db->mysql->query("select maMonTq from montienquyet where maMon='".$maMon."'");
+	$i=1;
+	$in="";
+	while($i<=$hocKi){
+		$in.=$i.",";
+		$i++;
+		
+	}
+	while($row=$montienquyet->fetch_assoc())
+	{
+		array_push($check,$row['maMonTq']);
+	}
+	if(count($check)==0)
+		return true;
+	else{
+		$checked=true;
+		foreach($check as $value)
+		{
+			$qq=$db->mysql->query("select * from chuongtrinhhoc where maNganh=".$maNganh." and he=".$he." and maMon='".$value."' and sttKhoa=".$sttKhoa." and hocKi in (".substr($in,0,strlen($in)-1).")")->num_rows;
+			if($qq==0)
+				$check=false;
+		}
+		return $check==false? false:true;
+	}
+
+}
+function laygido($a,$sttKhoa){
+	$db=new db();
+	$data=$db->mysql->query("select * from chuongtrinhhoc inner join monhoc on chuongtrinhhoc.maMon=monhoc.maMon where maNganh=".$a." and sttKhoa=".$sttKhoa."");
+	$t="";
+	while($row=$data->fetch_assoc()){
+		if(checkmontienquyet($row['maNganh'],$row['he'],$row['maMon'],$row['hocKi'],$row['sttKhoa'])==false){
+			$t.="<p style='color:#C70000;'>".$row['tenMon']."(Học kì ".$row['hocKi'].")</p>";
+		}
+	}
+	echo $t;
+
+
+		
+	
 }
 ?>

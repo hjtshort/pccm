@@ -184,7 +184,15 @@
 							<input  type="button" value="XUẤT MÔN HỌC" class="btn btn-danger" name="btn_them" id="btn-xuat">     													
 							<!--<input  type="submit" value="CHỈNH SỬA" name="btn_sua">    -->
 						</td>
-                      </tr>                  
+                      </tr>  
+					  <tr>
+					     <td>
+							 Danh sách các môn cần xóa
+							 <div class="error" style="width:300px; height:100px; border:solid 1px; overflow:auto;">
+									
+							 </div>
+						 </td>
+					  </tr>                
                     </table>
 			</center>		
 			
@@ -220,6 +228,22 @@
 </body>
 </html>
 <script>
+	function NMT(){
+		var nganh = $('#nganh').val()
+		var sttKhoa=$('#sttKhoa').val()
+		$.ajax({
+			type: "post",
+			url: "index.php?f=function",
+			data: {
+				"action":"laygido",
+				"nganh":nganh,
+				"sttKhoa":sttKhoa
+			},
+			success: function (response) {
+				$('.error').html(response)
+			}
+		});
+	}
 	function laymonhoc(){
 		var nganh = $('#nganh').val()
 		var he =$('#he').val()
@@ -259,11 +283,13 @@
 	$(document).ready(function () {
 		gettable()
 		laymonhoc()
+		NMT()
 	});
 	//lấy lại dữ liệu bảng nếu ngành thay đổi
 	$('#nganh').change(function (e) { 
 		gettable()
 		laymonhoc()
+		NMT()
 	});
 		//lấy lại dữ liệu bảng nếu hệ thay đổi
 	$('#he').change(function (e) { 
@@ -272,7 +298,8 @@
 	});
 		//lấy lại dữ liệu bảng nếu khóa thay đổi
 	 $('#sttKhoa').change(function (e) { 
-	 	gettable()		
+	 	gettable()
+		 NMT()		
 	 });
 	 	//lấy lại dữ liệu bảng nếu học kỳ thay đổi
 	 $('#hocky').change(function (e) { 
@@ -370,8 +397,10 @@
 							},
 					success: function (response) {
 						//alert(response)
-						if(response.trim()=="ok")
+						if(response.trim()=="ok"){
 							gettable()
+							NMT()
+						}
 						else if(response.trim()=="no")
 							alert('Không thể thêm do môn tiên quyết chưa có trong chương trình học!')
 						else 
