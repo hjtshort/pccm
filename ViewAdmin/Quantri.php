@@ -7,7 +7,46 @@
 <head>
 	<title> Thông tin sinh viên </title>
 	<meta charset="utf-8">
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+	<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="css/style.css" />
+	<style type="text/css">
+		body{
+			background-color: #c70000;
+			font-size: 18px;
+		}
+		.center{
+			display: flex;
+			justify-content: center;
+		}
+		h1{
+			margin-bottom: 30px;
+		}
+		p{
+			font-weight: bold;
+		}
+		a{
+			color: #2196F3;
+			transition: 0.3s;
+		}
+		a:hover{
+			text-decoration: none;
+			color: #0D47A1;
+		}
+
+	</style>
 </head>
 <body>
-	Đây là nội dung quản trị
+	<div class="container"> 
+	<div class="center">
+		<div class="col-md-8">
+			<div class="panel paneldefault" style="margin-top: 20%">
+				<div class="panel-body text-center">
+					<h1 class="text-center">THÔNG BÁO</h1>
+					<p>Đây là nội dung Trang quảng trị</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 </html>
