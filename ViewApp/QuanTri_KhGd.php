@@ -318,6 +318,7 @@
 				 if(response.trim()=="ok"){
 					 //lấy lại dữ liệu bảng
 					gettable()
+					NMT()
 				 }
 				 else
 				 	alert("Không thể xóa!")
