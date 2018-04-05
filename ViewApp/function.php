@@ -49,6 +49,16 @@ else if(isset($_POST['action']) && trim($_POST['action'])=="xoatienquyet"){
 }
 else if(isset($_POST['action']) && trim($_POST['action'])=="laygido"){
 	laygido($_POST['nganh'],$_POST['sttKhoa']);
+}else if(isset($_POST['action']) && trim($_POST['action'])=="changeloai"){
+	$data=explode("+",$_POST['data']);
+	if($_POST['chon']=="tt"){
+		$query="update chuongtrinhhoc set batbuoc=' ',tuchon='x' where maNganh='".$data[0]."' and maMon='".$data[1]."' and he=".$data[2]." and sttKhoa=".$data[3]." and hocKi=".$data[4]." and namHoc=".$data[5]." ";
+	}
+	else {
+		$query="update chuongtrinhhoc set batbuoc='x',tuchon=' ' where maNganh='".$data[0]."' and maMon='".$data[1]."' and he=".$data[2]." and sttKhoa=".$data[3]." and hocKi=".$data[4]." and namHoc=".$data[5]." ";
+	}
+	doicaigido($query);
+	
 }
 function hienthitable($maNganh,$he,$sttKhoa,$hk)
 {
@@ -68,8 +78,9 @@ function hienthitable($maNganh,$he,$sttKhoa,$hk)
 	$stt=1;
 	while($row=$data->fetch_assoc()){
 		$tong+=intval($row["soTc"]);
-		$chuoi=$row["maNganh"]."+".$row["maMon"]."+".$row["he"]."+".$row["sttKhoa"]."+".$row["hocKi"]."+".$row["namHoc"];	
-		$kk=checkmontienquyet($row["maNganh"],$row["he"],$row["maMon"],$row["hocKi"],$row["sttKhoa"])==false ? "<p><span style='color:red;'>Cần phải xóa vì môn tiên quyết chưa có trong chương trình</span></p>": "";	
+		$chuoi=$row["maNganh"]."+".$row["maMon"]."+".$row["he"]."+".$row["sttKhoa"]."+".$row["hocKi"]."+".$row["namHoc"]."+".$stt;	
+		$kk=checkmontienquyet($row["maNganh"],$row["he"],$row["maMon"],$row["hocKi"],$row["sttKhoa"])==false ? "<p><span style='color:red;'>Cần phải xóa vì môn tiên quyết chưa có trong chương trình</span></p>": "";
+		$loai= $row['batbuoc']=="x"? "<select class='chon".$stt."' onchange='cha(\"".$chuoi."\")'><option selected='selected' value='bb'>Bắt buộc</option><option value='tt' >Tự chọn</option></select>":"<select class='chon".$stt."' onchange='cha(\"".$chuoi."\")'><option value='bb'>Bắt buộc</option><option selected='selected' value='tt'>Tự chọn</option></select>";	
 		$t.='<tr>
 				<td scope="row">'. $stt++ .'</td>
 				<td>'. $row["tenNganh"].' </td>	
@@ -77,7 +88,8 @@ function hienthitable($maNganh,$he,$sttKhoa,$hk)
 				<td>'. $row["hocKi"].'</td>	
 				<td>'. $row["namHoc"].'</td>
 				<td>'. $row["tenMon"].$kk.'</td>			
-				<td>'. $row["soTc"].'</td>			
+				<td>'. $row["soTc"].'</td>
+				<td>'.$loai.'</td>			
 				<td>
 				<button type="button" onclick="del(\''.$chuoi.'\')" style="border:none; background-color:transparent"> <img src="img/delete.png" width="20" height="20" ></button>							
 		</td>
@@ -274,17 +286,21 @@ function checkmontienquyet($maNganh,$he,$maMon,$hocKi,$sttKhoa)
 }
 function laygido($a,$sttKhoa){
 	$db=new db();
-	$data=$db->mysql->query("select * from chuongtrinhhoc inner join monhoc on chuongtrinhhoc.maMon=monhoc.maMon where maNganh=".$a." and sttKhoa=".$sttKhoa."");
+	$data=$db->mysql->query("select * from chuongtrinhhoc inner join monhoc on chuongtrinhhoc.maMon=monhoc.maMon where maNganh='".$a."' and sttKhoa=".$sttKhoa."");
 	$t="";
 	while($row=$data->fetch_assoc()){
 		if(checkmontienquyet($row['maNganh'],$row['he'],$row['maMon'],$row['hocKi'],$row['sttKhoa'])==false){
 			$t.="<p style='color:#C70000;'>".$row['tenMon']."(Học kì ".$row['hocKi'].")</p>";
 		}
 	}
-	echo $t;
-
-
-		
-	
+	echo $t;	
+}
+function doicaigido($query)
+{
+	$db=new db();
+	if($db->mysql->query($query))
+		echo "ok";
+	else 
+		echo "error";
 }
 ?>

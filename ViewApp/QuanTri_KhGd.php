@@ -209,7 +209,8 @@
 				  	  <th width="10"><center>Học kì</center></th>
 					  <th width="20"><center>Năm học</center></th>
 					  <th width="130"><center>Tên môn</center></th>
-  					  <th width="30"><center>Tín chỉ</center></th>
+					  <th width="30"><center>Tín chỉ</center></th>
+					  <th width="30"><center>loại</center></th>
 					  <th width="70">&nbsp;  </th>
 					</tr>
 				  </thead>
@@ -241,6 +242,25 @@
 			},
 			success: function (response) {
 				$('.error').html(response)
+			}
+		});
+	}
+
+	function cha(e)
+	{
+		var t=".chon"+e.substring(e.length-1)
+		var chon=$(t).val()
+		$.ajax({
+			type: "post",
+			url: "index.php?f=function",
+			data: {
+				"action":"changeloai",
+				"data":e,
+				"chon":chon
+			},
+			success: function (response) {
+				if(response=="ok")
+					gettable()
 			}
 		});
 	}
@@ -411,5 +431,6 @@
 
 			}  
 	 });
+
 
 </script>

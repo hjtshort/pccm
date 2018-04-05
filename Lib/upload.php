@@ -25,6 +25,9 @@ if(isset($_FILES['file']))
 		$db=new db();
 		$data['namhoc']=mb_substr(str_replace(' ','',$data['khoahoc']),10,4,'utf8');
 		$data['khoa']=mb_substr(str_replace(' ','',$data['khoahoc']),7,2,'utf8');
+		// echo "<pre>";
+		// print_r($data);
+		// echo "</pre>";
 		foreach($data['danhsach'] as $key=> $value){
 			$str="insert into monhoc values";
 			$str2="insert into monhocnganh values";
@@ -40,36 +43,33 @@ if(isset($_FILES['file']))
 			$value['sotc']!=''? $str.=",".$value['sotc']:$str.=",0";
 			$value['sotietlt']!=''? $str.=",".$value['sotietlt']:$str.=",0";
 			$value['sotietbt']!=''? $str.=",0,".$value['sotietbt'].",0)":$str.=",0,0,0)";
-			$str2.="(".$data['ma_nghanh'].",'".str_replace(",",".",	$data['danhsach'][$key]['mamon'])."',".$data['he'].")";
-			if($value['batbuot']=="x"){
-				$str3="insert into chuongtrinhhoc values";
-				$str3.="(".$data['ma_nghanh'].",'".str_replace(",",".",	$data['danhsach'][$key]['mamon'])."',".$data['he'].",".$data['khoa']."";
-				$hocki=explode(" ",$value['hocki']);
-				switch (trim($hocki[2])){
-					case "I":
-						$str3.=",1,".intval($data['namhoc'])."";
-						break;
-					case "II":
-						$str3.=",2,".(intval($data['namhoc'])+1)."";
-						break;
-					case "III";
-						$str3.=",3,".(intval($data['namhoc'])+1)."";
-						break;
-					case "IV";
-						$str3.=",4,".(intval($data['namhoc'])+2)."";
-						break;
-					case "V";
-						$str3.=",5,".(intval($data['namhoc'])+2)."";
-						break;
-					case "VI";
-						$str3.=",6,".(intval($data['namhoc'])+3)."";
-						break;
-					default:
-				}
-				$value['tuchon']=="x" ? $str3.=",'x',' ')":$str3.=",' ','x')";
-
-
+			$str2.="('".$data['ma_nghanh']."','".str_replace(",",".",	$data['danhsach'][$key]['mamon'])."',".$data['he'].")";
+			$str3="insert into chuongtrinhhoc values";
+			$str3.="('".$data['ma_nghanh']."','".str_replace(",",".",	$data['danhsach'][$key]['mamon'])."',".$data['he'].",".$data['khoa']."";
+			$hocki=explode(" ",$value['hocki']);
+			switch (trim($hocki[2])){
+				case "I":
+					$str3.=",1,".intval($data['namhoc'])."";
+					break;
+				case "II":
+					$str3.=",2,".(intval($data['namhoc'])+1)."";
+					break;
+				case "III";
+					$str3.=",3,".(intval($data['namhoc'])+1)."";
+					break;
+				case "IV";
+					$str3.=",4,".(intval($data['namhoc'])+2)."";
+					break;
+				case "V";
+					$str3.=",5,".(intval($data['namhoc'])+2)."";
+					break;
+				case "VI";
+					$str3.=",6,".(intval($data['namhoc'])+3)."";
+					break;
+				default:
 			}
+			$value['tuchon']=="x" ? $str3.=",'x',' ')":$str3.=",' ','x')";
+			echo $str3;
 		 	try{
 		 		$db->mysql->query($str);
 				$db->mysql->query($str2);
