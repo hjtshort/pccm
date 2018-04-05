@@ -309,6 +309,10 @@
 		NMT()
 	});
 	//lấy lại dữ liệu bảng nếu ngành thay đổi
+	$('#print').on("change",function(e){
+		console.log($(e.target).val());
+		console.log($(e.target).attr('kai-value'))
+	});
 	$('#nganh').change(function (e) { 
 		gettable()
 		laymonhoc()
