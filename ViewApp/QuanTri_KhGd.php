@@ -229,6 +229,9 @@
 </body>
 </html>
 <script>
+	$('#print').on("change",function(e){
+		console.log($(e.target));
+	});
 	function NMT(){
 		var nganh = $('#nganh').val()
 		var sttKhoa=$('#sttKhoa').val()
