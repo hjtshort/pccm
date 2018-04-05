@@ -8,6 +8,7 @@ define("IN_SITE", true);
  
 //Lấy vaitro người dùng
 $user  = is_logged();
+// var_dump($_SESSION['ss_user_token']);
 $vaiTro = isset($user) ? $user['vaiTro'] : '';
 
 //Lấy file cần chuyển đến
