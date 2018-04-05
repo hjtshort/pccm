@@ -88,10 +88,10 @@
 	          	<thead>
 					<tr >
 					  <th width="20"> STT </th>
-				  	  <th width="10"><center>Mã môn</center></th>
-					  <th width="130"><center>Tên môn</center></th>
-                      <th width="10"><center>Mã môn tiên quyết</center></th>
-					  <th width="130"><center>Tên môn tiên quyết</center></th>
+				  	  <th width="10">Mã môn</th>
+					  <th width="130">Tên môn</th>
+                      <th width="10">Mã môn tiên quyết</th>
+					  <th width="130">Tên môn tiên quyết</th>
 					  <th width="70">&nbsp;  </th>
 					</tr>
 				  </thead>
