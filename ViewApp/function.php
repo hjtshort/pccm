@@ -80,7 +80,7 @@ function hienthitable($maNganh,$he,$sttKhoa,$hk)
 		$tong+=intval($row["soTc"]);
 		$chuoi=$row["maNganh"]."+".$row["maMon"]."+".$row["he"]."+".$row["sttKhoa"]."+".$row["hocKi"]."+".$row["namHoc"]."+".$stt;	
 		$kk=checkmontienquyet($row["maNganh"],$row["he"],$row["maMon"],$row["hocKi"],$row["sttKhoa"])==false ? "<p><span style='color:red;'>Cần phải xóa vì môn tiên quyết chưa có trong chương trình</span></p>": "";
-		$loai= $row['batbuoc']=="x"? "<select class='chon".$stt."' onchange='cha(\"".$chuoi."\")'><option selected='selected' value='bb'>Bắt buộc</option><option value='tt' >Tự chọn</option></select>":"<select class='chon".$stt."' onchange='cha(\"".$chuoi."\")'><option value='bb'>Bắt buộc</option><option selected='selected' value='tt'>Tự chọn</option></select>";	
+		$loai= $row['batbuoc']=="x"? "<select id='bb_tc' kai-value=".$chuoi." class='chon".$stt."' onchange='cha(\"".$chuoi."\")'><option selected='selected' value='bb'>Bắt buộc</option><option value='tt' >Tự chọn</option></select>":"<select class='chon".$stt."' onchange='cha(\"".$chuoi."\")'><option value='bb'>Bắt buộc</option><option selected='selected' value='tt'>Tự chọn</option></select>";	
 		$t.='<tr>
 				<td scope="row">'. $stt++ .'</td>
 				<td>'. $row["tenNganh"].' </td>	
