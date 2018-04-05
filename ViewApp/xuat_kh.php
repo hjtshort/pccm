@@ -120,19 +120,28 @@ if (is_array($hocki) || is_object($hocki))
     foreach ($hocki as $hk) {
     $data = $this->get_dsmon($hk);
 	$rows = 1;
+	$tongsotc = 0;
+	$tongsotiet = 0;
+	$tongsotiet_lt = 0;
+	$tongsotiet_bt = 0;
 	// $excel->setActiveSheetIndex(0)->setCellValue('A'.$dimstart -1 ,'KẾ HOẠCH GIẢNG DẠY HỆ CAO ĐẲNG - KHÓA 42')->setCellValue('A5','Nghành đào tạo: Tin học ứng dụng    Mã Nghành: 6480205')->setCellValue('A6','Khóa học 42 (2017-2020)');
 	array_unshift($ds, array('t1'=>'HỌC KỲ '.$this->lama[$hk-1].': ………….. TC/ĐVHT (Bắt buộc: ………….TC/ ĐVHT, Tự chọn:…0…… TC/ ĐVHT)'));
 	while ($row = $data->fetch_assoc() ) {
 		$ds[] = array('STT' => $rows,'mahocphan'=>$row['maMon'],'tenmon'=>$row['tenMon'],'sotc' =>$row['soTc'],'batbuoc'=>$row['batbuoc'],'tuchon'=>$row['tuchon'],'tongsotiet'=>($row['soTietLt']+$row['soTietTh']),'sotietlt'=>$row['soTietLt'],'sot_th' => $row['soTietTh'],'kt'=> '');
+		$tongsotc += $row['soTc'];
+		$tongsotiet += ($row['soTietLt']+$row['soTietTh']);
+		$tongsotiet_lt += $row['soTietLt'];
+		$tongsotiet_bt += $row['soTietTh'];
 		$rows++;
 	    
 	}
+	$ds[] = array('STT' => '','mahocphan'=>'','tenmon'=>'Tổng cộng','sotc' =>$tongsotc,'batbuoc'=>'','tuchon'=>'','tongsotiet'=>$tongsotiet,'sotietlt'=>$tongsotiet_lt,'sot_th' => $tongsotiet_bt,'kt'=> '');
 
 	
 	// echo $working_start_row.':J'.($rows+$dimstart);
 	// die();
 	
-	$excel->getActiveSheet()->getStyle($working_start_row.':J'.($rows+$dimstart))->applyFromArray(
+	$excel->getActiveSheet()->getStyle($working_start_row.':J'.($rows+$dimstart+1))->applyFromArray(
     array(
         'borders' => array(
             'allborders' => array(
@@ -144,14 +153,14 @@ if (is_array($hocki) || is_object($hocki))
 );
 
 	$next = $rows+$dimstart;
-	$dimstart = $next+2;
+	$dimstart = $next+4;
 	
 	
 
 
 $excel->getActiveSheet()->fromArray($ds,NULL,$working_start_row);
 
-$working_start_row = "A".($next +=2);
+$working_start_row = "A".($next +=4);
 $ds = array();
 // array_push($ds,array('t1'=>'HỌC KỲ '.$lama[$hk+1].' : ……23…….. TC/ĐVHT (Bắt buộc: ……23…….TC/ ĐVHT, Tự chọn:…0…… TC/ ĐVHT)'));
 $ds[] =  array('t1'=>'STT','t2'=> 'Mã học phần/ môn học','t3'=>'Tên học phần/ môn học','t4'=>'Số TC/ ĐVHT','t5' => 'Bắt buộc','t6' => 'Tự chọn','t7'=>'Tổng số tiết','t8'=>'Số tiết LT','t9'=>'Số tiết BT/TH','t10' => 'Kiểm tra');
