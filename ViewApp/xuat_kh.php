@@ -93,7 +93,7 @@ $excel->getActiveSheet()->mergeCells('F2:J2');
 $excel->getActiveSheet()->getStyle('F2:J2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 
 
-$excel->setActiveSheetIndex(0)->setCellValue('A4','KẾ HOẠCH GIẢNG DẠY HỆ CAO ĐẲNG - KHÓA '.$this->sttk.'')->setCellValue('A5','Nghành đào tạo: '.$this->get_ten_ghanh().'    Mã Nghành: '.$this->manganh.'')->setCellValue('A6','Khóa học '.$this->sttk.' '.$this->get_nienkhoa().'');
+$excel->setActiveSheetIndex(0)->setCellValue('A4','KẾ HOẠCH GIẢNG DẠY HỆ CAO ĐẲNG - KHÓA '.$this->sttk.'')->setCellValue('A5','Ngành đào tạo: '.$this->get_ten_ghanh().'    Mã Ngành: '.$this->manganh.'')->setCellValue('A6','Khóa học '.$this->sttk.' '.$this->get_nienkhoa().'');
 
 $excel->getActiveSheet()->mergeCells('A4:J4');
 $excel->getActiveSheet()->mergeCells('A5:J5');
