@@ -211,7 +211,7 @@
 					  <th width="130"><center>Tên môn</center></th>
 					  <th width="30"><center>Tín chỉ</center></th>
 					  <th width="30"><center>loại</center></th>
-					  <th width="70">&nbsp;  </th>
+					  <th width="50"><button class="btn btn-xoa"><i class="fa fa-trash"></i> Xóa hết</button>  </th>
 					</tr>
 				  </thead>
 			  <tbody id="print">
