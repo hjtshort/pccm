@@ -229,9 +229,7 @@
 </body>
 </html>
 <script>
-	$('#print').on("change",function(e){
-		console.log($(e.target));
-	});
+
 	function NMT(){
 		var nganh = $('#nganh').val()
 		var sttKhoa=$('#sttKhoa').val()
@@ -245,25 +243,6 @@
 			},
 			success: function (response) {
 				$('.error').html(response)
-			}
-		});
-	}
-
-	function cha(e)
-	{
-		var t=".chon"+e.substring(e.length-1)
-		var chon=$(t).val()
-		$.ajax({
-			type: "post",
-			url: "index.php?f=function",
-			data: {
-				"action":"changeloai",
-				"data":e,
-				"chon":chon
-			},
-			success: function (response) {
-				if(response=="ok")
-					gettable()
 			}
 		});
 	}
@@ -308,10 +287,26 @@
 		laymonhoc()
 		NMT()
 	});
-	//lấy lại dữ liệu bảng nếu ngành thay đổi
+
 	$('#print').on("change",function(e){
-		console.log($(e.target).val());
-		console.log($(e.target).attr('kai-value'))
+	 var chon =$(e.target).val()
+	 var data =	$(e.target).attr('kai-value')
+		$.ajax({
+			type: "post",
+			url: "index.php?f=function",
+			data: {
+				"action":"changeloai",
+				"data":data,
+				"chon":chon
+			},
+			success: function (response) {
+				if(response=="ok")
+					gettable()
+			}
+		});
+		//console.log($($(e.target).parent('td').parent('tr')[0]).find("td").eq(2).html()); // cai này là lấy cái select 
+	 //lấy cái dong cái nào thay đổi thằng target mới lấy đc hả
+		
 	});
 	$('#nganh').change(function (e) { 
 		gettable()
