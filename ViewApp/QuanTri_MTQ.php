@@ -79,7 +79,7 @@
             </div>
             
         </div>
-        <div style="float:right;margin-bottom: 30px"><button class="btn btn-custom" type="button" id="insert">Thêm</button></div>
+        <div style="float:right;margin-bottom: 30px"><button type="button" class="btn btn-custom" type="button" id="insert">Thêm</button></div>
     
         <div class="row">
              <table class="table table-hover"  >

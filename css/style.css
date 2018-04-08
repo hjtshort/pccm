@@ -155,5 +155,15 @@ body {
 #nav ul ul {
   left: 160px;
   top: 0px; }
-
+.btn-xoa{
+  width: 90px;
+  border-radius: 0;
+  background-color: #c70000;
+  color: #fff;
+  transition: 0.3s;
+}
+.btn-xoa:hover{
+  background-color: #f90000;
+  color: #fff;
+}
 /*# sourceMappingURL=style.css.map */

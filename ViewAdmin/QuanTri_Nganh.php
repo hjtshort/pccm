@@ -126,7 +126,7 @@
 					  <th width="20"> STT </th>					
  					  <th width="400"><center>Tên ngành</center></th>
 				  	  <th width="400"><center>Bộ Môn</center></th>
-					  <th width="70">&nbsp;  </th>
+					  <th width="70">&nbsp </th>
 					</tr>
 				  </thead>
 			  <tbody>
