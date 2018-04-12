@@ -98,11 +98,15 @@
 						               
                       </tr>
 					   <tr>
-                        <td height="35"> Môn học: </td>
-						<td ><select name="maMon"  id="mamon">							 							
-								
-						  	</select>	
-						 </td>                       
+							<td>&nbsp</td>
+							<td><input  type="text" value="" id="inp-search" placeholder="Tìm kiếm"></td>
+						</tr>
+						<tr>			
+							<td height="35"> Môn học: </td>
+							<td ><select name="maMon"  id="mamon" size="5">							 							
+									
+								</select>	
+							</td>                       
                       </tr>
 					  <tr>
                         <td colspan="5" height="10"></td>
@@ -159,6 +163,24 @@
 </body>
 </html>
 <script>
+	$('#inp-search').keyup(function (e) { 
+		var search =this.value
+		var nganh=$('#nganh').val()
+		var he= $('#he').val()
+		$.ajax({
+			type: "post",
+			url: "index.php?f=function",
+			data:{ 
+				"nganh":nganh,
+				"he":he,
+				"action":"search",
+				"search":search
+			},
+			success: function (response) {
+				$('#mamon').html(response)
+			}
+		});
+	});
 	$('.btn-xoa').click(function (e) { 
 
 		var r = confirm("Are you sure!");
@@ -277,11 +299,14 @@
 		gettable()
 		laymonhoc()
 		NMT()
+		$('#inp-search').val('')
 	});
 		//lấy lại dữ liệu bảng nếu hệ thay đổi
 	$('#he').change(function (e) { 
 		gettable()
-		laymonhoc()		
+		laymonhoc()	
+		$('#inp-search').val('')
+
 	});
 		//lấy lại dữ liệu bảng nếu khóa thay đổi
 	 $('#sttKhoa').change(function (e) { 

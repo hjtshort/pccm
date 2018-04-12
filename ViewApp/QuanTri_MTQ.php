@@ -61,18 +61,20 @@
                     </div>
             </div>
             <div class="col-md-12 row">
-                    <div class="col-md-6">
-                    <label for="">Chọn môn: </label>
+                <div class="col-md-6">
+                <label for="">Chọn môn: </label><br>
+                <input type="text" id="inp-search1" placeholder="Tìm kiếm">
                 <div class="chonmon">
-                <select name="" id="monhoc">
+                    <select name="" id="monhoc" size="5">
                        
                     </select>
                 </div>
             </div>
             <div class="col-md-6">
-                    <label for="">Chọn môn tiên quyết</label>
+                    <label for="">Chọn môn tiên quyết: </label><br>
+                    <input type="text" id="inp-search2" placeholder="Tìm kiếm">
                     <div class="chonmontienquyet">
-                    <select name="" id="monhoctienquyet">
+                    <select name="" id="monhoctienquyet" size="5">
                               
                             </select>
                     </div>
@@ -111,6 +113,38 @@
 
 </html>
 <script>
+$('#inp-search1').keyup(function (e) { 
+    var nganh=$('#nganh').val()
+    var search=this.value
+    $.ajax({
+        type: "post",
+        url: "index.php?f=function",
+        data: {
+            "action":"search2",
+            "nganh":nganh,
+            "search":search
+            },
+        success: function (response) {
+            $('#monhoc').html(response)
+        }
+    });
+});
+$('#inp-search2').keyup(function (e) { 
+    var nganh=$('#nganh').val()
+    var search=this.value
+    $.ajax({
+        type: "post",
+        url: "index.php?f=function",
+        data: {
+            "action":"search2",
+            "nganh":nganh,
+            "search":search
+            },
+        success: function (response) {
+            $('#monhoctienquyet').html(response)
+        }
+    });
+});
 function laymonhoc(){
     var nganh=$('#nganh').val()
     $.ajax({
@@ -127,6 +161,8 @@ function laymonhoc(){
 }
 $('#nganh').on('change', function () {
    laymonhoc()
+   $('#inp-search1').val('')
+   $('#inp-search2').val('')
 
 });
 $('#insert').on('click', function () {

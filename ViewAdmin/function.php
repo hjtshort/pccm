@@ -63,6 +63,11 @@ else if(isset($_POST['action']) && trim($_POST['action'])=="laygido"){
 else if(isset($_POST['action']) && trim($_POST['action'])=="delete-all"){
 	delete_all($_POST['maNganh'],$_POST['he'],$_POST['sttKhoa'],$_POST['hocKi']);	
 }
+else if(isset($_POST['action']) && trim($_POST['action'])=="search"){
+	search($_POST['nganh'],$_POST['he'],$_POST['search']);
+}else if(isset($_POST['action']) && trim($_POST['action'])=="search2"){
+	search2($_POST['nganh'],$_POST['search']);
+}
 function hienthitable($maNganh,$he,$sttKhoa,$hk)
 {
 	$db=new db();
@@ -281,5 +286,32 @@ function doicaigido($query)
 		echo "ok";
 	else 
 		echo "error";
+}
+function search($malop,$he,$tim)
+{
+	$db=new db();
+	$maNganh=$db->mysql->escape_string($malop);
+	$He=$db->mysql->escape_string($he);
+	$search=$db->mysql->escape_string($tim);
+	$data=$db->mysql->query("select * from monhoc inner join monhocnganh on monhoc.maMon=monhocnganh.maMon where maNganh=".$maNganh." and he=".$He." and tenMon like '%".$search."%'");
+	$t="";
+	while($data4=$data->fetch_assoc()){
+		$t.='<option value="'.$data4["maMon"].'" >'.$data4["tenMon"].'('.$data4["maMon"].')-'.$data4["soTc"].' tín chỉ							
+		</option>';
+	}
+	echo $t;
+}
+function search2($malop,$tim)
+{
+	$db=new db();
+	$maNganh=$db->mysql->escape_string($malop);
+	$search=$db->mysql->escape_string($tim);
+	$data=$db->mysql->query("select * from monhoc inner join monhocnganh on monhoc.maMon=monhocnganh.maMon where maNganh=".$maNganh." and tenMon like '%".$search."%'");
+	$t="";
+	while($data4=$data->fetch_assoc()){
+		$t.='<option value="'.$data4["maMon"].'" >'.$data4["tenMon"].'('.$data4["maMon"].')-'.$data4["soTc"].' tín chỉ							
+		</option>';
+	}
+	echo $t;
 }
 ?>
