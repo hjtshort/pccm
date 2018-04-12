@@ -48,10 +48,10 @@ for ($i = 0; $i <= $Totalrow; $i++)
 	{
 		$data[$i][$j]=$sheet->getCellByColumnAndRow($j, $i)->getValue();
 		
-		if(preg_match("/Nghành đào tạo: (.*)/",$data[$i][$j],$matchl))
+		if(preg_match("/Ngành đào tạo: (.*)/",$data[$i][$j],$matchl))
 		{
 			$ma_nghanh = explode(":",$data[$i][$j])[count(explode(":",$data[$i][$j])) -1];
-			$tennghanh = preg_match("/Nghành đào tạo: (.*)    Mã Nghành/",$data[$i][$j],$tennghanh2);
+			$tennghanh = preg_match("/Ngành đào tạo: (.*)    Mã Ngành/",$data[$i][$j],$tennghanh2);
 			$tennghanh = $tennghanh2[1];
 			
 			
