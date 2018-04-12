@@ -12,7 +12,10 @@
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link href="ViewAdmin/style.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="js/jquery.js"></script>
+
     <script type="text/javascript" src="js/main.js"></script>
+
+
 
    	<style type="text/css">
 		.style1 {
@@ -211,7 +214,7 @@
 					  <th width="130"><center>Tên môn</center></th>
 					  <th width="30"><center>Tín chỉ</center></th>
 					  <th width="30"><center>loại</center></th>
-					  <th width="50"><button class="btn btn-xoa"><i class="fa fa-trash"></i> Xóa hết</button>  </th>
+					  <th width="50"><button type="button" class="btn btn-xoa"><i class="fa fa-trash"></i> Xóa hết</button>  </th>
 					</tr>
 				  </thead>
 			  <tbody id="print">
@@ -229,6 +232,38 @@
 </body>
 </html>
 <script>
+	$('.btn-xoa').click(function (e) { 
+
+		var r = confirm("Are you sure!");
+		if (r == true) {
+			var nganh = $('#nganh').val()
+			var sttKhoa=$('#sttKhoa').val()
+			var he =$('#he').val()
+			var hocky =$('#hocky').val()
+			$.ajax({
+				type: "post",
+				url: "index.php?f=function",
+				data: {"action":"delete-all",
+					"maNganh":nganh,
+					"sttKhoa":sttKhoa,
+					"he":he,
+					"hocKi":hocky
+				},
+				success: function (response) {
+					if(response=="ok"){
+						gettable()
+						NMT()
+					}
+					alert("Không thể xóa!")		
+				}
+			});
+			
+		} 
+		else {
+			
+		}
+		
+	});
 
 	function NMT(){
 		var nganh = $('#nganh').val()

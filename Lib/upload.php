@@ -69,7 +69,6 @@ if(isset($_FILES['file']))
 				default:
 			}
 			$value['tuchon']=="x" ? $str3.=",'x',' ')":$str3.=",' ','x')";
-			echo $str3;
 		 	try{
 		 		$db->mysql->query($str);
 				$db->mysql->query($str2);

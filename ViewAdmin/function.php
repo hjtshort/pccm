@@ -124,39 +124,6 @@ function delete_all($maNganh,$he,$sttKhoa,$hocKi){
 function insertcth($maNganh,$maMon,$he,$sttKhoa,$hocKi,$namHoc)
 {
 	$db=new db();
-	// $t="";
-	// $check=array();
-	// $montienquyet=$db->mysql->query("select maMonTq from montienquyet where maMon='".$maMon."'");
-	// while($row=$montienquyet->fetch_assoc()){
-	// 	$t.="'".$row['maMonTq']."'";
-	// 	array_push($check,$row['maMonTq']);
-	// }
-	// if($t==""){
-	// 	$query=$db->mysql->query("insert into chuongtrinhhoc values (".$maNganh.",'".$maMon."',".$he.",".$sttKhoa.",".$hocKi.",".$namHoc.",' ','x')");
-	// 	if($query)
-	// 		echo 'ok';
-	// 	else
-	// 		echo 'error';
-		
-	// }else{
-	// 	$i=1;
-	// 	$in="";
-	// 	while($i<=$hocKi){
-	// 		$in.=$i.",";
-	// 		$i++;
-			
-	// 	}
-	// 	$checked=true;
-	
-	// 	foreach($check as $value)
-	// 	{
-	// 		$qq=$db->mysql->query("select * from chuongtrinhhoc where maNganh=".$maNganh." and he=".$he." and maMon='".$value."' and hocKi in (".substr($in,0,strlen($in)-1).")")->num_rows;	
-	// 		if($qq==0){
-	// 			$checked=false;
-	// 		}
-	// 		//echo "select * from chuongtrinhhoc where maNganh=".$maNganh." and he=".$he." and maMon='".$value."' and hocKi in (".substr($in,0,strlen($in)-1).")";
-
-	// 	}
 		$checked=checkmontienquyet($maNganh,$he,$maMon,$hocKi,$sttKhoa);
 		if($checked==true){
 			$query=$db->mysql->query("insert into chuongtrinhhoc values (".$maNganh.",'".$maMon."',".$he.",".$sttKhoa.",".$hocKi.",".$namHoc.",' ','x')");
@@ -198,7 +165,7 @@ function laymonhoc($malop,$he){
 function laynganh(){
 	$db=new db();
 	$result=array();
-	$value=$db->mysql->query("select maNganh,tenNganh from nganh");
+	$value=$db->mysql->query("select distinct maNganh,tenNganh from nganh inner join canbo on nganh.maBm=canbo.maBm where maCb='". $_SESSION['ss_user_token']['ms']."'");
 	while($row=$value->fetch_assoc()){
 		array_push($result,$row);
 	}

@@ -14,7 +14,7 @@
 <link href="ViewAdmin/style1.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 <link rel="stylesheet" href="css/style.css" />
- <script src="js/functions.js"></script>
+ <!-- <script src="js/functions.js"></script> -->
 
 </head>
 
@@ -83,6 +83,8 @@
 <li><a href="index.php?f=QuanTri_Lop">Lớp</a></li>
 <li><a href="index.php?f=QuanTri_Mon">Môn học</a></li>
 <li><a href="index.php?f=QuanTri_KhGd">Kế hoạch giảng dạy</a></li>
+<li><a href="index.php?f=QuanTri_ThemKH">Thêm kế hoạch giảng dạy</a></li>
+<li><a href="index.php?f=QuanTri_MTQ">Môn tiên quyết</a></li>
 </ul>
 </li>
 <li><a href="#">Thống kê </a>
