@@ -28,7 +28,7 @@ vertical-align:middle !important;
  <div class="wrapper" style="background-color:#FFFFFF"> 
 <?php
 	require_once("lib/QuanTri_Pccm.php");	
-	require_once("ViewAdmin/header.php");
+	require_once("ViewCB/header.php");
 	$now=getdate();
 	$nh1=$now["year"];
 	$sql="select max(sttKhoa) as khoa from chuongtrinhhoc";
