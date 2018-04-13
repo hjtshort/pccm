@@ -11,6 +11,7 @@
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link href="ViewAdmin/style.css" rel="stylesheet" type="text/css" />
+	<link href="css/style.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
 
@@ -28,7 +29,7 @@ vertical-align:middle !important;
  <div class="wrapper" style="background-color:#FFFFFF"> 
 <?php
 	require_once("lib/QuanTri_Pccm.php");	
-	require_once("ViewAdmin/header.php");
+	require_once("ViewCB/header.php");
 	$now=getdate();
 	$nh1=$now["year"];
 	$sql="select max(sttKhoa) as khoa from chuongtrinhhoc";

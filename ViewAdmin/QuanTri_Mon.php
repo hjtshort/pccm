@@ -79,7 +79,7 @@
 		$tenMon = $data_chon["tenMon"];	
 		$soTC 	= $data_chon["soTc"];	
 		$LT	 	= $data_chon["soTietLt"];	
-		$BT	 	= $data_chon["soTietBt"];	
+		$BT	 	= $data_chon["soTietBT"];	
 		$TH 	= $data_chon["soTietTh"];							
 		$KT 	= $data_chon["soTietKt"];							
 	}
@@ -173,7 +173,7 @@
 						  <td><?php echo $row["tenMon"]; ?></td>	
 							<td><center><?php echo $row["soTc"]; ?></center></td>	
 						  <td><center><?php echo $row["soTietLt"]; ?></center></td>
-  						  <td><center><?php echo $row["soTietBt"]; ?></center></td>
+  						  <td><center><?php echo $row["soTietBT"]; ?></center></td>
 						  <td><center><?php echo $row["soTietTh"]; ?></center></td>			
   						  <td><center><?php echo $row["soTietKt"]; ?></center></td>			
 						  <td>						

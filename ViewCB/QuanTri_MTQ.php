@@ -14,7 +14,7 @@
 	<link rel="stylesheet" type="text/css" href="css/reset.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	<link href="ViewAdmin/style.css" rel="stylesheet" type="text/css" />\
+	<link href="ViewAdmin/style.css" rel="stylesheet" type="text/css" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Website Truong bo mon</title>
     <link href="ViewAdmin/style.css" rel="stylesheet" type="text/css" />
