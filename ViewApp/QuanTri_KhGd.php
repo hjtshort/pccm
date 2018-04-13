@@ -276,7 +276,10 @@
 						gettable()
 						NMT()
 					}
-					alert("Không thể xóa!")		
+					else{
+						alert("Không thể xóa!")	
+					}
+						
 				}
 			});
 			

@@ -51,8 +51,10 @@ for ($i = 0; $i <= $Totalrow; $i++)
 		if(preg_match("/Ngành đào tạo: (.*)/",$data[$i][$j],$matchl))
 		{
 			$ma_nghanh = explode(":",$data[$i][$j])[count(explode(":",$data[$i][$j])) -1];
-			$tennghanh = preg_match("/Ngành đào tạo: (.*)    Mã Ngành/",$data[$i][$j],$tennghanh2);
-			$tennghanh = $tennghanh2[1];
+			$tennghanh = preg_match("/Mã Ngành:(.*)/",$data[$i][$j],$tennghanh2);
+			// return $tennghanh2; 
+			
+			$tennghanh = trim($tennghanh2[1]);
 			
 			
 		}
@@ -86,7 +88,7 @@ for ($i = 0; $i <= $Totalrow; $i++)
 	}
 }
     return  array("he"=>$he,"ma_nghanh" => trim($ma_nghanh),"khoahoc"=>$khoahoc,"tennghanh" => $tennghanh,"danhsach"=>$datadump);
-        
+       
         }
     }
     

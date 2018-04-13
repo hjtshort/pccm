@@ -55,6 +55,7 @@
 	}*/		
 	
 	$chuoi	= $_SESSION['idMau'];
+	var_dump($chuoi);
 	$ma =explode(" ",$chuoi);//Tach các cot
 	$maCb=$ma[0]; 
 	$namHoc=$ma[1];

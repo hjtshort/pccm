@@ -4,6 +4,8 @@ require_once("../ViewApp/function.php");
 require_once("../ViewApp/db.php");
 if(isset($_FILES['file']))
 {
+	// echo $_POST['mabm'];
+	// die();
 	$validextensions = array("xlsx","xls");
 	$temporary = explode(".", $_FILES["file"]["name"]);
 	$file_extension = end($temporary);
@@ -25,9 +27,9 @@ if(isset($_FILES['file']))
 		$db=new db();
 		$data['namhoc']=mb_substr(str_replace(' ','',$data['khoahoc']),10,4,'utf8');
 		$data['khoa']=mb_substr(str_replace(' ','',$data['khoahoc']),7,2,'utf8');
-		// echo "<pre>";
-		// print_r($data);
-		// echo "</pre>";
+		echo "<pre>";
+		print_r($data);
+		echo "</pre>";
 		foreach($data['danhsach'] as $key=> $value){
 			$str="insert into monhoc values";
 			$str2="insert into monhocnganh values";
@@ -69,6 +71,9 @@ if(isset($_FILES['file']))
 				default:
 			}
 			$value['tuchon']=="x" ? $str3.=",'x',' ')":$str3.=",' ','x')";
+			// echo $str1;
+			// echo $str2;
+			// echo $str3;
 		 	try{
 		 		$db->mysql->query($str);
 				$db->mysql->query($str2);

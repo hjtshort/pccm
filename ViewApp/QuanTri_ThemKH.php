@@ -66,6 +66,9 @@
     	<div class="from-control">
 			<label for="">Tải lên tập tin Excel môn học !</label>
 		</div>
+		<div class="from-control">
+		<input type="text" name="mabm" id="mabm">
+		</div>
 
 		<div class="from-control">
 		<input type="file" name="file" id="files">
