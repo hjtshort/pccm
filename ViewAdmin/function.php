@@ -92,6 +92,86 @@ else if(isset($_POST['action']) && trim($_POST['action'])=="NMTANE")
 {
 	create($_POST['nganh'],$_POST['he'],$_POST['khoa']);
 }
+else if(isset($_POST['action']) && trim($_POST['action'])=="ngominhthu")
+{
+	$data=explode('+',$_POST['nganh']);
+	ngominhthu($data[0],$_POST['he'],$data[2],$data[1]);
+}
+else if(isset($_POST['action']) && trim($_POST['action'])=="ngominhthu2")
+{
+	$data=explode('+',$_POST['data']);
+	ngominhthu2($_POST['macb'],$data[0],$data[1],$data[2],$data[3]);
+}
+else if(isset($_POST['action']) && trim($_POST['action'])=="ngominhthu3")
+{
+	ngominhthu3($_POST['data']);
+}
+function ngominhthu3($e)
+{
+	$db=new db();
+	$val=explode('+',$e);
+	$data=$db->mysql->query("delete from pcday where maCb='".$val[0]."' and maLop='".$val[1]."' and maMon='".$val[2]."' and hocKi=".$val[3]." and namHoc=".$val[4]."");
+	if($data)
+		echo "ok";
+	else 
+		echo "error";
+}
+function ngominhthu2($macb,$malop,$mamon,$hocki,$namhoc)
+{
+	$db=new db();
+	$data=$db->mysql->query("insert into pcday values('".$macb."','".$malop."','".$mamon."',".$hocki.",".$namhoc.",1)");
+	if($data)
+	{
+		echo "ok";
+	}
+	else
+	{
+		echo "error";
+	}
+}
+function ngominhthu1($malop,$mamon,$hocki,$namhoc)
+{
+	$db=new db();
+	$data1=$db->mysql->query("select * from pcday inner join canbo on pcday.maCb=canbo.maCb 
+	where maLop='".$malop."' and maMon='".$mamon."' and hocKi=".$hocki."")->fetch_assoc();
+	if($data1!=false)
+	{
+		$t=$data1['maCb']."+".$malop."+".$mamon."+".$hocki."+".$namhoc;
+		return "<td>".$data1['hoCb'].$data1['tenCb']."(".$data1['maCb'].")</td"."<td><button class='btn btn-danger' onclick='del(\"".$t."\")'>Hủy</button></td>";
+	}
+	else 
+	{
+		$t=$malop."+".$mamon."+".$hocki."+".$namhoc;
+		return "<td><button class='btn btn-success' onclick='ins(\"".$t."\")'>Phân công</button></td>";
+	}
+}
+function ngominhthu($maNganh,$he,$sttKhoa,$malop)
+{
+	$db=new db();
+	$sql = "SELECT * FROM chuongtrinhhoc cth, monhoc mh, nganh n ".
+	" Where cth.maNganh = '".$maNganh."'" .
+	 "	 and cth.he = '".$he."'" .
+	 "	 and sttKhoa = '".$sttKhoa."'" .						 					 
+	 "	 and cth.maMon=mh.maMon".
+	 "	 and cth.maNganh=n.maNganh".
+	" ORDER BY cth.namHoc, cth.hocKi ASC ";
+	$data=$db->mysql->query($sql);
+	$stt=0;
+	$t="";
+	while($row=$data->fetch_assoc())
+	{
+		$stt++;
+		$t.="<tr>
+			<td>".$stt."</td>
+			<td>".$row['maMon']."</td>
+			<td>".$row['tenMon']."</td>
+			<td>".$row['hocKi']."</td>
+			<td>".$row['namHoc']."</td>"
+		.ngominhthu1($malop,$row['maMon'],$row['hocKi'],$row['namHoc']).
+		"</tr>";
+	}
+	echo $t;
+}
 function create($nganh,$he,$khoa)
 {
 	$db=new db();

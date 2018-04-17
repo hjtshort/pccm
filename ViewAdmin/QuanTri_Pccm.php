@@ -35,6 +35,8 @@
 <?php
 	require_once("lib/QuanTri_Pccm.php");	
 	require_once("ViewAdmin/header.php");
+	require_once("ViewAdmin/function.php");
+	$db=new db();
 	$now=getdate();
 	$nh1=$now["year"];
 	
@@ -45,41 +47,9 @@
 	$khoa_max=$data["khoa"];
 	$khoa_max1=$khoa_max-1;
 	$khoa_max2=$khoa_max-2;
-	
-
-/*	if (isset($_POST["maLop"]))	 $maLop=trim($_POST["maLop"]);
-	 else{	$sql2="select min(malop) as maLop from lop";
-			$query2 = mysqli_query($conn,$sql2);
-			$data2 = mysqli_fetch_array($query2);	
-			$maLop=$data2["maLop"];
-	}*/		
-	
-	$chuoi	= $_SESSION['idMau'];
-	var_dump($chuoi);
-	$ma =explode(" ",$chuoi);//Tach các cot
+	$ma =explode(" ",$_GET['idMau']);
 	$maCb=$ma[0]; 
-	$namHoc=$ma[1];
-
-			
-	isset($_POST["tim_lop"])? $tim_lop=trim($_POST["tim_lop"]):	$tim_lop= '';		
-	isset($_POST["maLop"]) 	? $maLop=trim($_POST["maLop"])	:	$maLop= $ma[2];	
-	isset($_POST["chon"])	? $chon=trim($_POST["chon"])	:	$chon= '';	
-	
-	/*if (isset($_POST["maCb"])) 
-		 $maCb	=trim($_POST["maCb"]);
-	else if (isset($_SESSION['idMau']) && $_SESSION['idMau']!='') {
-		$maCb	= $_SESSION['idMau'];
-	}
-	else {
-			$sql2="select min(maCb) as maCb from canBo";
-			$query2 = mysqli_query($conn,$sql2);
-			$data2 = mysqli_fetch_array($query2);	
-			$maCb=$data2["maCb"];
-			}*/
-			
-	
-
-	
+	$namHoc=$ma[1];	
 	$sql="select CONCAT(hoCb,' ',tenCb) as ten from canbo where maCb='".$maCb."'";
 	$query = mysqli_query($conn,$sql);
 	$data = mysqli_fetch_array($query);
@@ -88,51 +58,12 @@
 	$query1 = mysqli_query($conn,$sql1);
 	$data1 = mysqli_fetch_array($query1);
 	$maBm=$data1["maBm"];
-	
 
-		
-	//////////////////////////////////
-	/*if (isset($_POST["namHoc"])) {		
-		if( $_POST["namHoc"]=='')
-		{		
-			$now = getdate();
-			$namHoc =  $now["year"]-1; 	
-		}	
-		else if( !is_numeric($_POST["namHoc"]))
-			thongBao("Vui lòng nhập năm học là một số");
-		else if( $_POST["namHoc"]<2010 & $_POST["namHoc"]>2050)
-			thongBao("Vui lòng nhập năm học là một số hợp lệ");
-		else
-			$namHoc =	$_POST["namHoc"];			
-	}		
-	else
-		{		
-			$now = getdate();
-			$namHoc =  $now["year"]-1; 	
-		}	
-		
-	*/
-	//////////////////////////////////
-	if (isset($_POST["btn_them"])) {					
-		$chuoi=$_POST["btn_them"];	  								
-		$ma =explode("+",$chuoi);//Tach các cot
-		$address = "QuanTri_pccm";	
-		ThemPccm($conn, $address, $ma[0],$ma[1],$ma[2],$ma[3],$ma[4]);		
-	}	
-	
-	if (isset($_POST["btn_xoa"])) {	
-			$chuoi=$_POST["btn_xoa"];	  								
-			$ma =explode("+",$chuoi);//Tach các cot
-			
-			$address = "QuanTri_Pccm";
-			XoaPccm($conn, $address, $ma[0],$ma[1],$ma[2],$ma[3],$ma[4]);
-			
-			
-	}	
 	
 	
 ?>
-	
+<input type="text" hidden  id="maCB" value="<?php echo $maCb; ?>">
+<input type="text" hidden  id="maBM" value="<?php echo $maBm; ?>">		
 <div class="wrapper" style="background-color:#FFFFFF"> 
 <div>
 	     <form name="form1" method="POST" action='index.php?f=QuanTri_Pccm&idMau=<?php echo $maCb." ".$namHoc." ".$maLop; ?>'>
@@ -146,89 +77,44 @@
 					
 			        <table width="800" border="1" >
 					
-					 <tr>
-                         <td width="200"> Lớp thuộc bộ môn: </td>									
-                         <td>        
-							<select name="maLop" onChange="this.form.submit()">
-                            <?php														
-									if($maLop!= '' && $tim_lop=='')
-									{								
-										$sql7 = "SELECT * FROM lop ".
-												" WHERE maLop= '".$maLop."'";												
-										$query7 = mysqli_query($conn,$sql7);
-										$data7 = mysqli_fetch_array($query7);									
-										
-										$sql_dem="select count(*) as sl from chuongtrinhhoc cth".
-										   " where cth.maNganh='".$data7['maNganh']."'".
-										   " and  cth.he='".$data7['he']."'".
-						   					" and cth.sttKhoa='".$data7['sttKhoa']."'".
-										   " and cth.namHoc='".$namHoc."'".
-									   " and cth.maMon not in (select maMon from pcday".
-									   " where maLop='".$data7['maLop']."')";
-									
-						   
-										$query_dem = mysqli_query($conn,$sql_dem);
-										$row_sl = mysqli_fetch_array($query_dem);
-										
-									 ?>
-									 
-									 
-                            <option value='<?php echo $data7["maLop"]; ?>'><?php echo $data7["tenLop"]." - K".$data7["sttKhoa"]." (". $row_sl["sl"]." môn)"; ?></option>
-                            <?php } 	
-										$sql8 = "SELECT * FROM lop ".
-												" WHERE maLop!= '".$maLop."'".
-												" and (sttKhoa= '".$khoa_max."'".
-												" or sttKhoa= '".$khoa_max1."'".
-												" or sttKhoa= '".$khoa_max2."')".
-												" and maNganh in (select maNganh from nganh n".
-												" where n.maBm='".$maBm."')".
-												" order by sttKhoa desc";
-																		
-										$query8 = mysqli_query($conn,$sql8);
-									
-										while ($data8 = mysqli_fetch_array($query8)) {
-											
-										$sql_dem_8="select count(*) as sl from chuongtrinhhoc cth".
-										   " where cth.maNganh='".$data8['maNganh']."'".
-										   " and  cth.he='".$data8['he']."'".
-						   					" and cth.sttKhoa='".$data8['sttKhoa']."'".
-										   " and cth.namHoc='".$namHoc."'".
-									   " and cth.maMon not in (select maMon from pcday".
-									   " where maLop='".$data8['maLop']."')";
-									
-						   
-										$query_dem_8 = mysqli_query($conn,$sql_dem_8);
-										$row_sl_8 = mysqli_fetch_array($query_dem_8);
-									
-
-									  ?>
-                            <option value='<?php echo $data8["maLop"]; ?>'><?php echo $data8["tenLop"]." - K".$data8["sttKhoa"]." (".$row_sl_8["sl"]." môn)"; ?></option>
-                            <?php } ?>
-                          </select>
-<!--                        <span class="tim"> (Tìm <input type="text" name="tim_lop" size="15"  onChange="this.form.submit()" value="<?php echo $tim_lop; ?>"> ) </span>-->
-						
-						<a href="index.php?f=QuanTri_Lop1&idMau=<?php $chuoi=$maCb." ".$namHoc; echo $chuoi; ?>" title="Chọn lớp theo khoa"> Tất cả các lớp </a>
-						</td>   
-                      </tr>
-					 
-					 
-                     
-					  <tr>
-                        <td colspan="5" height="10"></td>
-                      </tr>
+						<tr>
+							<td width="200"> Lớp thuộc bộ môn: </td>									
+							<td>        
+								<select name="maLop" id="lop">
+								<?php														
+																
+								$sql7 = "SELECT * FROM lop 
+											WHERE maNganh in (select maNganh from nganh where maBm=".$maBm.")";												
+								$query7 = $db->mysql->query($sql7);
+								while($row=$query7->fetch_assoc()){																	
+								?>									 
+									<option value='<?php echo $row["maNganh"]."+".$row['maLop']."+".$row['sttKhoa']; ?>'><?php echo $row["tenLop"]." - K".$row["sttKhoa"].""; ?></option>
+								<?php }
+									?>
+			
+							</td>   
+						</tr>
+						<tr>
+							<td>Hệ:</td>
+							<td>
+								<select name="" id="he">
+									<option value="1">Cao đẳng</option> 
+									<option value="2">Trung cấp</option> 	
+								</select>
+							</td>				
+						</tr>					
+						<tr>
+							<td colspan="5" height="10"></td>
+						</tr>
                       
                       
                     </table>
 			</center>		
 			<?php
-				$sql="select * from lop".
-						" where maLop='".$maLop."'";
-				$query = mysqli_query($conn,$sql);
-				$data = mysqli_fetch_array($query);
 					
 			?>
 			 <table class="table" border="1"  >
-          		<h3 class="style1"> Danh sách môn học chưa phân công thuộc Lop <?php echo $data["tenLop"]."-K".$data["sttKhoa"];?>   </h3>
+          		<h3 class="style1" id="title"></h3>
 	          	<thead>
 					<tr >
 					  <th width="29" ><center> STT</center> </th>
@@ -238,99 +124,12 @@
  					  <th width="325"  ><center>Tên Môn</center></th>
    					  <th width="77"  ><center>Học kì</center></th>
    					  <th width="71"  ><center>Năm học</center></th>
-					  <th width="45" >&nbsp; </th>
 					  <th width="250">Các môn đã phân công</th>
 					</tr>
 											
 			  </thead>
-			  <tbody>
-				  <?php
-				  	//B2: HIỂN THỊ
-					$stt = 1 ;	
-					$tong=0;
-/*					$sql_hienThi = 	"SELECT * FROM chuongtrinhhoc cth, monhoc mh, nganh n ".
-									" Where cth.maNganh like '%".$maNganh."%'" .
-									 "	 and cth.he = '".$he."'" .
-									 "	 and sttKhoa like '%".$sttKhoa."%'" .						 
-									 "	 and hocKi = '".$hk."'" .						 
-									 "	 and namHoc like '%".$namHoc."%'".
-									 "	 and cth.maMon=mh.maMon".
-									 "	 and cth.maNganh=n.maNganh".
-									" ORDER BY cth.namHoc, cth.hocKi ASC ";
-									
-					$sql_hienThi= "SELECT * FROM pcday d, lop l, monhoc mh".
-								" where d.maLop=l.malop".
-								" and d.maCb='".$maCb."'".
-								" and d.namHoc='".$namHoc."'".
-								" and d.maMon=mh.maMon";*/
-					
-
-
-					
-					
-					
-					
-					
-						
-					$sql1="select * from chuongtrinhhoc cth, monhoc mh".
-						   " where cth.maNganh='".$data['maNganh']."'".
-						   " and  cth.he='".$data['he']."'".
-						   " and cth.sttKhoa='".$data['sttKhoa']."'".
-						   " and cth.namHoc='".$namHoc."'".
-						   " and cth.maMon=mh.maMon".
-						   " and cth.maMon not in (select maMon from pcday".
-						   " where maLop='".$maLop."')".
-						   " order by cth.hocKi";
-					$j=1;	   
-					$query = mysqli_query($conn,$sql1);
-					$rowcount=mysqli_num_rows($query);
-					while ($row = mysqli_fetch_array($query)) {		
-
-					?>
-						<tr>
-						  <th scope="row"  width="29"><?php echo $stt++ ?></th>
-						  <td width="59"><?php echo $row["maMon"]; ?></td>	
-						  <td width="325"><?php echo $row["tenMon"]; ?></td>	
-						  <td width="77"><center><?php echo $row["hocKi"]; ?></center></td>	
- 						  <td width="71"><center><?php echo $row["namHoc"]; ?></center></td>	
-				    
-						  <td width="45"><center>						
-							  
-							  <?php
-							  	$chuoi=$maCb."+".$maLop."+".$row["maMon"]."+".$row["hocKi"]."+".$row["namHoc"];
-							 ?>
-
-							 <input type="image" name="btn_them" title="Thêm phân công"  value="<?php echo  $chuoi;?>"src="img/add_2.png" width="20" height="20">		</center>
-						  </td>
-						  	<?php 
-								$sql_mon= "SELECT * FROM pcday d, lop l, monhoc mh".
-											" where d.maLop=l.malop".
-											" and d.maCb='".$maCb."'".
-											" and d.namHoc='".$namHoc."'".
-											" and d.maMon=mh.maMon";
-								$query_mon = mysqli_query($conn,$sql_mon);
+			  <tbody id="print">
 			
-									
-							if ($j==1){?>
-							<td rowspan="<?php echo $rowcount+1?>" width="250"> <?php 
-																		$tt=1;
-																		while ($row_mon = mysqli_fetch_array($query_mon)){ ?>
-																			<input type="text" size="30" value="<?php  echo $tt." ".$row_mon["tenMon"];?>" title="<?php  echo "Lớp ".$row_mon["tenLop"]."-K ".$row_mon["sttKhoa"];?>" />
-																			
-						  <?php																
-																				echo "<br>"; 
-																				$tt++;} 			?></td>
-							<?php $j++; }?>
-						</tr>		
-									
-			  <?php }  ?>	
-			  
-			  <tr>
-			  	<td colspan="4" align="center"> Tổng số</td>
-				<td colspan="2"  ><?php echo --$stt. "  môn học"; ?> </td>
-				
-				
-			  </tr>				
 			  </tbody>
 			</table>	
 			<?php 
@@ -609,17 +408,76 @@
     	  
       	</div>
  
-    	</div>
-		
-		
-
-		
-	
-	
-
-	
-	
+    	</div>	
 <?php 	require_once("footer.php");?>
 </div><!--end wrapper--> 
 </body>
 </html>
+<script>
+	$(document).ready(function () {
+		title()
+		ngominhthu()
+		
+	});
+	$('#lop').on('change', function () {
+		title()
+		ngominhthu()
+	});
+	// $('#he').on('change', function () {
+	// 	ngominhthu()
+	// });
+
+	function title()
+	{
+		$('#title').html('Chương trình học của lớp '+$('#lop').text())
+	}
+	function ngominhthu()
+	{
+		var nganh=$('#lop').val()
+		var he=$('#he').val()
+
+		$.ajax({
+			type: "post",
+			url: "index.php?f=function",
+			data: {
+				"action":"ngominhthu",
+				"nganh":nganh,
+				"he":he
+			},
+			success: function (response) {
+				$('#print').html(response)
+			}
+		});
+	}
+	function ins(e)
+	{
+		var macb=$('#maCB').val()
+		$.ajax({
+			type: "post",
+			url: "index.php?f=function",
+			data: {"data":e,
+			"action":"ngominhthu2",
+			"macb":macb
+			},
+			success: function (response) {
+				if(response=="ok")
+					ngominhthu()
+			}
+		});
+	}
+	function del(e)
+	{
+		$.ajax({
+			type: "post",
+			url: "index.php?f=function",
+			data: {"data":e,
+			"action":"ngominhthu3"
+			},
+
+			success: function (response) {
+				if(response=="ok")
+					ngominhthu()
+			}
+		});
+	}
+</script>
