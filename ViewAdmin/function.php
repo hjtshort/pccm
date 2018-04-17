@@ -88,6 +88,34 @@ else if(isset($_POST['action']) && trim($_POST['action'])=="NMTAN")
 {
 	insertmonhocnganh($_POST['maNganh'],$_POST['maMon'],$_POST['he']);
 }
+else if(isset($_POST['action']) && trim($_POST['action'])=="NMTANE")
+{
+	create($_POST['nganh'],$_POST['he'],$_POST['khoa']);
+}
+function create($nganh,$he,$khoa)
+{
+	$db=new db();
+	$maNganh=$db->mysql->escape_string($nganh);
+	$He=$db->mysql->escape_string($he);
+	$sttKhoa=$db->mysql->escape_string($khoa);
+	$khoamoi=$sttKhoa+1;
+	$check=$db->mysql->query("select * from chuongtrinhhoc where maNganh='".$maNganh."' and he=".$He." and sttKhoa=".$sttKhoa."");
+	$insert="";
+	while($row=$check->fetch_assoc())
+	{
+		$namhoc=$row['namHoc']+1;
+		$tuchon= $row['tuchon']=="x"? "x":" ";
+		$batbuoc=$row['batbuoc']=="x"? "x":" ";
+		$insert.="('".$row['maNganh']."','".$row['maMon']."',".$He.",".$khoamoi.",".$row['hocKi'].",".$namhoc.",'".$tuchon."','".$batbuoc."'),";
+	}
+	$query=$db->mysql->query("insert into chuongtrinhhoc value".substr($insert,0,strlen($insert)-1));
+	if($query)
+	{
+		echo "ok";
+	}
+	else
+		echo "error";
+}
 function hienthitable($maNganh,$he,$sttKhoa,$hk)
 {
 	$db=new db();

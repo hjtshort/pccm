@@ -27,9 +27,9 @@ if(isset($_FILES['file']))
 		$db=new db();
 		$data['namhoc']=mb_substr(str_replace(' ','',$data['khoahoc']),10,4,'utf8');
 		$data['khoa']=mb_substr(str_replace(' ','',$data['khoahoc']),7,2,'utf8');
-		echo "<pre>";
-		print_r($data);
-		echo "</pre>";
+		// echo "<pre>";
+		// print_r($data);
+		// echo "</pre>";
 		foreach($data['danhsach'] as $key=> $value){
 			$str="insert into monhoc values";
 			$str2="insert into monhocnganh values";

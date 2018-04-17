@@ -164,10 +164,10 @@
                       <tr>
                         <td height="35"> Khóa: </td>
 						<td ><input type="text" name="sttKhoa" size="1" id="sttKhoa"  value="<?php echo $sttKhoa; ?>"><br> 
-						<div style="color:red;" id="validationkhoa">
-							
+						<div style="color:red;" id="validationkhoa">					
 						</div>  
 						</td>
+						<td height="35"><button type="button" class="btn btn-success create">Tạo</button> </td>
 						               
                       </tr>
 					  <tr>
@@ -235,7 +235,29 @@
 </div><!--end wrapper--> 
 </body>
 </html>
-<script>
+<script>	
+	$('.create').click(function (e) { 
+		var r = confirm("Are you sure!");
+		if (r == true){
+			var nganh=$('#nganh').val()
+			var he= $('#he').val()
+			var sttKhoa=$('#sttKhoa').val()
+			$.ajax({
+				url: 'index.php?f=function',
+				type: 'post',
+				data: {'action': 'NMTANE',
+				'nganh':nganh,
+				'he':he,
+				'khoa':sttKhoa
+				},
+				success:function(response)
+				{
+					console.log(response)
+				}
+			})
+		}
+			
+	});
 	$('#inp-search').keyup(function (e) { 
 		var search =this.value
 		var nganh=$('#nganh').val()
