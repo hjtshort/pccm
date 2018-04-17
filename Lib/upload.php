@@ -27,6 +27,27 @@ if(isset($_FILES['file']))
 		$db=new db();
 		$data['namhoc']=mb_substr(str_replace(' ','',$data['khoahoc']),10,4,'utf8');
 		$data['khoa']=mb_substr(str_replace(' ','',$data['khoahoc']),7,2,'utf8');
+		$val=$db->mysql->query('select maNganh from nganh');
+		$hetbietgi=true;
+		while($row=$val->fetch_assoc())
+		{
+			if($row['maNganh']==$data['ma_nghanh'])
+			{
+				$hetbietgi=false;
+			}
+		}
+		if($hetbietgi==true)
+		{
+			$dccc=$db->mysql->query("insert into nganh values('".$data['ma_nghanh']."','".$data['tennghanh']."',".$_POST['mabm'].")");
+			if($dccc)
+			{
+				echo "<label class='label label-success'>Thêm ngành mới thành công !</label>";
+			}
+			else
+			{
+				echo "<label class='label label-danger'>Thêm ngành mới thất bại !</label>";
+			}
+		}
 		// echo "<pre>";
 		// print_r($data);
 		// echo "</pre>";
@@ -73,7 +94,7 @@ if(isset($_FILES['file']))
 			$value['tuchon']=="x" ? $str3.=",'x',' ')":$str3.=",' ','x')";
 			// echo $str1;
 			// echo $str2;
-			// echo $str3;
+			 //echo $str3;
 		 	try{
 		 		$db->mysql->query($str);
 				$db->mysql->query($str2);
