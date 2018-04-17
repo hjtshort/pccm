@@ -261,15 +261,13 @@
 			var nganh = $('#nganh').val()
 			var sttKhoa=$('#sttKhoa').val()
 			var he =$('#he').val()
-			var hocky =$('#hocky').val()
 			$.ajax({
 				type: "post",
 				url: "index.php?f=function",
 				data: {"action":"delete-all",
 					"maNganh":nganh,
 					"sttKhoa":sttKhoa,
-					"he":he,
-					"hocKi":hocky
+					"he":he
 				},
 				success: function (response) {
 					if(response=="ok"){

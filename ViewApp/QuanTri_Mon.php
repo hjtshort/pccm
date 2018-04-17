@@ -31,7 +31,7 @@
  <div class="wrapper" style="background-color:#FFFFFF"> 
 <?php
 	require_once("lib/QuanTri_Mon.php");	
-	require_once("ViewAdmin/header.php");
+	require_once("ViewApp/header.php");
 	
 	isset($_POST["maMon"])  ? $maMon	=trim($_POST["maMon"]) 	:	$maMon= '';	
 	isset($_POST["tenMon"]) ? $tenMon	=trim($_POST["tenMon"]) :	$tenMon= '';	
@@ -173,7 +173,7 @@
 						  <td><?php echo $row["tenMon"]; ?></td>	
 							<td><center><?php echo $row["soTc"]; ?></center></td>	
 						  <td><center><?php echo $row["soTietLt"]; ?></center></td>
-  						  <td><center><?php echo $row["soTietBt"]; ?></center></td>
+  						  <td><center><?php echo $row["soTietBT"]; ?></center></td>
 						  <td><center><?php echo $row["soTietTh"]; ?></center></td>			
   						  <td><center><?php echo $row["soTietKt"]; ?></center></td>			
 						  <td>						
