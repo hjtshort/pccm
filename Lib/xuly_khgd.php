@@ -51,7 +51,7 @@ for ($i = 0; $i <= $Totalrow; $i++)
 		if(preg_match("/Ngành đào tạo: (.*)/",$data[$i][$j],$matchl))
 		{
 			$ma_nghanh = explode(":",$data[$i][$j])[count(explode(":",$data[$i][$j])) -1];
-			$tennghanh = preg_match("/Mã Ngành:(.*)/",$data[$i][$j],$tennghanh2);
+			$tennghanh = preg_match("/Mã Ngành:(.*)|Mã ngành:(.*)/",$data[$i][$j],$tennghanh2);
 			// return $tennghanh2; 
 			
 			$tennghanh = trim($tennghanh2[1]);
