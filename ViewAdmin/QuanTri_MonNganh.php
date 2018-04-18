@@ -42,7 +42,7 @@
 
   <?php
 	 require_once("lib/QuanTri_CanBo.php");
-     require_once("ViewApp/header.php");
+     require_once("ViewAdmin/header.php");
      require_once("function.php");
     
     ?>
