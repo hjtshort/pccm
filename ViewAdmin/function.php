@@ -106,6 +106,17 @@ else if(isset($_POST['action']) && trim($_POST['action'])=="ngominhthu3")
 {
 	ngominhthu3($_POST['data']);
 }
+function ahihi($macb,$malop)
+{
+	$db=new db();
+	$data=$db->mysql->query("select * from pcday where maCb='".$macb."' and maLop='".$malop."'")->num_rows;
+	if($data>3)
+	{
+		return "<br><span style='color:red;'>Giảng viên này đã được phân công hơn 3 môn</span>";
+	}
+	else
+		return "";
+}
 function ngominhthu3($e)
 {
 	$db=new db();
@@ -137,7 +148,8 @@ function ngominhthu1($malop,$mamon,$hocki,$namhoc)
 	if($data1!=false)
 	{
 		$t=$data1['maCb']."+".$malop."+".$mamon."+".$hocki."+".$namhoc;
-		return "<td>".$data1['hoCb'].$data1['tenCb']."(".$data1['maCb'].")</td"."<td><button class='btn btn-danger' onclick='del(\"".$t."\")'>Hủy</button></td>";
+		return "<td>".$data1['hoCb'].$data1['tenCb']."(".$data1['maCb'].")".ahihi($data1['maCb'],$malop).
+		"</td>"."<td><button class='btn btn-danger' onclick='del(\"".$t."\")'>Hủy</button></td>";
 	}
 	else 
 	{

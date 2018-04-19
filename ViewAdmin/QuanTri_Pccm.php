@@ -124,7 +124,8 @@
  					  <th width="325"  ><center>Tên Môn</center></th>
    					  <th width="77"  ><center>Học kì</center></th>
    					  <th width="71"  ><center>Năm học</center></th>
-					  <th width="250">Các môn đã phân công</th>
+					  <th width="270">Các môn đã phân công</th>
+					  <th width="30">&nbsp</th>
 					</tr>
 											
 			  </thead>
