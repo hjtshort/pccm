@@ -106,6 +106,22 @@ else if(isset($_POST['action']) && trim($_POST['action'])=="ngominhthu3")
 {
 	ngominhthu3($_POST['data']);
 }
+else if(isset($_POST['action']) && trim($_POST['action'])=="get_khoa")
+{
+	 get_max_khoa($_POST['maNganh']);
+}
+function get_max_khoa($maNganh)
+{
+	$db=new db();
+	$data=$db->mysql->query("SELECT MAX(sttKhoa) as maxkhoa from chuongtrinhhoc WHERE maNganh='$maNganh'")->fetch_assoc();
+	echo $data['maxkhoa'];
+}
+function get_Bm_session($macb)
+{
+	$db = new db();
+	$data=$db->mysql->query("select maBm from canbo where maCb='".$macb."'")->fetch_assoc();
+	return $data['maBm'];
+}
 function ahihi($macb,$malop)
 {
 	$db=new db();
@@ -412,11 +428,15 @@ function laygido($a,$sttKhoa){
 	$db=new db();
 	$data=$db->mysql->query("select * from chuongtrinhhoc inner join monhoc on chuongtrinhhoc.maMon=monhoc.maMon where maNganh='".$a."' and sttKhoa=".$sttKhoa."");
 	$t="";
-	while($row=$data->fetch_assoc()){
-		if(checkmontienquyet($row['maNganh'],$row['he'],$row['maMon'],$row['hocKi'],$row['sttKhoa'])==false){
-			$t.="<p style='color:#C70000;'>".$row['tenMon']."(Học kì ".$row['hocKi'].")</p>";
+	if($data)
+	{
+		while($row=$data->fetch_assoc()){
+			if(checkmontienquyet($row['maNganh'],$row['he'],$row['maMon'],$row['hocKi'],$row['sttKhoa'])==false){
+				$t.="<p style='color:#C70000;'>".$row['tenMon']."(Học kì ".$row['hocKi'].")</p>";
+			}
 		}
 	}
+	
 	echo $t;	
 }
 function doicaigido($query)

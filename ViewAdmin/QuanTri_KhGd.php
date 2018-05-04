@@ -1,4 +1,4 @@
-<?php	
+﻿<?php	
 	if (!defined('IN_SITE')) 
  	 	header('Location: ../index.php')	;	
 ?>
@@ -270,6 +270,7 @@
 		});
 	}
 	function gettable(){
+		
 			var nganh = $('#nganh').val()
 			var he =$('#he').val()
 			var sttKhoa=$('#sttKhoa').val()
@@ -288,11 +289,17 @@
 					$('#print').html(response)
 				}
 			});
+			//console.log(sttKhoa)
+			
 	}
 	$(document).ready(function () {
+		get_khoa()
+	
 		gettable()
 		laymonhoc()
 		NMT()
+
+	
 	});
 
 	$('#print').on("change",function(e){
@@ -315,8 +322,11 @@
 	 //lấy cái dong cái nào thay đổi thằng target mới lấy đc hả
 		
 	});
-	$('#nganh').change(function (e) { 
+	$('#nganh').change(function (e) {
+		
 		gettable()
+		get_khoa()
+	
 		laymonhoc()
 		NMT()
 		$('#inp-search').val('')
@@ -326,6 +336,7 @@
 		gettable()
 		laymonhoc()	
 		$('#inp-search').val('')
+		
 
 	});
 		//lấy lại dữ liệu bảng nếu khóa thay đổi
@@ -432,6 +443,21 @@
 
 			}  
 	 });
-
+function get_khoa()
+{
+    var e= $('#nganh').val()
+	$.ajax({
+		type: "post",
+		url: "index.php?f=function",
+		data: {
+			"action":"get_khoa",
+			"maNganh":e
+		},
+		success: function (response) {
+			if(response!='')
+				$('#sttKhoa').val(response)
+		}
+	});
+}
 
 </script>

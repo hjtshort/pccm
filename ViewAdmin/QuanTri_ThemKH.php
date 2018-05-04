@@ -55,7 +55,8 @@
  <div class="wrapper" style="background-color:#FFFFFF">
 
   <?php
-	 require_once("lib/QuanTri_CanBo.php");
+	 require_once("lib/QuanTri_CanBo.php"); 
+	 require_once("ViewAdmin/function.php");
 	 require_once("ViewAdmin/header.php");
 
 
@@ -65,6 +66,7 @@
 		<form id="upload" action="#" method="post" enctype="multipart/form-data">
     	<div class="from-control">
 			<label for="">Tải lên tập tin Excel môn học !</label>
+			<input type="hidden" name="mabm" id="files" value="<?php echo get_Bm_session($_SESSION['ss_user_token']['ms']);  ?>">
 		</div>
 
 		<div class="from-control">

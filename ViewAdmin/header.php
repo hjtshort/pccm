@@ -42,8 +42,8 @@
 <li><a href="index.php?f=">Kế hoạch giảng dạy</a>
 <ul>
 
-<li><a href="index.php?f=">Nhap khgd</a>
-<li><a href="index.php?f=">QLKHGD khgd</a>
+	<li><a href="index.php?f=QuanTri_KhGd">Kế hoạch giảng dạy</a></li>
+	<li><a href="index.php?f=QuanTri_ThemKH">Thêm kế hoạch giảng dạy</a></li>
 </ul>
 </li>
 <li><a href="index.php?f=QuanTri_Pccm1">Phân công</a>
@@ -78,18 +78,14 @@
 </ul>
 </li>
 <li><a href="#">Quản trị</a>
-<ul>
-<li><a href="index.php?f=QuanTri_Nganh">Ngành</a></li>
-<li><a href="index.php?f=QuanTri_Lop">Lớp</a></li>
-<li><a href="index.php?f=QuanTri_Mon">Môn học</a>
-	<ul> <!-- menu con-->
-			<li><a href="index.php?f=QuanTri_MonNganh">Môn học ngành</a></li>
+	<ul>
+		<li><a href="index.php?f=QuanTri_Nganh">Ngành</a></li>
+		<li><a href="index.php?f=QuanTri_Lop">Lớp</a></li>
+		<li><a href="index.php?f=QuanTri_Mon">Môn học</a>
+		<li><a href="index.php?f=QuanTri_MonNganh">Môn học ngành</a></li>
+		</li>
+		<li><a href="index.php?f=QuanTri_MTQ">Môn tiên quyết</a></li>
 	</ul>
-</li>
-<li><a href="index.php?f=QuanTri_KhGd">Kế hoạch giảng dạy</a></li>
-<li><a href="index.php?f=QuanTri_ThemKH">Thêm kế hoạch giảng dạy</a></li>
-<li><a href="index.php?f=QuanTri_MTQ">Môn tiên quyết</a></li>
-</ul>
 </li>
 <li><a href="#">Thống kê </a>
 	<ul> <!-- menu con-->

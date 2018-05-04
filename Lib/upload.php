@@ -65,7 +65,7 @@ if(isset($_FILES['file']))
 			$str.="('".str_replace(",",".",	$data['danhsach'][$key]['mamon'])."',N'".$value['tenhocphan']."'";
 			$value['sotc']!=''? $str.=",".$value['sotc']:$str.=",0";
 			$value['sotietlt']!=''? $str.=",".$value['sotietlt']:$str.=",0";
-			$value['sotietbt']!=''? $str.=",0,".$value['sotietbt'].",0)":$str.=",0,0,0)";
+			$value['sotietbt']!=''? $str.=",0,".$value['sotietbt'].",".$value['kiemtra'].")":$str.=",0,0,".$value['kiemtra'].")";
 			$str2.="('".$data['ma_nghanh']."','".str_replace(",",".",	$data['danhsach'][$key]['mamon'])."',".$data['he'].")";
 			$str3="insert into chuongtrinhhoc values";
 			$str3.="('".$data['ma_nghanh']."','".str_replace(",",".",	$data['danhsach'][$key]['mamon'])."',".$data['he'].",".$data['khoa']."";
@@ -92,9 +92,9 @@ if(isset($_FILES['file']))
 				default:
 			}
 			$value['tuchon']=="x" ? $str3.=",'x',' ')":$str3.=",' ','x')";
-			// echo $str1;
+			// echo $str;
 			// echo $str2;
-			 //echo $str3;
+			//  echo $str3;
 		 	try{
 		 		$db->mysql->query($str);
 				$db->mysql->query($str2);

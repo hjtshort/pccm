@@ -363,9 +363,12 @@
 			});
 	}
 	$(document).ready(function () {
+		get_khoa()
+	
 		gettable()
 		laymonhoc()
 		NMT()
+
 	});
 
 	$('#print').on("change",function(e){
@@ -390,6 +393,8 @@
 	});
 	$('#nganh').change(function (e) { 
 		gettable()
+		get_khoa()
+	
 		laymonhoc()
 		NMT()
 		$('#inp-search').val('')
@@ -445,18 +450,7 @@
 		var he = $('#he').val();
 		var sttKhoa=$('#sttKhoa').val();
 		window.location = 'index.php?f=function&action=xuat&he='+he+'&sttKhoa='+sttKhoa+'&nganh='+nganh+'';
-			// $.ajax({
-			// 		type: "GET",
-			// 		url: "index.php?f=function",
-			// 		data: {"nganh":nganh,
-			// 				"he":he,
-			// 				"sttKhoa":sttKhoa,
-			// 				"action":"xuat"
-			// 				},
-			// 		success: function (response) {
-			// 			console.log(response);
-			// 		}
-			// 	});
+
 			 });
 	 $('#btn-them').click(function (e) { 
 			var nganh = $('#nganh').val()
@@ -515,6 +509,22 @@
 
 			}  
 	 });
+	 function get_khoa()
+{
+    var e= $('#nganh').val()
+	$.ajax({
+		type: "post",
+		url: "index.php?f=function",
+		data: {
+			"action":"get_khoa",
+			"maNganh":e
+		},
+		success: function (response) {
+			if(response!='')
+				$('#sttKhoa').val(response)
+		}
+	});
+}
 
 
 </script>
