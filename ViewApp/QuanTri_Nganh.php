@@ -32,7 +32,7 @@
 	require_once("lib/QuanTri_Nganh.php");	
 	require_once("ViewApp/header.php");
 	
-
+	isset($_POST["maNganh"])? $maNganh=trim($_POST["maNganh"]) 	:	$maNganh = '';	
 	isset($_POST["tenNganh"])? $tenNganh=trim($_POST["tenNganh"]) 	:	$tenNganh = '';	
 	isset($_POST["maBm"]) 	 ? $maBm	=trim($_POST["maBm"])		:	$maBm= '';		
 	isset($_POST["chon"])	 ? $chon=trim($_POST["chon"])			:	$chon= '';	
@@ -40,7 +40,7 @@
 	//////////////////////////////////
 	if (isset($_POST["btn_them"])) {					
 			$address = "QuanTri_Nganh";
-			ThemNganh($conn, $address, $tenNganh, $maBm);		
+			ThemNganh($conn, $address, $maNganh,$tenNganh, $maBm);		
 	}	
 	
 	if (isset($_POST["btn_xoa"])) {		  								
@@ -59,7 +59,7 @@
 			{
 				$ma_old = $_POST["chon"];
 				$address = "QuanTri_Nganh";							
-				SuaNganh($conn, $address, $ma_old,  $tenNganh, $maBm);	
+				SuaNganh($conn, $address, $ma_old, $maNganh, $tenNganh, $maBm);	
 			}	
 	}	
 	
@@ -71,6 +71,7 @@
 					" where maNganh = '".$chon."'";
 		$query_chon = mysqli_query($conn,$sql_chon);
 		$data_chon = mysqli_fetch_array($query_chon);		
+		$maNganh= $data_chon["maNganh"];
 		$tenNganh= $data_chon["tenNganh"];
 		$maBm	 = $data_chon["maBm"];	
 	}	
@@ -87,6 +88,10 @@
 			<Center>				 		  
 					<input type="image" name="test"  value=""  width="3" height="3">
 			        <table width="800" border="1" >
+					  <tr>
+                        <td height="35" width="100"> Mã ngành: </td>
+                        <td ><input type="text" name="maNganh" size="40"  value="<?php echo $maNganh; ?>"> 	</td>						
+                      </tr>
 					  <tr>
                         <td height="35" width="100"> Tên ngành: </td>
                         <td ><input type="text" name="tenNganh" size="40"  value="<?php echo $tenNganh; ?>"> 	</td>						
@@ -130,6 +135,7 @@
 	          	<thead>
 					<tr >
 					  <th width="20"> STT </th>					
+         			  <th width="400"><center>Mã ngành</center></th>
  					  <th width="400"><center>Tên ngành</center></th>
 				  	  <th width="400"><center>Bộ Môn</center></th>
 					  <th width="70">&nbsp;  </th>
@@ -148,7 +154,8 @@
 					while ($row = mysqli_fetch_array($query)) {						    
 					?>
 						<tr>
-						  <th scope="row"><?php echo $stt++ ?></th>						
+						  <th scope="row"><?php echo $stt++ ?></th>	
+						  <td><?php echo $row["maNganh"]; ?></td>						
 						  <td><?php echo $row["tenNganh"]; ?></td>	
 						  <td><?php echo $row["tenBm"]; ?></td>	
 						  <td>	
@@ -161,7 +168,7 @@
 								<input type="radio" name="chon" value='<?php echo $row["maNganh"]; ?>' onClick="this.form.submit();">
 						  <?php } ?>					
 						  
-						  <input type="image" name="btn_xoa" onclick=" return confirmAction()" value="<?php echo  $row["maNganh"];?>"src="img/delete.png" width="20" height="20">
+						  <input type="image" name="btn_xoa" onClick=" return confirmAction()" value="<?php echo  $row["maNganh"];?>"src="img/delete.png" width="20" height="20">
 									
 						  </td>
 						</tr>					
