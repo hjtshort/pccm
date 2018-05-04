@@ -14,7 +14,7 @@
 	<link rel="stylesheet" type="text/css" href="css/reset.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	<link href="ViewAdmin/style.css" rel="stylesheet" type="text/css" />
+	<link href="ViewAdmin/style1.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
 
@@ -48,40 +48,40 @@
     ?>
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
+            <div style="padding-left: 15px; margin-top: 60px">
                     <label for="">Chọn lớp: </label>
                     <div class="chonmon">
-                    <select name="" id="nganh">
-                        <?php  $data=laynganh();
-                        foreach($data as $key=>$value){
-                         ?>
-                            <option value="<?php echo $value['maNganh']; ?>"> <?php echo $value['tenNganh'];  ?></option>
-                        <?php } ?>
+                        <select name="" id="nganh">
+                              <?php  $data=laynganh();
+                              foreach($data as $key=>$value){
+                               ?>
+                                  <option value="<?php echo $value['maNganh']; ?>"> <?php echo $value['tenNganh'];  ?></option>
+                              <?php } ?>
                         </select>
                     </div>
             </div>
             <div class="col-md-12 row">
                 <div class="col-md-6">
-                <label for="">Chọn môn: </label><br>
-                <input type="text" id="inp-search1" placeholder="Tìm kiếm">
-                <div class="chonmon">
-                    <select name="" id="monhoc" size="5">
-                       
-                    </select>
-                </div>
-            </div>
-            <div class="col-md-6">
-                    <label for="">Chọn môn tiên quyết: </label><br>
-                    <input type="text" id="inp-search2" placeholder="Tìm kiếm">
-                    <div class="chonmontienquyet">
-                    <select name="" id="monhoctienquyet" size="5">
-                              
-                            </select>
+                    <label for="">Chọn môn: </label><br>
+                    <input type="text" id="inp-search1" placeholder="Tìm kiếm">
+                    <div class="chonmon">
+                        <select name="" id="monhoc" size="5">
+                           
+                        </select>
                     </div>
-            </div>
+                </div>
+                  <div class="col-md-6">
+                          <label for="">Chọn môn tiên quyết: </label><br>
+                          <input type="text" id="inp-search2" placeholder="Tìm kiếm">
+                          <div class="chonmontienquyet">
+                          <select name="" id="monhoctienquyet" size="5">
+                                    
+                                  </select>
+                          </div>
+                  </div>
             
-        </div>
-        <div style="float:right;margin-bottom: 30px"><button type="button" class="btn btn-custom" type="button" id="insert">Thêm</button></div>
+              </div>
+        <div style="margin-bottom: 30px"><button type="button" class="btn btn-custom" type="button" id="insert">Thêm</button></div>
     
         <div class="row">
              <table class="table table-hover"  >
