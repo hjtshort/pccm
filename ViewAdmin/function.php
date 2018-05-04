@@ -1,5 +1,7 @@
 <?php 
 require_once "db.php";
+
+
 //var_dump(checkmontienquyet(1,1,'TU090',1));
 if(isset($_POST['action']) && trim($_POST['action'])=="gettable"){
 	$maNganh= addslashes(strip_tags(trim($_POST['nganh'])));
@@ -175,6 +177,7 @@ function ngominhthu1($malop,$mamon,$hocki,$namhoc)
 }
 function ngominhthu($maNganh,$he,$sttKhoa,$malop)
 {
+	
 	$db=new db();
 	$sql = "SELECT * FROM chuongtrinhhoc cth, monhoc mh, nganh n ".
 	" Where cth.maNganh = '".$maNganh."'" .
