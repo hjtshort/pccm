@@ -33,7 +33,7 @@ box-shadow:0 2px 2px rgba(0,0,0, .5);
 
 #nav {
 display:inline-block;
-width:1024px;
+width:100%;
 margin:0px auto;
 padding:0;
 background:#335599 url(images/nav.png) repeat-x 0 -110px;
