@@ -1,10 +1,10 @@
 <?php
 
-		function ThemLop($conn, $address, $tenLop, $siSo,$maNganh, $sttKhoa,$he)
+		function ThemLop($conn, $address,$maLop, $tenLop, $siSo,$maNganh, $sttKhoa,$he)
 		{			
 			// Làm sạch chuổi nhập vào 	
-			
-			
+			// echo $address."/".$maLop."/". $tenLop."/". $siSo."/".$maNganh."/".$sttKhoa."/".$he;
+			// die();
 			$tenLop = trim($tenLop);
 			$tenLop = strip_tags($tenLop);
 			$tenLop = addslashes($tenLop);
@@ -57,15 +57,18 @@
 					}	
 					else   
 					{   		  
-					    $sql_ma =   "Select max(maLop) as maLop from lop ";													
-						$query_ma = mysqli_query($conn,$sql_ma);
-						$data_ma = mysqli_fetch_array($query_ma);	
-						$maLop =  $data_ma["maLop"]+1; 
+					    	
 								    
-					   //them vao bang LOP
-						 $sql = "INSERT INTO lop( maLop, tenLop, siSo, maNganh, sttKhoa,he) ".
-								" VALUES ('".$maLop."','".$tenLop."','".$siSo."','".$maNganh."','".$sttKhoa."','".$he."')";										
-						mysqli_query($conn,$sql); 
+					   //them vao bang 
+												
+								try{
+									mysqli_query($conn,"insert into lop values('$maLop','$tenLop',$siSo,'$maNganh',$sttKhoa,$he)"); 
+								}	
+								catch(Exception $e)		
+								{
+									echo "erorrrrr ".$e;
+								}						
+						
 						header('Location: index.php?f='.$address);	
 					}									   								
 			  }			  

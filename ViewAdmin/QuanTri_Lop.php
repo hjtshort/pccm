@@ -39,13 +39,14 @@
 	$data = mysqli_fetch_array($query);
 	$khoa_max=$data["khoa"];
 	
-	isset($_POST["maLop"])? $maNganh=trim($_POST["maLop"]):	$maLop = '';	
+	isset($_POST["maLop"])? $maLop=trim($_POST["maLop"]):	$maLop = '';	
 	isset($_POST["siSo"]) ? $siSo=trim($_POST["siSo"])	:	$siSo= '';
 	isset($_POST["tenLop"]) ? $tenLop=trim($_POST["tenLop"]):	$tenLop= '';	
 	isset($_POST["maNganh"])? $maNganh=trim($_POST["maNganh"]):	$maNganh = '';	
 	isset($_POST["sttKhoa"])? $sttKhoa=trim($_POST["sttKhoa"]):	$sttKhoa =$khoa_max;	
 	isset($_POST["chon"])	? $chon=trim($_POST["chon"])	:	$chon= '';	
 	isset($_POST["he"])	? $he=trim($_POST["he"])	:	$he= '';	
+	
 	
 		//Lấy bộ môn
 	$sql="select maBm from canbo where maCb='".$user['ms']."'";
@@ -61,9 +62,10 @@
 	
 	
 	//////////////////////////////////
-	if (isset($_POST["btn_them"])) {					
+	if (isset($_POST["btn_them"])) {			
 			$address = "QuanTri_Lop";
-			ThemLop($conn, $address, $tenLop,$siSo, $maNganh, $sttKhoa,$he);		
+			ThemLop($conn, $address,$maLop, $tenLop,$siSo, $maNganh, $sttKhoa,$he);		
+			
 	}	
 	
 	if (isset($_POST["btn_xoa"])) {		  								
@@ -101,6 +103,7 @@
 		$sttKhoa= $data_chon["sttKhoa"];	
 		$he=$data_chon["he"];
 	}	
+
 ?>
 	
  <div class="wrapper" style="background-color:#FFFFFF"> 
@@ -113,7 +116,11 @@
 			
 			<Center>				 		  
 					<input type="image" name="test"  value=""  width="3" height="3">
-			        <table width="800" border="1" >				
+			        <table width="800" border="1" >	
+					<tr>
+                        <td height="35" width="100"> Mã lớp: </td>
+                        <td ><input type="text" name="maLop" size="30"  > 	</td>						
+                      </tr>			
 					 <tr>
                         <td height="35" width="100"> Tên lớp học: </td>
                         <td ><input type="text" name="tenLop" size="30"  value="<?php echo $tenLop; ?>"> 	</td>						
