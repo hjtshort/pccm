@@ -33,10 +33,39 @@
 <body>
  <div class="wrapper" style="background-color:#FFFFFF"> 
 <?php
+	require_once("ViewAdmin/header.php");
 	require "db.php";
 	$mbm = $_SESSION['ss_user_token']['Mabm'];
 	$db = new db();
 	$dslop = $db->mysql->query("select * from lop join nganh on lop.maNganh = nganh.maNganh where maBm=$mbm");
+
+	if(isset($_POST['btn_them'])){
+		// var_dump($_POST);
+		$data = $_POST;
+
+		if($db->mysql->query("insert into capnhatsiso values('$data[lop]','$data[hocki]','$data[namhoc]','$data[siso]')"))
+		{
+			
+		}
+		else
+		{
+			echo '<script>alert("Bạn thêm thất bại");</script>';
+		}
+	}
+	else if (isset($_POST['btn_xoa']))
+	{
+		$data = $_POST;
+
+		if($db->mysql->query("delete from capnhatsiso where maLop = '$data[btn_xoa]'")){
+			
+
+		}
+		else
+		{
+			echo '<script>alert("Bạn xóa thất bại");</script>';
+
+		}
+	}
 	
 ?>
 	
@@ -52,7 +81,7 @@
 			        <table width="800" border="1" >
                       <tr>
                         <td height="50" width="180"> Tên Lớp: </td>
-                        <td width="150" ><select>
+                        <td width="150" ><select name="lop">
 							<?php while($row = $dslop->fetch_assoc())
 							{
 								?>
@@ -63,18 +92,18 @@
              					</select> </td>						
 						<td width="260" height="35"> Chọn học kì: </td>
 						<td width="100" ><select name="hocki" id="">
-							<option value="">1</option>
-							<option value="">2</option>
-							<option value="">3</option>
-							<option value="">4</option>
-							<option value="">5</option>
-							<option value="">6</option>
+							<option value="1" selected>1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+							<option value="6">6</option>
 						
 						</select> </td>
 						<td width="200" height="35"> Chọn năm học: </td> 
 						<td width="100" height="35"><input type="text" name="namhoc"></td>   
 						<td width="280" height="55"> Nhập sỉ số: </td> 
-						<td width="80" height="35"><input type="text" name="siso"></td>                   
+						<td width="80" height="35"><input type="number" name="siso"></td>                   
                       </tr>
                     
 					  <tr>
@@ -84,7 +113,7 @@
                         <td colspan="6" height="70">		
 							<input class="btn btn-custom" style="width: 150px"  type="submit" value="TÌM KIẾM" name="btn_tim"> 
 							<input  class="btn btn-custom" style="width: 150px" type="submit" value="THÊM ĐỐI TƯỢNG" name="btn_them">     													
-							<input  class="btn btn-custom" style="width: 150px" type="submit" value="CHỈNH SỬA" name="btn_sua">    
+							<!-- <input  class="btn btn-custom" style="width: 150px" type="submit" value="CHỈNH SỬA" name="btn_sua">  -->   
 				</td>
                       </tr>                  
                     </table>
@@ -98,7 +127,7 @@
 					<tr >
 					  <th width="20"> STT </th>
 					  <th width="100"><center>Tên lớp</center></th>
- 					  <th width="320"><center>Học kì</center></th>
+ 					  <th width="120"><center>Học kì</center></th>
 				  	  <th width="130"><center>Năm học</center></th>
 				  	   <th width="130"><center>Năm Sỉ số</center></th>
 					  <th width="70">&nbsp;  </th>
@@ -108,26 +137,26 @@
 				  <?php
 				  	//B2: HIỂN THỊ
 					$stt = 1 ;												 						 						 
-					$siso = $db->mysql->query("select * from capnhatsiso");
+					$siso = $db->mysql->query("select * from capnhatsiso join lop on capnhatsiso.maLop = lop.maLop");
+					
 					while ($row = $siso->fetch_assoc()) {						    
 					?>
 						<tr>
 						  <th scope="row"><?php echo $stt++ ?></th>
 						  <td><?php echo $row["tenLop"]; ?></td>	
-						  <td><?php echo $row["tenDt"]; ?></td>	
-						  <td><center><?php echo $row["soTietGiam"]; ?></center></td>	
+						  <td><?php echo $row["hocKi"]; ?></td>	
+						  <td><center><?php echo $row["namHoc"]; ?></center></td>
+						  <td><center><?php echo $row["siSo"]; ?></center></td>		
 						  <td>						
 							  
-							  <?php
-							  if($chon== $row["maDt"])  
-							  {?>  	
-									<input type="radio" name="chon" value='<?php echo $row["maDt"]; ?>' onClick="this.form.submit();" checked="checked">
-								<?php } 
-							  else {	?>  	
-									<input type="radio" name="chon" value='<?php echo $row["maDt"]; ?>' onClick="this.form.submit();">
-							  <?php } ?>
+							 
+									<!-- <input type="radio" name="chon" value='' onClick="this.form.submit();" checked="checked">
+								
+							   	
+									<input type="radio" name="chon" value='' onClick="this.form.submit();"> -->
+							  
 
-							 <input type="image" name="btn_xoa" onClick="return confirmAction()"  value="<?php echo  $row["maDt"];?>"src="img/delete.png" width="20" height="20">		
+							 <input type="image" name="btn_xoa" onClick="return confirmAction()"  value="<?php echo $row['maLop'] ?>" src="img/delete.png" width="20" height="20">		
 						  </td>
 						</tr>					
 			  <?php }  ?>					
