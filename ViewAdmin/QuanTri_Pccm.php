@@ -429,9 +429,6 @@
 		title()
 		get_table()
 	});
-	// $('#he').on('change', function () {
-	// 	ngominhthu()
-	// });
 
 	function title()
 	{

@@ -49,7 +49,7 @@
 <li><a href="index.php?f=QuanTri_Pccm1">Phân công</a>
 <ul>
 
-<li><a href="index.php?f=QuanTri_Pccm1">Phân theo lớp</a>
+<li><a href="index.php?f=QuanTri_PcLop">Phân theo lớp</a>
 <li><a href="index.php?f=QuanTri_Pccm1">Chuyên môn</a>
 
 <li><a href="index.php?f=QuanTri_Covan&idMau=<?php $now = getdate();

@@ -113,7 +113,12 @@ else if(isset($_POST['action']) && trim($_POST['action'])=="get_khoa")
 {
 	 get_max_khoa($_POST['maNganh']);
 }
-
+function get_clas($mbm)
+{
+	$db=new db();
+	$dslop = $db->mysql->query("select * from lop join nganh on lop.maNganh = nganh.maNganh where maBm=$mbm and nganh.maNganh in (select distinct maNganh from chuongtrinhhoc)");
+	return $dslop;
+}
 function get_max_khoa($maNganh)
 {
 	$db=new db();
@@ -538,5 +543,36 @@ function insertmonhocnganh($nganh,$mon,$he)
 	 echo "ok";
 	else
 	 	echo "error";
+}
+function get_table_class($malop)
+{
+	$db=new db();
+	$data=$db->mysql->query("select * from lop where malop='$malop'")->fetch_assoc();
+	$sttKhoa=$data['sttKhoa'];
+	$he=$data['he'];
+	$maNganh=$data['maNganh'];
+	$value=$db->mysql->query("SELECT * FROM chuongtrinhhoc join monhoc on chuongtrinhhoc.maMon=monhoc.maMon where chuongtrinhhoc.maNganh='$maNganh' 
+	and chuongtrinhhoc.sttKhoa=$sttKhoa and he=$he ");
+	return $value;
+}
+function check_thinh_giang($malop,$mamon,$hocki,$namhoc)
+{
+	$db=new db();
+	$data=$db->mysql->query("select * from thinhgiang where maLop='$malop' and maMon='$mamon' and hocKi=$hocki and namHoc=$namhoc");
+	if($data->fetch_assoc())
+	{
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}
+
+}
+function get_can_bo($mabm)
+{
+	$db=new db();
+	$data=$db->mysql->query("select * from canbo where maBm=$mabm");
+	return $data;
 }
 ?>
