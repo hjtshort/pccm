@@ -94,24 +94,26 @@ else if(isset($_POST['action']) && trim($_POST['action'])=="NMTANE")
 {
 	create($_POST['nganh'],$_POST['he'],$_POST['khoa']);
 }
-else if(isset($_POST['action']) && trim($_POST['action'])=="ngominhthu")
+else if(isset($_POST['action']) && trim($_POST['action'])=="get_table")
 {
 	$data=explode('+',$_POST['nganh']);
-	ngominhthu($data[0],$_POST['he'],$data[2],$data[1]);
+	get_table($data[0],$_POST['he'],$data[2],$data[1]);
 }
-else if(isset($_POST['action']) && trim($_POST['action'])=="ngominhthu2")
+else if(isset($_POST['action']) && trim($_POST['action'])=="phan_cong")
 {
 	$data=explode('+',$_POST['data']);
-	ngominhthu2($_POST['macb'],$data[0],$data[1],$data[2],$data[3]);
+	//echo $data;
+	phan_cong($_POST['macb'],$data[0],$data[1],$data[2],$data[3],$_POST['sonth'],$_POST['sotietlt'],$_POST['sotietth'],$_POST['sotietbt'],$_POST['sotietkt']);
 }
-else if(isset($_POST['action']) && trim($_POST['action'])=="ngominhthu3")
+else if(isset($_POST['action']) && trim($_POST['action'])=="xoa_phan_cong")
 {
-	ngominhthu3($_POST['data']);
+	xoa_phan_cong($_POST['data']);
 }
 else if(isset($_POST['action']) && trim($_POST['action'])=="get_khoa")
 {
 	 get_max_khoa($_POST['maNganh']);
 }
+
 function get_max_khoa($maNganh)
 {
 	$db=new db();
@@ -135,7 +137,7 @@ function ahihi($macb,$malop)
 	else
 		return "";
 }
-function ngominhthu3($e)
+function xoa_phan_cong($e)
 {
 	$db=new db();
 	$val=explode('+',$e);
@@ -145,10 +147,11 @@ function ngominhthu3($e)
 	else 
 		echo "error";
 }
-function ngominhthu2($macb,$malop,$mamon,$hocki,$namhoc)
+function phan_cong($macb,$malop,$mamon,$hocki,$namhoc,$sonth,$sotietlt,$sotietth,$sotietbt,$sotietkt)
 {
 	$db=new db();
-	$data=$db->mysql->query("insert into pcday values('".$macb."','".$malop."','".$mamon."',".$hocki.",".$namhoc.",1)");
+	$data=$db->mysql->query("insert into pcday values('".$macb."','".$malop."','".$mamon."',".$hocki.",".$namhoc.",
+	".$sonth.",".$sotietlt.",".$sotietth.",".$sotietbt.",".$sotietkt.")");
 	if($data)
 	{
 		echo "ok";
@@ -158,7 +161,7 @@ function ngominhthu2($macb,$malop,$mamon,$hocki,$namhoc)
 		echo "error";
 	}
 }
-function ngominhthu1($malop,$mamon,$hocki,$namhoc)
+function check_phan_cong($malop,$mamon,$hocki,$namhoc)
 {
 	$db=new db();
 	$data1=$db->mysql->query("select * from pcday inner join canbo on pcday.maCb=canbo.maCb 
@@ -175,7 +178,7 @@ function ngominhthu1($malop,$mamon,$hocki,$namhoc)
 		return "<td><button class='btn btn-success' onclick='ins(\"".$t."\")'>Phân công</button></td>";
 	}
 }
-function ngominhthu($maNganh,$he,$sttKhoa,$malop)
+function get_table($maNganh,$he,$sttKhoa,$malop)
 {
 	
 	$db=new db();
@@ -198,7 +201,7 @@ function ngominhthu($maNganh,$he,$sttKhoa,$malop)
 			<td>".$row['tenMon']."</td>
 			<td>".$row['hocKi']."</td>
 			<td>".$row['namHoc']."</td>"
-		.ngominhthu1($malop,$row['maMon'],$row['hocKi'],$row['namHoc']).
+		.check_phan_cong($malop,$row['maMon'],$row['hocKi'],$row['namHoc']).
 		"</tr>";
 	}
 	echo $t;

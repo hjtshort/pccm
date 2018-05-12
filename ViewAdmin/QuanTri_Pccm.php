@@ -73,7 +73,7 @@
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
 			<font color="#FF00FF">Năm học:<?php echo $namHoc."-"; echo $namHoc+1;?> </font></h3>
 
-			
+
 					
 			        <table width="800" border="1" >
 					
@@ -109,6 +109,11 @@
                       
                       
                     </table>
+					<input type="text" id="sonth" placeholder="số nhóm thực hành!">
+					<input type="text" id="sotietlt" placeholder="số tiết lý thuyết!">
+					<input type="text" id="sotietth" placeholder="số tiết thực hành!">
+					<input type="text" id="sotietbt" placeholder="số tiết bài tập!">
+					<input type="text" id="sotietkt" placeholder="số tiết kiếm tra!">
 			</center>		
 			<?php
 					
@@ -417,12 +422,12 @@
 <script>
 	$(document).ready(function () {
 		title()
-		ngominhthu()
+		get_table()
 		
 	});
 	$('#lop').on('change', function () {
 		title()
-		ngominhthu()
+		get_table()
 	});
 	// $('#he').on('change', function () {
 	// 	ngominhthu()
@@ -432,7 +437,7 @@
 	{
 		$('#title').html('Chương trình học của lớp '+$('#lop').text())
 	}
-	function ngominhthu()
+	function get_table()
 	{
 		var nganh=$('#lop').val()
 		var he=$('#he').val()
@@ -441,7 +446,7 @@
 			type: "post",
 			url: "index.php?f=function",
 			data: {
-				"action":"ngominhthu",
+				"action":"get_table",
 				"nganh":nganh,
 				"he":he
 			},
@@ -453,16 +458,27 @@
 	function ins(e)
 	{
 		var macb=$('#maCB').val()
+		var sonth=$('#sonth').val()
+		var sotietlt=$('#sotietlt').val()
+		var sotietth=$('#sotietth').val()
+		var sotietbt=$('#sotietbt').val()
+		var sotietkt=$('#sotietkt').val()
 		$.ajax({
 			type: "post",
 			url: "index.php?f=function",
 			data: {"data":e,
-			"action":"ngominhthu2",
-			"macb":macb
+			"action":"phan_cong",
+			"macb":macb,
+			'sonth':sonth,
+			"sotietlt":sotietlt,
+			"sotietth":sotietth,
+			"sotietbt":sotietbt,
+			"sotietkt":sotietkt
 			},
 			success: function (response) {
 				if(response=="ok")
-					ngominhthu()
+					get_table()
+			
 			}
 		});
 	}
@@ -472,12 +488,12 @@
 			type: "post",
 			url: "index.php?f=function",
 			data: {"data":e,
-			"action":"ngominhthu3"
+			"action":"xoa_phan_cong"
 			},
 
 			success: function (response) {
 				if(response=="ok")
-					ngominhthu()
+					get_table()
 			}
 		});
 	}
