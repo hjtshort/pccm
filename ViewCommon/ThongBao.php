@@ -9,7 +9,7 @@
 	<link rel="stylesheet" href="css/style.css" />
 	<style type="text/css">
 		body{
-			background-color: #c70000;
+			background-color: #2196F3;
 			font-size: 18px;
 		}
 		.center{

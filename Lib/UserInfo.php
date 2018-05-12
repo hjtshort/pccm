@@ -9,11 +9,12 @@ function thongBao($noiDung){
 
 
 // Hàm thiết lập đăng nhập
-function set_logged($ms, $ten, $vaiTro){
+function set_logged($ms, $ten, $vaiTro,$mabm){
    $_SESSION['ss_user_token']= array(
 								'ms' => $ms,
 								'ten' => $ten,
-								'vaiTro' => $vaiTro		
+								'vaiTro' => $vaiTro,
+								'Mabm' => $mabm
 							 );
 }
 function set_gv($maCb){

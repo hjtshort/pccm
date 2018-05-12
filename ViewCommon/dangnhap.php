@@ -109,7 +109,7 @@ document.write(weekdayNames[thisDay] + ", " + thisDate + " / " + monthNamesR[cur
 		}
 		else{		
 			//if ($vaitro=="cb")
-				$sql = "select CONCAT(hoCb,' ',tenCb) as 'ten' from canbo where maCb = '".$username."' and matKhau= md5('".$password."')";
+				$sql = "select CONCAT(hoCb,' ',tenCb) as 'ten',maBm from canbo where maCb = '".$username."' and matKhau= md5('".$password."')";
 			//else	
 				//$sql = "select CONCAT(hoSv,' ',tenSv) as 'ten' from sinhvien where maSv = '$username' and matKhau = '$password' ";
 			$query = mysqli_query($conn,$sql);			
@@ -126,7 +126,7 @@ document.write(weekdayNames[thisDay] + ", " + thisDate + " / " + monthNamesR[cur
 //				if ($vaitro=="sv")
 //Nếu khong phải chuyển sang trang giảng viên
 				if ($num_rows2==0){
-					set_logged($username , $data["ten"], "canBo");
+					set_logged($username , $data["ten"], "canBo",$data['maBm']);
 					header('Location: index.php?f=Quantri_Pccm1');	
 				}	
 				else	//Nếu là trưởng bộ môn chuyển sang trang cập nhật
@@ -140,7 +140,7 @@ document.write(weekdayNames[thisDay] + ", " + thisDate + " / " + monthNamesR[cur
 						set_logged($username , $data["ten"], "canBo");
 					}
 					else*/
-						set_logged($username , $data["ten"], "admin");					
+						set_logged($username , $data["ten"], "admin",$data['maBm']);					
 						header('Location: index.php?f=Quantri_Pccm1');	
 				}	
 				

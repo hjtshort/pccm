@@ -51,6 +51,7 @@
 
 <li><a href="index.php?f=QuanTri_Pccm1">Phân theo lớp</a>
 <li><a href="index.php?f=QuanTri_Pccm1">Chuyên môn</a>
+
 <li><a href="index.php?f=QuanTri_Covan&idMau=<?php $now = getdate();
 												   $namHoc =  $now["year"]-1; 
 												   $chuoi=$namHoc." "."lop"." "."canbo";
@@ -72,9 +73,11 @@
 		<li><a href="index.php?f=QuanTri_CanBo">Thông tin cán bộ</a></li>
 		<li><a href="index.php?f=QuanTri_ChucVu">Chức vụ cán bộ</a></li>
 		<li><a href="index.php?f=QuanTri_CanBoGiam">Đối tượng cán bộ</a></li>
+		
 	</ul>
 </li>
 <li><a href="index.php?f=QuanTri_DoiTuongGiam">Đối tượng giảm</a></li>
+<li><a href="index.php?f=QuanTri_CapnhatSiSo">Cập nhật sỉ số</a></li>
 </ul>
 </li>
 <li><a href="#">Quản trị</a>
