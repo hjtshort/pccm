@@ -63,24 +63,29 @@
 
 		<div class="form-upload">
 		<form id="upload" action="#" method="post" enctype="multipart/form-data">
-    	<div class="from-control">
-			<label for="">Tải lên tập tin Excel môn học !</label>
-		</div>
-		<div class="from-control">
-		<input type="text" name="mabm" id="mabm">
-		</div>
+	    		<div class="form-group">
+				<label for="">Tải lên tập tin Excel môn học !</label>
+			</div>
+			<div class="form-group">
+				<input  class="form-control" placeholder="Tìm kiếm..." type="text" name="mabm" id="mabm">
+			</div>
+			<div class="form-group">
+				<select name="" id="" class="form-control">
+					<option value="">1</option>
+					<option value="">2</option>
+					<option value="">3</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<input class="form-control" type="file" name="file" id="files">
+			</div>
 
-		<div class="from-control">
-		<input type="file" name="file" id="files">
-		</div>
-
-		<div class="from-control">
-		<input class="btn btn-custom" type="submit" value="Tải lên" name="submit">
-		</div>
-
-		<div class="ketqua">
-		</div>
-	</form>
+			<div class="form-group">
+				<input class="btn btn-custom" type="submit" value="Tải lên" name="submit">
+			</div>
+			<div class="ketqua">
+			</div>
+		</form>
 
 		</div>
 
