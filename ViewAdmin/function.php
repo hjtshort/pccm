@@ -575,4 +575,21 @@ function get_can_bo($mabm)
 	$data=$db->mysql->query("select * from canbo where maBm=$mabm");
 	return $data;
 }
+function check_phan_cong_thinh_giang($malop,$mamon,$hocki,$namhoc)
+{
+	$db=new db();
+	$data1=$db->mysql->query("select * from pcday inner join canbo on pcday.maCb=canbo.maCb 
+	where maLop='".$malop."' and maMon='".$mamon."' and hocKi=".$hocki."")->fetch_assoc();
+	if($data1!=false)
+	{
+		$t=$data1['maCb']."+".$malop."+".$mamon."+".$hocki."+".$namhoc;
+		return "<td>".$data1['hoCb'].$data1['tenCb']."(".$data1['maCb'].")".ahihi($data1['maCb'],$malop).
+		"</td>"."<td><button class='btn btn-danger' onclick='del(\"".$t."\")'>Hủy</button></td>";
+	}
+	else 
+	{
+		$t=$malop."+".$mamon."+".$hocki."+".$namhoc;
+		return "<td><button class='btn btn-success' onclick='ins(\"".$t."\")'>Thỉnh Giảng</button></td>";
+	}
+}
 ?>

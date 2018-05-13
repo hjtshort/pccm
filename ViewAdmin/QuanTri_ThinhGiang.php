@@ -33,7 +33,7 @@ vertical-align:middle !important;
 	
 <div class="wrapper" style="background-color:#FFFFFF"> 
 <div>
-	     <form name="form1" method="POST" action=''>
+	    
 	 	<div class="container">
       		<div class="row">	
 			<h3 class="style1">Phân công chuyên môn bộ môn: <font color="#c70000"></font> &nbsp;&nbsp;	Năm học: 
@@ -48,6 +48,21 @@ vertical-align:middle !important;
 					<input type="image" name="test"  value=""  width="3" height="3">
 			        <table width="800" border="1" >					  
                    </table>
+				   <!-- <input type="text" id="sonth" placeholder="số nhóm thực hành!">
+					<input type="text" id="sotietlt" placeholder="số tiết lý thuyết!">
+					<input type="text" id="sotietth" placeholder="số tiết thực hành!">
+					<input type="text" id="sotietbt" placeholder="số tiết bài tập!">
+					<input type="text" id="sotietkt" placeholder="số tiết kiếm tra!"> -->
+					<?php
+					  $mabm = $_SESSION['ss_user_token']['Mabm'];
+					$cb=get_can_bo($mabm) ;
+					?>
+					<select name="" id="maCB">
+						<?php while($row=$cb->fetch_assoc()){
+						?>
+						<option value="<?php echo $row['maCb']; ?>"><?php echo $row['hoCb']." ".$row['tenCb']."(".$row['maCb'].")"; ?></option>
+						<?php }?>
+					</select>
 			</center>		
 			
 			
@@ -56,36 +71,48 @@ vertical-align:middle !important;
 	          	<thead>
 					<tr >
 					  <th width="29" ><center> STT</center> </th>
-					  <th width="30" valign="middle">Mã lớp</th>
- 					  <th width="100"  ><center>Tên lớp</center></th>
+					  <th width="30" valign="middle">Mã Môn</th>
+ 					  <th width="100"  ><center>Tên Môn</center></th>
 				  	  <th width="51"  ><center>
-				  	    Khoa
+				  	    Học kì
 				  	  </center></th>
 					  <th width="40"  ><center>
-					    hệ 
+					    Năm học 
 					  </center></th>
 					  <th width="40"  ><center>
-						Thỉnh giảng 
+					    Khoa 
+					  </center></th>
+					  <th width="40"  ><center>
+					    Hệ 
+					  </center></th>
+					  <th width="40"  ><center>
+					    Thao tác 
+					  </center></th>
+					  <th width="40"  ><center>
+					 
 					  </center></th>
 
 					</tr>
 											
 			  </thead>
 			  <tbody>
-                  <?php		
-                  $mbm = $_SESSION['ss_user_token']['Mabm'];
-                    $data=get_clas($mbm);
+				  <?php		
+				
+                  	$malop=$_GET['malop'];
+                    $data= get_table_class($malop);
                     $stt=0;
                     while($row=$data->fetch_assoc()){	
                         $stt++;	
 					?>
 						<tr>
 						  <th  width="29" scope="row"><?php echo $stt ?></th>
-						  <td width="30"><?php echo $row["maLop"]; ?></td>	
-						  <td width="100"><a href="index.php?f=QuanTri_PcLopChitiet&malop=<?php  echo $row["maLop"]; ?>"><?php echo $row['tenLop'];?></a></td>	
+						  <td width="30"><?php echo $row["maMon"]; ?></td>	
+						  <td width="100"><?php echo $row["tenMon"]; ?></td>	
+						  <td width="51"><center><?php echo $row['hocKi']; ?></center></td>	
+						  <td width="51"><center><?php echo $row['namHoc']; ?></center></td>	
 						  <td width="51"><center><?php echo $row['sttKhoa']; ?></center></td>	
  						  <td width="40"><center><?php echo $row['he']==1? "Cao Đẳng":"Trung Cấp";?></center></td>	
-							<td width="40"><center><a href="index.php?f=QuanTri_ThinhGiang&malop=<?php  echo $row["maLop"]; ?>">Thỉnh giảng</a></center></td>	
+						  <?php echo  check_thinh_giang($malop,$row["maMon"],$row['hocKi'],$row['namHoc'])==1? "<td><label class='text-danger'>Thỉnh giảng</label></td>":check_phan_cong_thinh_giang($malop,$row["maMon"],$row['hocKi'],$row['namHoc']); ?>
   						  
 						</tr>	
                 <?php }?>				
@@ -95,10 +122,54 @@ vertical-align:middle !important;
       	</div>
  
     	</div>
-		</form>	
+	
 		
 	</div>
 	</div>
+	<script>
+	function ins(e)
+	{
+		var macb=$('#maCB').val()
+		var sonth=$('#sonth').val()
+		var sotietlt=$('#sotietlt').val()
+		var sotietth=$('#sotietth').val()
+		var sotietbt=$('#sotietbt').val()
+		var sotietkt=$('#sotietkt').val()
+		$.ajax({
+			type: "post",
+			url: "index.php?f=function",
+			data: {"data":e,
+			"action":"phan_cong",
+			"macb":macb,
+			'sonth':sonth,
+			"sotietlt":sotietlt,
+			"sotietth":sotietth,
+			"sotietbt":sotietbt,
+			"sotietkt":sotietkt
+			},
+			success: function (response) {
+				if(response=="ok")
+					location.reload();
+			
+			}
+		});
+	}
+	function del(e)
+	{
+		$.ajax({
+			type: "post",
+			url: "index.php?f=function",
+			data: {"data":e,
+			"action":"xoa_phan_cong"
+			},
+
+			success: function (response) {
+				if(response=="ok")
+					location.reload();
+			}
+		});
+	}
+	</script>
 	
 	
 
