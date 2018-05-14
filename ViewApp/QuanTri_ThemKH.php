@@ -69,7 +69,7 @@
 			<div class="form-group">
 				<input  class="form-control" placeholder="Tìm kiếm..." type="text" name="mabm" id="mabm">
 			</div>
-			<div class="form-group">
+			Chọn bộ môn <div class="form-group">
 				<select name="" id="" class="form-control">
 					<option value="">1</option>
 					<option value="">2</option>

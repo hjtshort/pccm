@@ -36,7 +36,7 @@ vertical-align:middle !important;
 	    
 	 	<div class="container">
       		<div class="row">	
-			<h3 class="style1">Phân công chuyên môn bộ môn: <font color="#c70000"></font> &nbsp;&nbsp;	Năm học: 
+			<h3 class="style1">Thỉnh giảng của lớp: <font color="#c70000"></font> &nbsp;&nbsp;	Năm học: 
 							<input type="text" name="namHoc" size="4"  onChange="this.form.submit()" value="<?php echo $namHoc; ?>"> - &nbsp;&nbsp;
 							<input type="text" size="4" value="<?php echo ($namHoc+1); ?>" readonly="true">
 
@@ -57,6 +57,7 @@ vertical-align:middle !important;
 					  $mabm = $_SESSION['ss_user_token']['Mabm'];
 					$cb=get_bo_mon() ;
 					?>
+					Chọn bộ môn cần thỉnh giảng:
 					<select name="" id="maBm">
 						<?php while($row=$cb->fetch_assoc()){
 						?>
@@ -99,7 +100,9 @@ vertical-align:middle !important;
 				  <?php		
 				
                   	$malop=$_GET['malop'];
+
                     $data= get_table_class($malop);
+
                     $stt=0;
                     while($row=$data->fetch_assoc()){	
                         $stt++;	

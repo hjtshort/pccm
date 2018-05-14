@@ -64,7 +64,7 @@
                     <label for="">Môn học </label><br>
                     <input type="text" id="inp-search1" placeholder="Tìm kiếm">
                     <div class="chonmontienquyet">
-                    <select name="" id="monhoc" size="5"><option value="GQ010" selected="selected">Giáo dục quốc phòng - An ninh 2(GQ010)-2 tín chỉ							
+                    <select name="" id="monhoc" size="5"><option value="GQ010" selected="selected">Giáo dục quốc phòng - An ninh 2(GQ010)-2 tc							
 		            </select>
                     </div>
             </div> 
@@ -89,10 +89,11 @@
 					  <th>STT</th>
 				  	  <th>Mã môn</th>
 					  <th>Tên môn</th>
-                      <th>Số tính chỉ</th>
-                      <th>Số tiết lý thuyết</th>
-                      <th>Số tiết bài tập</th>
-                      <th>Số tiết thực hành</th>
+                      <th>Số TC</th>
+                      <th>Số tiết LT</th>
+                      <th>Số tiết BT</th>
+                      <th>Số tiết TH</th>
+                      
 					  <th width="70">&nbsp;  </th>
 					</tr>
 				  </thead>

@@ -47,7 +47,7 @@
 	//////////////////////////////////
 	if (isset($_POST["btn_them"])) {					
 			$address = "QuanTri_Lop";
-			ThemLop($conn, $address, $tenLop,$siSo, $maNganh, $sttKhoa,$he);		
+			ThemLop($conn, $address,$maLop, $tenLop,$siSo, $maNganh, $sttKhoa,$he);		
 	}	
 	
 	if (isset($_POST["btn_xoa"])) {		  								
@@ -97,6 +97,10 @@
 			<Center>				 		  
 					<input type="image" name="test"  value=""  width="3" height="3">
 			        <table width="800" border="1" >				
+					<tr>
+                        <td height="35" width="100"> Mã lớp: </td>
+                        <td ><input type="text" name="maLop" size="30"  > 	</td>						
+                      </tr>
 					  <tr>
                         <td height="35" width="100"> Tên lớp học: </td>
                         <td ><input type="text" name="tenLop" size="30"  value="<?php echo $tenLop; ?>"> 	</td>						

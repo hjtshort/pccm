@@ -79,7 +79,7 @@
 		$tenMon = $data_chon["tenMon"];	
 		$soTC 	= $data_chon["soTc"];	
 		$LT	 	= $data_chon["soTietLt"];	
-		$BT	 	= $data_chon["soTietBt"];	
+		$BT	 	= $data_chon["soTietBT"];	
 		$TH 	= $data_chon["soTietTh"];							
 		$KT 	= $data_chon["soTietKt"];							
 	}

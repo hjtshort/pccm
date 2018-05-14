@@ -36,7 +36,7 @@ vertical-align:middle !important;
 	     <form name="form1" method="POST" action=''>
 	 	<div class="container">
       		<div class="row">	
-			<h3 class="style1">Phân công chuyên môn bộ môn: <font color="#c70000"></font> &nbsp;&nbsp;	Năm học: 
+			<h3 class="style1">Phân công Theo lớp: <font color="#c70000"></font> &nbsp;&nbsp;	Năm học: 
 							<input type="text" name="namHoc" size="4"  onChange="this.form.submit()" value="<?php echo $namHoc; ?>"> - &nbsp;&nbsp;
 							<input type="text" size="4" value="<?php echo ($namHoc+1); ?>" readonly="true">
 

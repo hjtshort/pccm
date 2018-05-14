@@ -127,6 +127,7 @@
 	          	<thead>
 					<tr >
 					  <th width="20"> STT </th>
+					   <th width="390"><center>Mã bộ môn</center></th>
 					  <th width="390"><center>Tên bộ môn</center></th>
 					  <th width="400"><center>Khoa/Đơn vị</center></th>
 					  <th width="70">&nbsp;  </th>
@@ -146,6 +147,7 @@
 					?>
 						<tr>
 						  <th scope="row"><?php echo $stt++ ?></th>
+  						  <td><?php echo $row["maBm"]; ?></td>	
 						  <td><?php echo $row["tenBm"]; ?></td>	
 						  <td><?php echo $row["tenKhoa"]; ?></td>
 						  <td>			
@@ -158,7 +160,7 @@
 									<input type="radio" name="chon" value='<?php echo $row["maBm"]; ?>' onClick="this.form.submit();">
 							  <?php } ?>
 										
-								<input type="image" name="btn_xoa" onclick=" return confirmAction()" value="<?php echo  $row["maBm"];?>"src="img/delete.png" width="20" height="20">		
+								<input type="image" name="btn_xoa" onClick=" return confirmAction()" value="<?php echo  $row["maBm"];?>"src="img/delete.png" width="20" height="20">		
 						  </td>
 						</tr>					
 			  <?php } ?>					

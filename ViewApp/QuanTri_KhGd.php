@@ -188,7 +188,7 @@
                         <td colspan="3" height="55">		
 							<!-- <input  type="submit" value="TÌM KIẾM" name="btn_tim">  -->
 							<input  type="button" value="THÊM MÔN HỌC" class="btn btn-custom" style="width: 150px" name="btn_them" id="btn-them">
-							<input  type="button" value="XUẤT MÔN HỌC" class="btn btn-custom" style="width: 150px" name="btn_them" id="btn-xuat">     													
+							<input  type="button" value="XUẤT CHƯƠNG TRÌNH" class="btn btn-custom" style="width: 200px" name="btn_them" id="btn-xuat">     													
 							<!--<input  type="submit" value="CHỈNH SỬA" name="btn_sua">    -->
 						</td>
                       </tr>  

@@ -51,7 +51,7 @@
 					   //them vao bang NGANH
 						 $sql = "INSERT INTO nganh( maNganh, tenNganh, maBm) ".
 								" VALUES ('".$maNganh."','".$tenNganh."','".$maBm."')";												
-						mysqli_query($conn,$sql); 
+						@mysqli_query($conn,$sql); 
 						header('Location: index.php?f='.$address);	
 					}									   								
 			  }			  
