@@ -102,7 +102,7 @@ document.write(weekdayNames[thisDay] + ", " + thisDate + " / " + monthNamesR[cur
 				if ($num_rows==0) {			
 						thongBao("Mật khẩu không đúng !");}
 				else{			
-						set_logged($username , $data["ten"], "app");
+						set_logged($username , $data["ten"], "app","");
 						header('Location: index.php?f=QuanTri_CanBo');	
 					}	
 		

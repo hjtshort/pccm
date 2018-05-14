@@ -55,12 +55,12 @@ vertical-align:middle !important;
 					<input type="text" id="sotietkt" placeholder="số tiết kiếm tra!"> -->
 					<?php
 					  $mabm = $_SESSION['ss_user_token']['Mabm'];
-					$cb=get_can_bo($mabm) ;
+					$cb=get_bo_mon() ;
 					?>
-					<select name="" id="maCB">
+					<select name="" id="maBm">
 						<?php while($row=$cb->fetch_assoc()){
 						?>
-						<option value="<?php echo $row['maCb']; ?>"><?php echo $row['hoCb']." ".$row['tenCb']."(".$row['maCb'].")"; ?></option>
+						<option value="<?php echo $row['maBm']; ?>"><?php echo $row['tenBm']; ?></option>
 						<?php }?>
 					</select>
 			</center>		
@@ -112,7 +112,7 @@ vertical-align:middle !important;
 						  <td width="51"><center><?php echo $row['namHoc']; ?></center></td>	
 						  <td width="51"><center><?php echo $row['sttKhoa']; ?></center></td>	
  						  <td width="40"><center><?php echo $row['he']==1? "Cao Đẳng":"Trung Cấp";?></center></td>	
-						  <?php echo  check_thinh_giang($malop,$row["maMon"],$row['hocKi'],$row['namHoc'])==1? "<td><label class='text-danger'>Thỉnh giảng</label></td>":check_phan_cong_thinh_giang($malop,$row["maMon"],$row['hocKi'],$row['namHoc']); ?>
+						  <?php echo check_phan_cong_thinh_giang($malop,$row["maMon"],$row['hocKi'],$row['namHoc']); ?>
   						  
 						</tr>	
                 <?php }?>				
@@ -129,27 +129,18 @@ vertical-align:middle !important;
 	<script>
 	function ins(e)
 	{
-		var macb=$('#maCB').val()
-		var sonth=$('#sonth').val()
-		var sotietlt=$('#sotietlt').val()
-		var sotietth=$('#sotietth').val()
-		var sotietbt=$('#sotietbt').val()
-		var sotietkt=$('#sotietkt').val()
+		var maBm=$('#maBm').val()
 		$.ajax({
 			type: "post",
 			url: "index.php?f=function",
 			data: {"data":e,
-			"action":"phan_cong",
-			"macb":macb,
-			'sonth':sonth,
-			"sotietlt":sotietlt,
-			"sotietth":sotietth,
-			"sotietbt":sotietbt,
-			"sotietkt":sotietkt
+			"action":"thinh_giang",
+			"maBm":maBm
 			},
 			success: function (response) {
 				if(response=="ok")
 					location.reload();
+                
 			
 			}
 		});
@@ -160,7 +151,7 @@ vertical-align:middle !important;
 			type: "post",
 			url: "index.php?f=function",
 			data: {"data":e,
-			"action":"xoa_phan_cong"
+			"action":"xoa_thinh_giang"
 			},
 
 			success: function (response) {

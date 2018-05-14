@@ -10,12 +10,23 @@ function thongBao($noiDung){
 
 // Hàm thiết lập đăng nhập
 function set_logged($ms, $ten, $vaiTro,$mabm){
-   $_SESSION['ss_user_token']= array(
-								'ms' => $ms,
-								'ten' => $ten,
-								'vaiTro' => $vaiTro,
-								'Mabm' => $mabm
-							 );
+	if(isset($mabm))
+	{
+		$_SESSION['ss_user_token']= array(
+			'ms' => $ms,
+			'ten' => $ten,
+			'vaiTro' => $vaiTro,
+			'Mabm' => $mabm 
+		 );
+	}
+	else{
+		$_SESSION['ss_user_token']= array(
+			'ms' => $ms,
+			'ten' => $ten,
+			'vaiTro' => $vaiTro
+		 );
+	}
+
 }
 function set_gv($maCb){
 	return $maCb;
