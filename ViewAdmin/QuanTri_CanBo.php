@@ -1,4 +1,5 @@
 <?php	
+error_reporting( ~E_WARNING & ~E_NOTICE);
 	if (!defined('IN_SITE')) 
  	 	header('Location: ../index.php')	;	
 		

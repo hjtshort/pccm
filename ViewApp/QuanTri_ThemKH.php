@@ -76,6 +76,31 @@
 					<option value="">3</option>
 				</select>
 			</div>
+			<div>
+			<select name="maBm" >															
+							 	<?php																					
+									$sql_g = "select maKhoa, tenKhoa from khoa";									
+									$query_g = mysqli_query($conn,$sql_g);								
+									while ($data_g = mysqli_fetch_array($query_g)) {	
+								?>										 
+									<optgroup label='<?php echo $data_g["tenKhoa"]; ?>'>
+									<?php								
+										$sql4 ="SELECT maBm, tenBm FROM bomon b, khoa c".
+														" WHERE b.maKhoa=c.maKhoa and ".																											
+														"		c.maKhoa = 	'".$data_g["maKhoa"]."'";	
+										$query4 = mysqli_query($conn,$sql4);
+										while ($data4 = mysqli_fetch_array($query4)) {
+											if($maBm==$data4["maBm"]) 											
+											{  ?>
+												<option value='<?php echo $data4["maBm"]; ?>' selected="selected"><?php echo $data4["tenBm"]; ?></option>
+											 <?php }	else { ?>
+												<option value='<?php echo $data4["maBm"]; ?>'><?php echo $data4["tenBm"]; ?></option>
+									<?php   }	
+									   }?>
+								</optgroup>
+							   <?php 	}?>
+						  </select>
+			</div>
 			<div class="form-group">
 				<input class="form-control" type="file" name="file" id="files">
 			</div>
