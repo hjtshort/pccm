@@ -66,18 +66,8 @@
 	    		<div class="form-group">
 				<label for="">Tải lên tập tin Excel môn học !</label>
 			</div>
-			<div class="form-group">
-				<input  class="form-control" placeholder="Tìm kiếm..." type="text" name="mabm" id="mabm">
-			</div>
-			Chọn bộ môn <div class="form-group">
-				<select name="" id="" class="form-control">
-					<option value="">1</option>
-					<option value="">2</option>
-					<option value="">3</option>
-				</select>
-			</div>
 			<div>
-			<select name="maBm" >															
+			<select name="mabm" >															
 							 	<?php																					
 									$sql_g = "select maKhoa, tenKhoa from khoa";									
 									$query_g = mysqli_query($conn,$sql_g);								
