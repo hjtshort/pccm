@@ -81,16 +81,11 @@
 						 </td>						
                       </tr>
                       <tr>
-                        <td height="35"> Năm học: </td>
-						<td ><input type="text" name="namHoc" size="2" id="namhoc" value="<?php echo $now["year"]; ?>"> - &nbsp;&nbsp;
-							<input type="text" size="2" value="<?php echo $now["year"]+1; ?>"><br> 
-							<div style="color:red;" id="validationnamhoc">
-							</div>              
-						</td>                       
+							 
                       </tr>
                       <tr>
                         <td height="35"> Khóa: </td>
-						<td ><input type="text" name="sttKhoa" size="1" id="sttKhoa"  value="<?php echo $data['khoa']; ?>"><br> 
+						<td ><input type="text" name="sttKhoa" size="1" id="sttKhoa"  value="43"><br> 
 						<div style="color:red;" id="validationkhoa">
 							
 						</div>  
@@ -133,17 +128,19 @@
 			
 			
     	    <table class="table"  >
-          		<h3 class="style1"> Danh sách các môn học    </h3>
+          		<h3 class="style1">Danh sách môn học ngành: <a style="color:red;" id="tk"></a></h3>
+				
 
 	          	<thead>
 					<tr >
 					  <th width="20"> STT </th>
-					  <th width="100"><center>Tên ngành</center></th>
- 					  <th width="20"><center>Khóa</center></th>
-				  	  <th width="10"><center>Học kì</center></th>
-					  <th width="20"><center>Năm học</center></th>
+					  <th width="30">Mã môn</th>
 					  <th width="130"><center>Tên môn</center></th>
 					  <th width="30"><center>Tín chỉ</center></th>
+					  <th width="30">LT</th>
+					  <th width="30">BT</th>
+					  <th width="30">Th</th>
+					  <th width="30">KT</th>
 					  <th width="30"><center>loại</center></th>
 					  <th width="50"><button type="button" class="btn btn-xoa"><i class="fa fa-trash"></i> Xóa hết</button>  </th>
 					</tr>
@@ -297,6 +294,8 @@
 		gettable()
 		laymonhoc()
 		NMT()
+		get_namhoc()
+		tk()
 
 	
 	});
@@ -328,7 +327,9 @@
 	
 		laymonhoc()
 		NMT()
+		get_namhoc()
 		$('#inp-search').val('')
+		tk()
 	});
 		//lấy lại dữ liệu bảng nếu hệ thay đổi
 	$('#he').change(function (e) { 
@@ -341,11 +342,13 @@
 		//lấy lại dữ liệu bảng nếu khóa thay đổi
 	 $('#sttKhoa').change(function (e) { 
 	 	gettable()
-		 NMT()		
+		 NMT()	
+		 tk()	
 	 });
 	 	//lấy lại dữ liệu bảng nếu học kỳ thay đổi
 	 $('#hocky').change(function (e) { 
 	 	gettable()		
+		 tk()
 	 });
 	 	//lấy lại dữ liệu bảng nếu năm học thay đổi
 	 //xóa môn học ra khỏi kế hoạch giản dạy của 1 lớp
@@ -457,6 +460,32 @@ function get_khoa()
 				$('#sttKhoa').val(response)
 		}
 	});
+}
+function get_namhoc(){
+	var nganh=$('#nganh').val()
+	var he=$('#he').val()
+	var hocki=$('#hocky').val()
+	var sttKhoa=$('#sttKhoa').val()
+	//console.log(sttKhoa)
+	$.ajax({
+		type: "post",
+		url: "index.php?f=function",
+		data: {
+			'nganh':nganh,
+			'he':he,
+			'hocki':hocki,
+			'sttKhoa':sttKhoa,
+			'action':'get_namhoc'
+		},
+		success: function (response) {
+			console.log(response)
+		}
+	});
+	
+}
+function tk(){
+	var t=$('#nganh option:selected').text()
+	$('#tk').text(t+'-Khóa '+$('#sttKhoa').val()+'(Học kì '+$('#hocky option:selected').text()+')')	
 }
 
 </script>

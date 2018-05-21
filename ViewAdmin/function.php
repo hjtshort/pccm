@@ -123,6 +123,11 @@ else if(isset($_POST['action']) && trim($_POST['action'])=="xoa_thinh_giang")
 	$data=explode('+',$_POST['data']);
 	xoa_thinh_giang($data[0],$data[1],$data[2],$data[3]);
 }
+else if(isset($_POST['action']) && trim($_POST['action'])=="get_namhoc")
+{	
+	//var_dump($_POST);
+	//get_namhoc($_POST['nganh'],intval($_POST['hocki']),intval($_POST['he']),intval($_POST['sttKhoa']));
+}
 function get_clas($mbm)
 {
 	$db=new db();
@@ -260,20 +265,30 @@ function hienthitable($maNganh,$he,$sttKhoa,$hk)
 	$data=$db->mysql->query($sql_hienThi);
 	$t="";
 	$tong=0;
+	$tonglt=0;
+	$tongbt=0;
+	$tongth=0;
+	$tongkt=0;
 	$stt=1;
 	while($row=$data->fetch_assoc()){
 		$tong+=intval($row["soTc"]);
+		$tonglt+=intval($row['soTietLt']);
+		$tongbt+=intval($row['soTietBT']);
+		$tongth+=intval($row['soTietTh']);
+		$tongkt+=intval($row['soTietKt']);
 		$chuoi=$row["maNganh"]."+".$row["maMon"]."+".$row["he"]."+".$row["sttKhoa"]."+".$row["hocKi"]."+".$row["namHoc"]."+".$stt;	
 		$kk=checkmontienquyet($row["maNganh"],$row["he"],$row["maMon"],$row["hocKi"],$row["sttKhoa"])==false ? "<p><span style='color:red;'>Cần phải xóa vì môn tiên quyết chưa có trong chương trình</span></p>": "";
 		$loai= $row['batbuoc']=="x"? "<select id='bb_tc' kai-value=".$chuoi." class='chon'><option selected='selected' value='bb'>Bắt buộc</option><option value='tt' >Tự chọn</option></select>":"<select class='chon' kai-value=".$chuoi."><option value='bb'>Bắt buộc</option><option selected='selected' value='tt'>Tự chọn</option></select>";	
 		$t.='<tr>
 				<td scope="row">'. $stt++ .'</td>
-				<td>'. $row["tenNganh"].' </td>	
-				<td>'. $row["sttKhoa"].'</td>	
-				<td>'. $row["hocKi"].'</td>	
-				<td>'. $row["namHoc"].'</td>
+				<td>'. $row["maMon"].'</td>
 				<td>'. $row["tenMon"].$kk.'</td>			
 				<td>'. $row["soTc"].'</td>
+				<td>'. $row["soTietLt"].'</td>
+				<td>'. $row["soTietBT"].'</td>
+				<td>'. $row["soTietTh"].'</td>
+				<td>'. $row["soTietKt"].'</td>
+
 				<td>'.$loai.'</td>			
 				<td>
 				<button type="button" onclick="del(\''.$chuoi.'\')" style="border:none; background-color:transparent"> <img src="img/delete.png" width="20" height="20" ></button>							
@@ -281,8 +296,12 @@ function hienthitable($maNganh,$he,$sttKhoa,$hk)
 	  </tr>	';
 	}
 	return $t.'  <tr>
-	<td colspan="6" align="center"> Tổng số</td>
+	<td colspan="3" align="center"> Tổng số</td>
 	<td>'.$tong.' </td>
+	<td>'.$tonglt.' </td>
+	<td>'.$tongbt.' </td>
+	<td>'.$tongth.' </td>
+	<td>'.$tongkt.' </td>
 	</tr>';
 }
 //xóa môn học trong bảng chương trình học
@@ -308,9 +327,16 @@ function insertcth($maNganh,$maMon,$he,$sttKhoa,$hocKi,$namHoc)
 	$db=new db();
 		$checked=checkmontienquyet($maNganh,$he,$maMon,$hocKi,$sttKhoa);
 		if($checked==true){
-			$query=$db->mysql->query("insert into chuongtrinhhoc values (".$maNganh.",'".$maMon."',".$he.",".$sttKhoa.",".$hocKi.",".$namHoc.",' ','x')");
-			if($query)
-				echo 'ok';
+			$query1=$db->mysql->query("select * from chuongtrinhhoc where maNganh='$maNganh' and maMon='$maMon' and sttKhoa=$sttKhoa ")->num_rows;
+			if($query>0)
+			{
+				$query=$db->mysql->query("insert into chuongtrinhhoc values (".$maNganh.",'".$maMon."',".$he.",".$sttKhoa.",".$hocKi.",".$namHoc.",' ','x')");
+				if($query)
+					echo 'ok';
+				else
+					echo 'error';
+			
+			}
 			else
 				echo 'error';
 			
@@ -626,5 +652,11 @@ function xoa_thinh_giang($malop,$mamon,$hocki,$namhoc)
 		echo "ok";
 	else
 		echo "error";
+}
+function get_namhoc($nganh,$hocki,$he,$khoa)
+{
+	$db=new db();
+	$data=$db->mysql->query("select distinct namHoc from chuongtrinhhoc where maNganh='$nganh' and hocKi=$hocki and he=$he and sttKhoa=$khoa ")->fetch_assoc();
+	var_dump($data);
 }
 ?>
