@@ -1,3 +1,4 @@
+
 <?php	
 	if (!defined('IN_SITE')) 
  	 	header('Location: ../index.php')	;	
