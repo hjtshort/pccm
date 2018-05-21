@@ -66,7 +66,7 @@
 <input type="text" hidden  id="maBM" value="<?php echo $maBm; ?>">		
 <div class="wrapper" style="background-color:#FFFFFF"> 
 <div>
-	     <form name="form1" method="POST" action='index.php?f=QuanTri_Pccm&idMau=<?php echo $maCb." ".$namHoc." ".$maLop; ?>'>
+	  
 	 	<div class="container">
       		<div class="row">	
 			<h3 class="style1">Phân công cán bộ<font color="#990000" >  <?php echo $data["ten"];	?></font> <font size="-1"><a href="index.php?f=QuanTri_ChiTietGv&idMau=<?php $chuoi=$maCb." ".$namHoc." ".$maLop; echo $chuoi; ?>"> <img src="img/Edit.png" width="20" height="20" title="Chi tiết phân công" /></a></font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
@@ -104,16 +104,20 @@
 							</td>				
 						</tr>					
 						<tr>
-							<td colspan="5" height="10"></td>
+							<td >Học kỳ</td>
+							<td><select name="hocky" id="hocky">
+									<option value="1" >1</option>
+									<option value="2" >2</option>
+									<option value="3" >3</option>
+									<option value="4">4</option>
+									<option value="5" >5</option>
+									<option value="6">6</option>
+								</select>
+							</td>
 						</tr>
                       
                       
                     </table>
-					<input type="text" id="sonth" placeholder="số nhóm thực hành!">
-					<input type="text" id="sotietlt" placeholder="số tiết lý thuyết!">
-					<input type="text" id="sotietth" placeholder="số tiết thực hành!">
-					<input type="text" id="sotietbt" placeholder="số tiết bài tập!">
-					<input type="text" id="sotietkt" placeholder="số tiết kiếm tra!">
 			</center>		
 			<?php
 					
@@ -126,10 +130,17 @@
 					  <th width="59" ><center>
 					    Mã MH 
 					  </center></th>
- 					  <th width="325"  ><center>Tên Môn</center></th>
-   					  <th width="77"  ><center>Học kì</center></th>
-   					  <th width="71"  ><center>Năm học</center></th>
-					  <th width="270">Các môn đã phân công</th>
+ 					  <th width="200"  ><center>Tên Môn</center></th>
+					   <th width="30"><center>TC</center></th>
+					  <th width="30">LT</th>
+					  <th width="30">BT</th>
+					  <th width="30">Th</th>
+					  <th width="30">KT</th>
+					  <th width="30">Loại</th>
+					  <th width="30">Nhóm thực hành</th>
+					  <th width="30">Hệ số</th>
+
+					  <th width="100">Các môn đã phân công</th>
 					  <th width="30">&nbsp</th>
 					</tr>
 											
@@ -421,23 +432,28 @@
 </html>
 <script>
 	$(document).ready(function () {
-		title()
+		//title()
 		get_table()
+		
 		
 	});
 	$('#lop').on('change', function () {
-		title()
+		//title()
+		get_table()
+	});
+	$('#hocky').on('change', function () {
 		get_table()
 	});
 
-	function title()
-	{
-		$('#title').html('Chương trình học của lớp '+$('#lop').text())
-	}
+	// function title()
+	// {
+	// 	$('#title').html('Chương trình học của lớp '+$('#lop').text())
+	// }
 	function get_table()
 	{
 		var nganh=$('#lop').val()
 		var he=$('#he').val()
+		var hocki=$('#hocky').val()
 
 		$.ajax({
 			type: "post",
@@ -445,12 +461,17 @@
 			data: {
 				"action":"get_table",
 				"nganh":nganh,
-				"he":he
+				"he":he,
+				"hocki":hocki
 			},
 			success: function (response) {
 				$('#print').html(response)
 			}
 		});
+	}
+
+	function cc(){
+		console.log('123');
 	}
 	function ins(e)
 	{
@@ -494,4 +515,12 @@
 			}
 		});
 	}
+	// $('.click').click(function () { 
+	// 	var heso = $('.click').closest('tr').find('.heso').val();
+	// 	console.log('123')
+		
+	// });
+	$('.cc').on('click', function () {
+		console.log('123')
+	});
 </script>

@@ -97,7 +97,7 @@ else if(isset($_POST['action']) && trim($_POST['action'])=="NMTANE")
 else if(isset($_POST['action']) && trim($_POST['action'])=="get_table")
 {
 	$data=explode('+',$_POST['nganh']);
-	get_table($data[0],$_POST['he'],$data[2],$data[1]);
+	get_table($data[0],$_POST['he'],$data[2],$data[1],$_POST['hocki']);
 }
 else if(isset($_POST['action']) && trim($_POST['action'])=="phan_cong")
 {
@@ -126,7 +126,7 @@ else if(isset($_POST['action']) && trim($_POST['action'])=="xoa_thinh_giang")
 else if(isset($_POST['action']) && trim($_POST['action'])=="get_namhoc")
 {	
 	//var_dump($_POST);
-	//get_namhoc($_POST['nganh'],intval($_POST['hocki']),intval($_POST['he']),intval($_POST['sttKhoa']));
+	get_namhoc($_POST['nganh'],intval($_POST['hocki']),intval($_POST['he']),intval($_POST['sttKhoa']));
 }
 function get_clas($mbm)
 {
@@ -194,18 +194,20 @@ function check_phan_cong($malop,$mamon,$hocki,$namhoc)
 	}
 	else 
 	{
-		$t=$malop."+".$mamon."+".$hocki."+".$namhoc;
-		return "<td><button class='btn btn-success' onclick='ins(\"".$t."\")'>Phân công</button></td>";
+		//$t=$malop."+".$mamon."+".$hocki."+".$namhoc;
+		return  '<td><button class="btn btn-success cc" onclick="cc(123)">Phân công</button></td>';
+		
 	}
 }
-function get_table($maNganh,$he,$sttKhoa,$malop)
+function get_table($maNganh,$he,$sttKhoa,$malop,$hocki)
 {
 	
 	$db=new db();
 	$sql = "SELECT * FROM chuongtrinhhoc cth, monhoc mh, nganh n ".
 	" Where cth.maNganh = '".$maNganh."'" .
 	 "	 and cth.he = '".$he."'" .
-	 "	 and sttKhoa = '".$sttKhoa."'" .						 					 
+	 "	 and sttKhoa = '".$sttKhoa."'" .
+	 "	 and hocKi = ".$hocki."" .						 					 
 	 "	 and cth.maMon=mh.maMon".
 	 "	 and cth.maNganh=n.maNganh".
 	" ORDER BY cth.namHoc, cth.hocKi ASC ";
@@ -214,13 +216,21 @@ function get_table($maNganh,$he,$sttKhoa,$malop)
 	$t="";
 	while($row=$data->fetch_assoc())
 	{
+		$check=$row['batbuoc']=='x'? "Bắt buộc":"<b style='color:red'>Tự chọn</b>";
 		$stt++;
 		$t.="<tr>
 			<td>".$stt."</td>
-			<td>".$row['maMon']."</td>
-			<td>".$row['tenMon']."</td>
-			<td>".$row['hocKi']."</td>
-			<td>".$row['namHoc']."</td>"
+			<td class='maMon'>".$row['maMon']."</td>
+			<td >".$row['tenMon']."</td>
+			<td>". $row['soTc']."</td>
+			<td class='soTietLt' >". $row['soTietLt']."</td>
+			<td class='soTietBT'>". $row['soTietBT']."</td>
+			<td class='soTietTh'>". $row['soTietTh']."</td>
+			<td class='soTietKt'>". $row['soTietKt']."</td>
+			<td>". $check."</td>
+			<td><input style='width:40px;' class='nhom' value='1'></td>
+			<td><input style='width:40px;' class='heso' value='1'></td>
+			"
 		.check_phan_cong($malop,$row['maMon'],$row['hocKi'],$row['namHoc']).
 		"</tr>";
 	}
@@ -270,7 +280,14 @@ function hienthitable($maNganh,$he,$sttKhoa,$hk)
 	$tongth=0;
 	$tongkt=0;
 	$stt=1;
+	$tongbatbuoc=0;
+	$tongtuchon=0;
 	while($row=$data->fetch_assoc()){
+		if($row['batbuoc']=='x')
+			$tongbatbuoc+=$row['soTc'];
+		else
+			$tongtuchon+=$row['soTc'];
+
 		$tong+=intval($row["soTc"]);
 		$tonglt+=intval($row['soTietLt']);
 		$tongbt+=intval($row['soTietBT']);
@@ -302,6 +319,8 @@ function hienthitable($maNganh,$he,$sttKhoa,$hk)
 	<td>'.$tongbt.' </td>
 	<td>'.$tongth.' </td>
 	<td>'.$tongkt.' </td>
+	<td><b>Bắt buộc:'.$tongbatbuoc.'</b></td>
+	<td><b>Tự chọn:'.$tongtuchon.'</b></td>
 	</tr>';
 }
 //xóa môn học trong bảng chương trình học
@@ -580,7 +599,7 @@ function insertmonhocnganh($nganh,$mon,$he)
 	else
 	 	echo "error";
 }
-function get_table_class($malop)
+function get_table_class($malop,$hocki)
 {
 	$db=new db();
 	$data=$db->mysql->query("select * from lop where malop='$malop'")->fetch_assoc();
@@ -588,7 +607,7 @@ function get_table_class($malop)
 	$he=$data['he'];
 	$maNganh=$data['maNganh'];
 	$value=$db->mysql->query("SELECT * FROM chuongtrinhhoc join monhoc on chuongtrinhhoc.maMon=monhoc.maMon where chuongtrinhhoc.maNganh='$maNganh' 
-	and chuongtrinhhoc.sttKhoa=$sttKhoa and he=$he ");
+	and chuongtrinhhoc.sttKhoa=$sttKhoa and he=$he and hocKi=$hocki ");
 	return $value;
 }
 function check_thinh_giang($malop,$mamon,$hocki,$namhoc)
@@ -626,7 +645,7 @@ function check_phan_cong_thinh_giang($malop,$mamon,$hocki,$namhoc)
 	{
 		$t=$malop."+".$mamon."+".$hocki."+".$namhoc;
 		
-		return "<td><button class='btn btn-success' onclick='ins(\"".$t."\")'>Thỉnh Giảng</button></td>";
+		return "<td><button class='btn btn-success' >Thỉnh Giảng</button></td>";
 	}
 }
 function get_bo_mon()
@@ -657,6 +676,6 @@ function get_namhoc($nganh,$hocki,$he,$khoa)
 {
 	$db=new db();
 	$data=$db->mysql->query("select distinct namHoc from chuongtrinhhoc where maNganh='$nganh' and hocKi=$hocki and he=$he and sttKhoa=$khoa ")->fetch_assoc();
-	var_dump($data);
+	echo $data['namHoc'];
 }
 ?>

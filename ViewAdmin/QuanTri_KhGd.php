@@ -71,7 +71,8 @@
                       <tr>
                         <td height="35" width="140"> Học kỳ: </td>
                         <td ><select name="hk"  id="hocky">
-								<option value=1 selected="selected" >1</option>
+								<option value="0" select="selected">Chọn học kì</option>
+								<option value=1 >1</option>
 								<option value=2 >2</option>
 								<option value=3 >3</option>
 								<option value=4 >4</option>
@@ -79,9 +80,6 @@
 								<option value=6 >6</option>
 							 </select>	
 						 </td>						
-                      </tr>
-                      <tr>
-							 
                       </tr>
                       <tr>
                         <td height="35"> Khóa: </td>
@@ -128,7 +126,7 @@
 			
 			
     	    <table class="table"  >
-          		<h3 class="style1">Danh sách môn học ngành: <a style="color:red;" id="tk"></a></h3>
+          		<h3 class="style1">Danh sách môn học ngành: <a style="color:red;" id="tk"></a>-<a style="color:red;" id="namhoc"></a></h3>
 				
 
 	          	<thead>
@@ -294,7 +292,7 @@
 		gettable()
 		laymonhoc()
 		NMT()
-		get_namhoc()
+
 		tk()
 
 	
@@ -321,15 +319,15 @@
 		
 	});
 	$('#nganh').change(function (e) {
-		
+	
 		gettable()
 		get_khoa()
-	
 		laymonhoc()
 		NMT()
-		get_namhoc()
 		$('#inp-search').val('')
+		$('#hocky').val("0");
 		tk()
+		get_namhoc()
 	});
 		//lấy lại dữ liệu bảng nếu hệ thay đổi
 	$('#he').change(function (e) { 
@@ -342,13 +340,18 @@
 		//lấy lại dữ liệu bảng nếu khóa thay đổi
 	 $('#sttKhoa').change(function (e) { 
 	 	gettable()
-		 NMT()	
+		 NMT()
+	
 		 tk()	
+		 get_namhoc()	
+		 console.log($('#sttKhoa').val())
+	
 	 });
 	 	//lấy lại dữ liệu bảng nếu học kỳ thay đổi
 	 $('#hocky').change(function (e) { 
 	 	gettable()		
 		 tk()
+		 get_namhoc()
 	 });
 	 	//lấy lại dữ liệu bảng nếu năm học thay đổi
 	 //xóa môn học ra khỏi kế hoạch giản dạy của 1 lớp
@@ -466,7 +469,6 @@ function get_namhoc(){
 	var he=$('#he').val()
 	var hocki=$('#hocky').val()
 	var sttKhoa=$('#sttKhoa').val()
-	//console.log(sttKhoa)
 	$.ajax({
 		type: "post",
 		url: "index.php?f=function",
@@ -478,14 +480,14 @@ function get_namhoc(){
 			'action':'get_namhoc'
 		},
 		success: function (response) {
-			console.log(response)
+			$('#namhoc').text('Năm: '+response+')')
 		}
-	});
+	 });
 	
 }
 function tk(){
 	var t=$('#nganh option:selected').text()
-	$('#tk').text(t+'-Khóa '+$('#sttKhoa').val()+'(Học kì '+$('#hocky option:selected').text()+')')	
+	$('#tk').text(t+'-Khóa '+$('#sttKhoa').val()+'(Học kì '+$('#hocky option:selected').text())	
 }
 
 </script>

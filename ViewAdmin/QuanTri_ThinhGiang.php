@@ -101,7 +101,7 @@ vertical-align:middle !important;
 				
                   	$malop=$_GET['malop'];
 
-                    $data= get_table_class($malop);
+                    $data= get_table_class($malop,1);
 
                     $stt=0;
                     while($row=$data->fetch_assoc()){	

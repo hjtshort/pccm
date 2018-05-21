@@ -28,20 +28,7 @@ vertical-align:middle !important;
  <div class="wrapper" style="background-color:#FFFFFF"> 
 <?php
     require_once("ViewAdmin/header.php");
-	require_once("ViewAdmin/function.php");
-	$malop=$_GET['malop'];
-	$db=new db();
-	$data=$db->mysql->query("select tenLop,he,sttKhoa from lop where maLop='$malop'")->fetch_assoc();
-	if(isset($_POST['hocky']))
-	{
-		$chon=$_POST['hocky'];
-		$data1= get_table_class($malop,$_POST['hocky']);
-	}
-	else
-	{
-		$chon=1;
-		$data1= get_table_class($malop,1);
-	}
+    require_once("ViewAdmin/function2.php");
 ?>		
 	
 <div class="wrapper" style="background-color:#FFFFFF"> 
@@ -49,7 +36,7 @@ vertical-align:middle !important;
 	    
 	 	<div class="container">
       		<div class="row">	
-			<h3 class="style1">Phân công lớp: <?php echo $data['he']==1? "Cao đẳng":"Trung cấp"; echo " ".$data['tenLop']." Khóa: ".$data['sttKhoa']; ?><font color="#c70000"></font> &nbsp;&nbsp;	Năm học: 
+			<h3 class="style1">Phân công chuyên môn bộ môn: <font color="#c70000"></font> &nbsp;&nbsp;	Năm học: 
 							<input type="text" name="namHoc" size="4"  onChange="this.form.submit()" value="<?php echo $namHoc; ?>"> - &nbsp;&nbsp;
 							<input type="text" size="4" value="<?php echo ($namHoc+1); ?>" readonly="true">
 
@@ -61,18 +48,11 @@ vertical-align:middle !important;
 					<input type="image" name="test"  value=""  width="3" height="3">
 			        <table width="800" border="1" >					  
                    </table>
-				   <form action="" method="post" id="myform">
-				   <label>Học kì</label>
-					<select name="hocky" id="hocky">
-						<option value="1" <?php if($chon==1) echo 'selected="selected"' ?>>1</option>
-						<option value="2" <?php if($chon==2) echo 'selected="selected"' ?>>2</option>
-						<option value="3" <?php if($chon==3) echo 'selected="selected"' ?>>3</option>
-						<option value="4" <?php if($chon==4) echo 'selected="selected"' ?>>4</option>
-						<option value="5" <?php if($chon==5) echo 'selected="selected"' ?>>5</option>
-						<option value="6" <?php if($chon==6) echo 'selected="selected"' ?>>6</option>
-					</select>
-					</form>
-					<label>Chọn giáo viên</label>
+				   <input type="text" id="sonth" placeholder="số nhóm thực hành!">
+					<input type="text" id="sotietlt" placeholder="số tiết lý thuyết!">
+					<input type="text" id="sotietth" placeholder="số tiết thực hành!">
+					<input type="text" id="sotietbt" placeholder="số tiết bài tập!">
+					<input type="text" id="sotietkt" placeholder="số tiết kiếm tra!">
 					<?php
 					  $mabm = $_SESSION['ss_user_token']['Mabm'];
 					$cb=get_can_bo($mabm) ;
@@ -91,31 +71,25 @@ vertical-align:middle !important;
 	          	<thead>
 					<tr >
 					  <th width="29" ><center> STT</center> </th>
-					  <th width="30" valign="middle">Mã Môn</th>
+					  <th width="30" valign="middle">Lớp</th>
  					  <th width="100"  ><center>Tên Môn</center></th>
 				  	  <th width="51"  ><center>
-				  	    Số Tc
+				  	    Học kì
 				  	  </center></th>
 					  <th width="40"  ><center>
-					    LT 
+					    Năm học 
 					  </center></th>
 					  <th width="40"  ><center>
-					    BT
+					    Khoa 
 					  </center></th>
 					  <th width="40"  ><center>
-					    TH
+					    Hệ 
 					  </center></th>
 					  <th width="40"  ><center>
-					    KT 
-					  </center></th>
-					  <th width="50"  ><center>
-					    Bắt buộc
-					  </center></th>
-					  <th width="20"  ><center>
-							số nhóm
+					    Thao tác 
 					  </center></th>
 					  <th width="40"  ><center>
-							Thao tác
+					 
 					  </center></th>
 
 					</tr>
@@ -124,24 +98,21 @@ vertical-align:middle !important;
 			  <tbody>
 				  <?php		
 				
-              
-                  
+                    $data=get_table_thinh_giang($mabm);
                     $stt=0;
-                    while($row=$data1->fetch_assoc()){	
+                    while($row=$data->fetch_assoc()){	
                         $stt++;	
 					?>
 						<tr>
 						  <th  width="29" scope="row"><?php echo $stt ?></th>
 						  <td width="30"><?php echo $row["maMon"]; ?></td>	
 						  <td width="100"><?php echo $row["tenMon"]; ?></td>	
-						  <td width="51"><center><?php echo $row['soTc']; ?></center></td>	
-						  <td width="51"><center><?php echo $row['soTietLt']; ?></center></td>	
-						  <td width="51"><center><?php echo $row['soTietBT']; ?></center></td>	
-						  <td width="51"><center><?php echo $row['soTietTh']; ?></center></td>	
-						  <td width="51"><center><?php echo $row['soTietKt']; ?></center></td>	
-						  <td width="51"><center><?php echo $row['batbuoc']=='x'? "Bắt buộc":"Tự chọn"; ?></center></td>	
- 						  <td width="30"><center><input style="width:30px;" class='sonhom' value="1"></center></td>	
-						  <?php echo  check_thinh_giang($malop,$row["maMon"],$row['hocKi'],$row['namHoc'])==1? "<td><label class='text-danger'>Thỉnh giảng</label></td>":check_phan_cong($malop,$row["maMon"],$row['hocKi'],$row['namHoc']); ?>
+						  <td width="51"><center><?php echo $row['hocKi']; ?></center></td>	
+						  <td width="51"><center><?php echo $row['namHoc']; ?></center></td>	
+						  <td width="51"><center><?php echo $row['sttKhoa']; ?></center></td>	
+						  <td width="51"><center><?php echo $row['he']==1? "Cao đẳng":"Trung cấp"; ?></center></td>	
+						 <?php echo  check_phan_cong($row['maLop'],$row["maMon"],$row['hocKi'],$row['namHoc']); ?>
+ 						 
   						  
 						</tr>	
                 <?php }?>				
@@ -198,9 +169,6 @@ vertical-align:middle !important;
 			}
 		});
 	}
-	$('#hocky').on('change', function () {
-		$('#myform').submit()
-	});
 	</script>
 	
 	

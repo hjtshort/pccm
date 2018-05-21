@@ -51,6 +51,7 @@
 
 <li><a href="index.php?f=QuanTri_PcLop">Phân theo lớp</a>
 <li><a href="index.php?f=QuanTri_Pccm1">Chuyên môn</a>
+<li><a href="index.php?f=QuanTri_PcThinhGiang">Phân công thỉnh giảng</a>
 
 <li><a href="index.php?f=QuanTri_Covan&idMau=<?php $now = getdate();
 												   $namHoc =  $now["year"]-1; 
