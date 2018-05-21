@@ -1,4 +1,5 @@
 <?php	
+	error_reporting( ~E_WARNING & ~E_NOTICE);
 	if (!defined('IN_SITE')) 
  	 	header('Location: ../index.php')	;	
 ?>
@@ -59,7 +60,7 @@
 		}	
 	
 	///Lấy khóa lớn nhất
-	$sql="select max(sttKhoa) as khoa from chuongtrinhhoc";
+	$sql="select max(sttKhoa) as khoa from lop";
 	$query = mysqli_query($conn,$sql);
 	$data = mysqli_fetch_array($query);
 	$khoa_max=$data["khoa"];
@@ -92,8 +93,9 @@
 			$chuoiXoa = $_POST["btn_xoa"];
 			$maCb=explode("+",$chuoiXoa);//Tach ma Can bo va ma chuc vu
 			$address = "QuanTri_CoVan";
-			//thongBao("Ban muon xoa".$maCb[0]."đung kho?");
-			XoaCvGv($conn, $address, $maCb[0],$maCb[1],$namHoc);
+			thongBao("Ban muon xoa".$maCb[0]."-".$maCb[1]." ".$namHoc."đung kho?");
+			
+			//XoaCvGv($conn, $address, $maCb[0],$maCb[1],$namHoc);
 			
 	}	
 	
@@ -138,6 +140,7 @@
 					    <td height="35" width="136"> Lớp thuộc bộ môn: </td>
                        <td width="249">        
 							<select name="maLop" >
+							<option value=''>chọn lớp</option>
                             <?php														
 									if($maLop!= '')
 									{								
@@ -146,7 +149,8 @@
 										$query7 = mysqli_query($conn,$sql7);
 										$data7 = mysqli_fetch_array($query7);									
 									 ?>
-                            <option value='<?php echo $data7["maLop"]; ?>'><?php echo $data7["tenLop"]." - K".$data7["sttKhoa"]; ?></option>
+							
+
                             <?php } 	
 										$sql8 = "SELECT * FROM lop ".
 												" WHERE maLop!= '".$maLop."'".
