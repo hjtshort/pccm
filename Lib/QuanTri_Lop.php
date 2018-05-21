@@ -1,5 +1,5 @@
 <?php
-
+ob_start();
 		function ThemLop($conn, $address,$maLop, $tenLop, $siSo,$maNganh, $sttKhoa,$he)
 		{			
 			// Làm sạch chuổi nhập vào 	

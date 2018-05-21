@@ -53,7 +53,9 @@
 <li><a href="index.php?f=QuanTri_Pccm1">Chuyên môn</a>
 <li><a href="index.php?f=QuanTri_PcThinhGiang">Phân công thỉnh giảng</a>
 
-<li><a href="index.php?f=QuanTri_Covan&idMau=<?php $now = getdate();
+
+
+<li><a href="index.php?f=QuanTri_CoVan&idMau=<?php $now = getdate();
 												   $namHoc =  $now["year"]-1; 
 												   $chuoi=$namHoc." "."lop"." "."canbo";
 												   echo $chuoi; ?>">Cố vấn học tập</a></li>
@@ -87,7 +89,7 @@
 		<li><a href="index.php?f=QuanTri_Lop">Lớp</a></li>
 		<li><a href="index.php?f=QuanTri_Mon">Môn học</a>
 		<li><a href="index.php?f=QuanTri_MonNganh">Môn học ngành</a></li>
-		</li>
+		
 		<li><a href="index.php?f=QuanTri_MTQ">Môn tiên quyết</a></li>
 	</ul>
 </li>

@@ -1,7 +1,7 @@
 <?php	
-	error_reporting( ~E_WARNING & ~E_NOTICE);
+
 	if (!defined('IN_SITE')) 
- 	 	header('Location: ../index.php')	;	
+ 	 	header('Location: ../index.php');	
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,8 +32,9 @@
 <body>
  <div class="wrapper" style="background-color:#FFFFFF"> 
 <?php
-	require_once("lib/QuanTri_CoVan.php");	
 	require_once("ViewAdmin/header.php");
+	require_once("lib/QuanTri_CoVan.php");	
+	
 	
 		
 	
@@ -84,8 +85,10 @@
 
 	
 	//////////////////////////////////
-	if (isset($_POST["btn_them"])) {					
+	if (isset($_POST["btn_them"])) {			
+			
 			$address = "QuanTri_CoVan";
+			thongbao($address);
 			ThemCv($conn, $address, $maCb, $maLop,$namHoc);		
 	}	
 	
@@ -93,9 +96,9 @@
 			$chuoiXoa = $_POST["btn_xoa"];
 			$maCb=explode("+",$chuoiXoa);//Tach ma Can bo va ma chuc vu
 			$address = "QuanTri_CoVan";
-			thongBao("Ban muon xoa".$maCb[0]."-".$maCb[1]." ".$namHoc."đung kho?");
+			//thongBao("Ban muon xoa".$maCb[0]."-".$maCb[1]." ".$namHoc."đung kho?");
 			
-			//XoaCvGv($conn, $address, $maCb[0],$maCb[1],$namHoc);
+			XoaCvGv($conn, $address, $maCb[0],$maCb[1],$namHoc);
 			
 	}	
 	
@@ -112,7 +115,7 @@
 				
 				$ma_Cbold = $maCbCv[0];
 				$ma_Cvold = $maCbCv[1];
-				$address = "QuanTri_ChucVu";							
+				$address = "QuanTri_CoVan";							
 				Sua($conn, $address, $ma_Cbold, $ma_Cvold, $maCb, $maCv);		
 			}	
 	}	

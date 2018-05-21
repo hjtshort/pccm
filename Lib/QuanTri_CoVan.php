@@ -1,4 +1,8 @@
-<?php
+<?php 
+
+ob_start();
+
+
 
 		function ThemCv($conn, $address, $maCb, $maLop,$namHoc)
 		{			

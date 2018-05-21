@@ -1,5 +1,5 @@
 <?php
-
+ob_start();
 		function ThemBoMon($conn, $address, $tenBm, $maKhoa)
 		{			
 			// Làm sạch chuổi nhập vào 	

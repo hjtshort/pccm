@@ -1,5 +1,5 @@
 <?php
-
+ob_start();
 		function ThemCanBo($conn, $address, $maCb, $hoCb, $tenCb, $maBm, $matKhau)
 		{			
 			// Làm sạch chuổi nhập vào 	

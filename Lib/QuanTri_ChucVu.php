@@ -1,5 +1,5 @@
 <?php
-
+ob_start();
 		function ThemCv($conn, $address, $maCb, $maCv)
 		{			
 			// Làm sạch chuổi nhập vào 	
@@ -36,6 +36,7 @@
 						 $sql = "INSERT INTO chucvugiangvien( maCb, maCv) ".
 								" VALUES ('".$maCb."','".$maCv."')";												
 						mysqli_query($conn,$sql); 
+						thongbao('index.php?f='.$address);
 						header('Location: index.php?f='.$address);	
 						}
 					}									   								

@@ -1,5 +1,5 @@
 <?php
-
+ob_start();
 		function Them($conn, $address, $maCb, $namHoc,$soTiet)
 		{			
 			// Làm sạch chuổi nhập vào 	

@@ -31,6 +31,7 @@
 <body>
  <div class="wrapper" style="background-color:#FFFFFF"> 
 <?php
+
 	require_once("lib/QuanTri_ChucVu.php");	
 	require_once("ViewAdmin/header.php");
 	
