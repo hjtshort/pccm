@@ -120,8 +120,7 @@ else if(isset($_POST['action']) && trim($_POST['action'])=="get_khoa")
 }
 else if(isset($_POST['action']) && trim($_POST['action'])=="thinh_giang")
 {	
-	$data=explode('+',$_POST['data']);
-	thinh_giang($data[0],$data[1],$_POST['maBm'],$data[2],$data[3]);
+	thinh_giang($_POST['malop'],$_POST['mamon'],$_POST['mabm'],$_POST['hocki'],$_POST['namhoc']);
 }
 else if(isset($_POST['action']) && trim($_POST['action'])=="xoa_thinh_giang")
 {	
@@ -133,11 +132,7 @@ else if(isset($_POST['action']) && trim($_POST['action'])=="get_namhoc")
 	//var_dump($_POST);
 	get_namhoc($_POST['nganh'],intval($_POST['hocki']),intval($_POST['he']),intval($_POST['sttKhoa']));
 }
-<<<<<<< HEAD
 //xoa_phan_cong('4300S282+1+TU030+1+2018');
-=======
-//xoa_phan_cong("4600B118+1+1.GC01+1+2018");
->>>>>>> ece57a393a9be5f26cf14b76bf28f48892f9c215
 function get_clas($mbm)
 {
 	$db=new db();
@@ -663,7 +658,7 @@ function check_phan_cong_thinh_giang($malop,$mamon,$hocki,$namhoc)
 	}
 	else 
 	{
-		$t=$malop."+".$mamon."+".$hocki."+".$namhoc;
+		// $t=$malop."+".$mamon."+".$hocki."+".$namhoc;
 		
 		return "<td><button class='btn btn-success' >Thỉnh Giảng</button></td>";
 	}
