@@ -85,7 +85,7 @@
 		$siSo= $data_chon["siSo"];
 		$sttKhoa= $data_chon["sttKhoa"];	
 		$he=$data_chon["he"];
-		thongbao($maLop." ".$tenLop);
+
 	}	
 ?>
 	
@@ -102,7 +102,7 @@
 			        <table width="800" border="1" >				
 					<tr>
                         <td height="35" width="100"> Mã lớp: </td>
-                        <td ><input type="text" name="maLop" size="30" value="<?php echo $maLop; > 	</td>						
+                        <td ><input type="text" name="maLop" size="30" value="<?php echo $maLop; ?>" > 	</td>						
                       </tr>
 					  <tr>
                         <td height="35" width="100"> Tên lớp học: </td>
