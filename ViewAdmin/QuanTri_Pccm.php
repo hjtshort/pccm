@@ -524,7 +524,7 @@
 				if(response=="ok")
 				{
 					get_table()
-					location.reload()
+					//location.reload()
 				}
 					
 				// console.log(response)
@@ -565,9 +565,9 @@ $("#print").on('click','.cc',function()
 		success: function (response) {
 			if(response=='ok')
 			{
-				location.reload()
+				//location.reload()
 			}
-//get_table()
+			get_table()
 		}
 	});
 
