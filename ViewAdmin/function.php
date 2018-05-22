@@ -108,6 +108,13 @@ else if(isset($_POST['action']) && trim($_POST['action'])=="phan_cong")
 	 phan_cong($_POST['macb'],$data[1],$_POST['mamon'],$_POST['hocki'],$_POST['namhoc'],$_POST['nhom'],
 	 $_POST['lythuyet'],$_POST['thuchanh'],$_POST['baitap'],$_POST['kiemtra'],$_POST['he']);
 }
+else if(isset($_POST['action']) && trim($_POST['action'])=="phan_cong2")
+{
+	//$data=explode('+',$_POST['data']);
+	//var_dump($_POST);
+	 phan_cong($_POST['macb'],$_POST['malop'],$_POST['mamon'],$_POST['hocki'],$_POST['namhoc'],$_POST['nhom'],
+	 $_POST['lythuyet'],$_POST['thuchanh'],$_POST['baitap'],$_POST['kiemtra'],$_POST['he']);
+}
 else if(isset($_POST['action']) && trim($_POST['action'])=="xoa_phan_cong")
 {
 	xoa_phan_cong($_POST['data']);
@@ -121,6 +128,7 @@ else if(isset($_POST['action']) && trim($_POST['action'])=="get_khoa")
 else if(isset($_POST['action']) && trim($_POST['action'])=="thinh_giang")
 {	
 	thinh_giang($_POST['malop'],$_POST['mamon'],$_POST['mabm'],$_POST['hocki'],$_POST['namhoc']);
+
 }
 else if(isset($_POST['action']) && trim($_POST['action'])=="xoa_thinh_giang")
 {	

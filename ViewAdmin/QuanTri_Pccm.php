@@ -567,7 +567,6 @@ $("#print").on('click','.cc',function()
 			{
 				location.reload()
 			}
-//get_table()
 		}
 	});
 
