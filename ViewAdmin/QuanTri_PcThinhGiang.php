@@ -48,11 +48,11 @@ vertical-align:middle !important;
 					<input type="image" name="test"  value=""  width="3" height="3">
 			        <table width="800" border="1" >					  
                    </table>
-				   <input type="text" id="sonth" placeholder="số nhóm thực hành!">
+				  <!-- <input type="text" id="sonth" placeholder="số nhóm thực hành!">
 					<input type="text" id="sotietlt" placeholder="số tiết lý thuyết!">
 					<input type="text" id="sotietth" placeholder="số tiết thực hành!">
 					<input type="text" id="sotietbt" placeholder="số tiết bài tập!">
-					<input type="text" id="sotietkt" placeholder="số tiết kiếm tra!">
+					<input type="text" id="sotietkt" placeholder="số tiết kiếm tra!">-->
 					<?php
 					  $mabm = $_SESSION['ss_user_token']['Mabm'];
 					$cb=get_can_bo($mabm) ;
@@ -80,7 +80,7 @@ vertical-align:middle !important;
 					    Năm học 
 					  </center></th>
 					  <th width="40"  ><center>
-					    Khoa 
+					    Khóa 
 					  </center></th>
 					  <th width="40"  ><center>
 					    Hệ 
@@ -105,7 +105,7 @@ vertical-align:middle !important;
 					?>
 						<tr>
 						  <th  width="29" scope="row"><?php echo $stt ?></th>
-						  <td width="30"><?php echo $row["maMon"]; ?></td>	
+						  <td width="100"><?php echo $row["tenLop"]; ?></td>	
 						  <td width="100"><?php echo $row["tenMon"]; ?></td>	
 						  <td width="51"><center><?php echo $row['hocKi']; ?></center></td>	
 						  <td width="51"><center><?php echo $row['namHoc']; ?></center></td>	

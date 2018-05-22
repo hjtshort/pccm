@@ -62,10 +62,12 @@
 	
 	
 ?>
+
 <input type="text" hidden  id="maCB" value="<?php echo $maCb; ?>">
 
 <input type="text" hidden  id="namhoc" value="<?php echo $namHoc; ?>">
-<input type="text" hidden  id="maBM" value="<?php echo $maBm; ?>">		
+<input type="text" hidden  id="maBM" value="<?php echo $maBm; ?>"> 		
+
 <div class="wrapper" style="background-color:#FFFFFF"> 
 <div>
 	  

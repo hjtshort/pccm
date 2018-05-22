@@ -88,7 +88,7 @@
 	if (isset($_POST["btn_them"])) {			
 			
 			$address = "QuanTri_CoVan";
-			thongbao($address);
+
 			ThemCv($conn, $address, $maCb, $maLop,$namHoc);		
 	}	
 	
