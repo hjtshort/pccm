@@ -72,8 +72,10 @@
 	 	<div class="container">
       		<div class="row">	
 			<h3 class="style1">Phân công cán bộ<font color="#990000" >  <?php echo $data["ten"];	?></font> <font size="-1"><a href="index.php?f=QuanTri_ChiTietGv&idMau=<?php $chuoi=$maCb." ".$namHoc." ".$maLop; echo $chuoi; ?>"> <img src="img/Edit.png" width="20" height="20" title="Chi tiết phân công" /></a></font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-			<font color="#FF00FF">Năm học:<?php echo $namHoc."-"; echo $namHoc+1;?> </font></h3>
+			<font color="#FF00FF"> Học kỳ: <select name="hocky" id="hockiphancong">
+									<option value="1" >1</option>
+									<option value="2" >2</option>
+								</select>   Năm học:<?php echo $namHoc."-"; echo $namHoc+1;?> </font></h3>
 
 
 					
@@ -95,16 +97,15 @@
 									?>
 			
 							</td>   
-						</tr>
-						<tr>
 							<td>Hệ:</td>
 							<td>
 								<select name="" id="he">
 									<option value="1">Cao đẳng</option> 
 									<option value="2">Trung cấp</option> 	
 								</select>
-							</td>				
-						</tr>					
+							</td>	
+						</tr>
+											
 						<tr>
 							<td >Học kỳ</td>
 							<td><select name="hocky" id="hocky">
@@ -117,14 +118,7 @@
 								</select>
 							</td>
 						</tr>
-						<tr>
-							<td >Học kỳ</td>
-							<td><select name="hocky" id="hockiphancong">
-									<option value="1" >1</option>
-									<option value="2" >2</option>
-								</select>
-							</td>
-						</tr>
+						
                       
                       
                     </table>

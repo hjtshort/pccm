@@ -133,7 +133,7 @@ else if(isset($_POST['action']) && trim($_POST['action'])=="get_namhoc")
 	//var_dump($_POST);
 	get_namhoc($_POST['nganh'],intval($_POST['hocki']),intval($_POST['he']),intval($_POST['sttKhoa']));
 }
-xoa_phan_cong("4600B118+1+1.GC01+1+2018");
+//xoa_phan_cong("4600B118+1+1.GC01+1+2018");
 function get_clas($mbm)
 {
 	$db=new db();
@@ -152,7 +152,7 @@ function get_Bm_session($macb)
 	$data=$db->mysql->query("select maBm from canbo where maCb='".$macb."'")->fetch_assoc();
 	return $data['maBm'];
 }
-function ahihi($macb,$malop)
+function ahihi($macb,$malop)//Gv dạy lớp thứ 3
 {
 	$db=new db();
 	$data=$db->mysql->query("select * from pcday where maCb='".$macb."' and maLop='".$malop."'")->num_rows;
