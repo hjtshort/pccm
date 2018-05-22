@@ -41,14 +41,14 @@
 	     <form name="form1" method="POST" action="index.php?f=QuanTri_KhGd">
 	 	<div class="container">
       		<div class="row">	
-			<h3 class="style1"> THÊM KẾ HOẠCH GIẢNG DẠY </h3>
+			<h3 class="style1"> QUẢN LÝ KẾ HOẠCH GIẢNG DẠY </h3>
 			
 			<Center>				 		  
 					<input type="image" name="test"  value=""  width="3" height="3">
 			        <table width="800" border="1" >
 					  <tr>
-                        <td height="35" width="140">Ngành: </td>
-                        <td ><select name="maNganh" title="chọn mã ngành" id="nganh">							 	
+                        <td height="35" width="302">Ngành: </td>
+                        <td width="379" ><select name="maNganh" title="chọn mã ngành" id="nganh">							 	
 							<?php								
 								$data4=laynganh();
 								foreach ($data4 as $key=>$value) {
@@ -59,17 +59,17 @@
 									
 								
 						  </select>	
-						 </td>						
+					    </td>						
                       </tr>
 					  <tr>
-					  	<td height="35" width="140"> Hệ: </td>
+					  	<td height="35" width="302"> Hệ: </td>
                         <td ><select name="he" title="chọn hệ" id="he">							 	
 									<option value=1 selected="selected" >Cao đẳng</option>
 									<option value=2 >trung cấp</option>
 							 </select>						
 					  </tr>					  
                       <tr>
-                        <td height="35" width="140"> Học kỳ: </td>
+                        <td height="35" width="302"> Học kỳ: </td>
                         <td ><select name="hk"  id="hocky">
 								<option value="0" select="selected">Chọn học kì</option>
 								<option value=1 >1</option>
@@ -79,7 +79,7 @@
 								<option value=5 >5</option>
 								<option value=6 >6</option>
 							 </select>	
-						 </td>						
+					    </td>						
                       </tr>
                       <tr>
                         <td height="35"> Khóa: </td>
@@ -88,7 +88,7 @@
 							
 						</div>  
 						</td>
-						 <td height="35"><button type="button" class="btn btn-success create">Tạo</button> </td>              
+					    <td width="97" height="35"><button type="button" class="btn btn-success create">Tạo KHGD khóa mới</button> </td>              
                       </tr>
 					   <tr>
 							<td>&nbsp</td>

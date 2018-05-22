@@ -91,6 +91,7 @@ visibility:hidden;
 padding:0;
 width:175px;
 position:absolute;
+z-index: 999;
 background-color: #1976D2;
 -moz-transition:opacity .25s linear, visibility .1s linear .1s;
 -webkit-transition:opacity .25s linear, visibility .1s linear .1s;

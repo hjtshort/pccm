@@ -112,7 +112,7 @@
 	     <form name="form1" method="POST" action="index.php?f=QuanTri_KhGd">
 	 	<div class="container">
       		<div class="row">	
-			<h3 class="style1"> THÊM KẾ HOẠCH GIẢNG DẠY </h3>
+			<h3 class="style1"> QUẢN LÝ KẾ HOẠCH GIẢNG DẠY </h3>
 			
 			<Center>				 		  
 					<input type="image" name="test"  value=""  width="3" height="3">

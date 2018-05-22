@@ -81,7 +81,7 @@
 
 	isset($_POST["chon"])	? $chon=trim($_POST["chon"])	:	$chon= 0;	
 
-	isset($_POST["soTiet"]) 	? $soTiet=trim($_POST["soTiet"])	:	$soTiet=120;		
+	isset($_POST["soTiet"]) 	? $soTiet=trim($_POST["soTiet"])	:	$soTiet=104;		
 	//////////////////////////////////
 	if (isset($_POST["btn_them"])) {					
 

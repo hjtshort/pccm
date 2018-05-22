@@ -1,5 +1,5 @@
 <?php	
-error_reporting( ~E_WARNING & ~E_NOTICE);
+
 	if (!defined('IN_SITE')) 
  	 	header('Location: ../index.php')	;	
 		
@@ -51,12 +51,14 @@ error_reporting( ~E_WARNING & ~E_NOTICE);
 	$query = mysqli_query($conn,$sql);
 	$data = mysqli_fetch_array($query);
 	
+
+	
 	$sql_Bm="select * from bomon where maBm='".$data['maBm']."'";
 	$query_Bm = mysqli_query($conn,$sql_Bm);
 	$data_Bm = mysqli_fetch_array($query_Bm);
 	$maBm=$data['maBm'];
 	
-	
+
 	isset($_POST["maCb"])  	? $maCb	=trim($_POST["maCb"]) 	:	$maCb= '';	
 	isset($_POST["hoCb"]) 	? $hoCb	=trim($_POST["hoCb"]) 	:	$hoCb= '';	
 	isset($_POST["tenCb"]) 	? $tenCb=trim($_POST["tenCb"]) 	:	$tenCb = '';	

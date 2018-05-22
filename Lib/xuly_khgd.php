@@ -52,7 +52,7 @@ for ($i = 0; $i <= $Totalrow; $i++)
 		{
 			$ma_nghanh = explode(":",$data[$i][$j])[count(explode(":",$data[$i][$j])) -1];
 			
-			$tennghanh = trim(str_replace('Mã Ngành','',(explode(":",$matchl[1])[0])));
+			$tennghanh = trim(str_replace('Mã ngành','',(explode(":",$matchl[1])[0])));
 			
 			
 		}

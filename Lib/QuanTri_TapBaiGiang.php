@@ -1,5 +1,5 @@
 <?php
-
+ob_start();
 		function ThemTbg($conn, $address, $maCb, $namHoc, $soTc)
 		{			
 			// Làm sạch chuổi nhập vào 	
@@ -43,7 +43,7 @@
 						 $sql = "INSERT INTO tapbaigiang( maCb,  namHoc, soTc) ".
 								" VALUES ('".$maCb."','".$namHoc."','".$soTc."')";												
 						mysqli_query($conn,$sql); 
-						header('Location: index.php?f='.$address);	
+						header('Location:index.php?f='.$address);	
 						}
 														   								
 			  		  
@@ -99,7 +99,7 @@
 						  }		
 						  else
 						  {			
-								header('Location: index.php?f='.$address);	
+								header('Location: index.php?f='.$address);		
 								exit;
 						  }		
 														   								

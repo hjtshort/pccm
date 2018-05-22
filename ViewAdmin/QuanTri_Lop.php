@@ -34,7 +34,7 @@
 	require_once("ViewAdmin/header.php");
 	
 	///Lấy khóa lớn nhất
-	$sql="select max(sttKhoa) as khoa from chuongtrinhhoc";
+	$sql="select max(sttKhoa) as khoa from lop";
 	$query = mysqli_query($conn,$sql);
 	$data = mysqli_fetch_array($query);
 	$khoa_max=$data["khoa"];
@@ -112,7 +112,7 @@
 	    <form name="form1" method="POST" action="index.php?f=QuanTri_Lop" >
 	 	<div class="container">
       		<div class="row">	
-			<h3 class="style1"> THÊM LỚP HỌC </h3>
+			<h3 class="style1"> THÊM LỚP HỌC <?php echo $maLop; ?></h3>
 			
 			<Center>				 		  
 					<input type="image" name="test"  value=""  width="3" height="3">

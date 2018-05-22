@@ -1,6 +1,7 @@
 <?php	
+
 	if (!defined('IN_SITE')) 
- 	 	header('Location: ../index.php')	;	
+ 	 	header('Location: ../index.php');	
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,8 +32,9 @@
 <body>
  <div class="wrapper" style="background-color:#FFFFFF"> 
 <?php
-	require_once("lib/QuanTri_CoVan.php");	
 	require_once("ViewAdmin/header.php");
+	require_once("lib/QuanTri_CoVan.php");	
+	
 	
 		
 	
@@ -59,7 +61,7 @@
 		}	
 	
 	///Lấy khóa lớn nhất
-	$sql="select max(sttKhoa) as khoa from chuongtrinhhoc";
+	$sql="select max(sttKhoa) as khoa from lop";
 	$query = mysqli_query($conn,$sql);
 	$data = mysqli_fetch_array($query);
 	$khoa_max=$data["khoa"];
@@ -83,8 +85,10 @@
 
 	
 	//////////////////////////////////
-	if (isset($_POST["btn_them"])) {					
+	if (isset($_POST["btn_them"])) {			
+			
 			$address = "QuanTri_CoVan";
+			thongbao($address);
 			ThemCv($conn, $address, $maCb, $maLop,$namHoc);		
 	}	
 	
@@ -92,7 +96,8 @@
 			$chuoiXoa = $_POST["btn_xoa"];
 			$maCb=explode("+",$chuoiXoa);//Tach ma Can bo va ma chuc vu
 			$address = "QuanTri_CoVan";
-			//thongBao("Ban muon xoa".$maCb[0]."đung kho?");
+			//thongBao("Ban muon xoa".$maCb[0]."-".$maCb[1]." ".$namHoc."đung kho?");
+			
 			XoaCvGv($conn, $address, $maCb[0],$maCb[1],$namHoc);
 			
 	}	
@@ -110,7 +115,7 @@
 				
 				$ma_Cbold = $maCbCv[0];
 				$ma_Cvold = $maCbCv[1];
-				$address = "QuanTri_ChucVu";							
+				$address = "QuanTri_CoVan";							
 				Sua($conn, $address, $ma_Cbold, $ma_Cvold, $maCb, $maCv);		
 			}	
 	}	
@@ -138,6 +143,7 @@
 					    <td height="35" width="136"> Lớp thuộc bộ môn: </td>
                        <td width="249">        
 							<select name="maLop" >
+							<option value=''>chọn lớp</option>
                             <?php														
 									if($maLop!= '')
 									{								
@@ -146,7 +152,8 @@
 										$query7 = mysqli_query($conn,$sql7);
 										$data7 = mysqli_fetch_array($query7);									
 									 ?>
-                            <option value='<?php echo $data7["maLop"]; ?>'><?php echo $data7["tenLop"]." - K".$data7["sttKhoa"]; ?></option>
+							
+
                             <?php } 	
 										$sql8 = "SELECT * FROM lop ".
 												" WHERE maLop!= '".$maLop."'".

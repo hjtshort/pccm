@@ -49,34 +49,36 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                    <label for="">Chọn lớp: </label>
-                    <div class="chonmon">
-                    <select name="" id="nganh">
-                        <?php  $data=laynganh();
-                        foreach($data as $key=>$value){
-                         ?>
-                            <option value="<?php echo $value['maNganh']; ?>"> <?php echo $value['tenNganh'];  ?></option>
-                        <?php } ?>
-                        </select>
+                    <div class="form-group">
+                            <label for="">Chọn lớp: </label>
+                            <div class="chonmon">
+                            <select class="form-control" name="" id="nganh">
+                                <?php  $data=laynganh();
+                                foreach($data as $key=>$value){
+                                 ?>
+                                    <option value="<?php echo $value['maNganh']; ?>"> <?php echo $value['tenNganh'];  ?></option>
+                                <?php } ?>
+                                </select>
+                            </div>
+                    </div>
+                    <div class="form-group">
+                            <label for="">Hệ </label><br>
+                            <div class="chonmontienquyet">
+                                <select class="form-control" name="he" title="chọn hệ" id="he">                             
+                                        <option value="1" selected="selected">Cao đẳng</option>
+                                        <option value="2">trung cấp</option>
+                                    </select>
+                            </div>
                     </div>
             </div> 
             <div class="col-md-6">
                     <label for="">Môn học </label><br>
-                    <input type="text" id="inp-search1" placeholder="Tìm kiếm">
+                    <input class="form-control" type="text" id="inp-search1" placeholder="Tìm kiếm">
                     <div class="chonmontienquyet">
-                    <select name="" id="monhoc" size="5"><option value="GQ010" selected="selected">Giáo dục quốc phòng - An ninh 2(GQ010)-2 tc							
+                    <select class="form-control" name="" id="monhoc" size="5"><option value="GQ010" selected="selected">Giáo dục quốc phòng - An ninh 2(GQ010)-2 tc							
 		            </select>
                     </div>
-            </div> 
-            <div class="col-md-12">
-                    <label for="">Hệ </label><br>
-                    <div class="chonmontienquyet">
-                        <select name="he" title="chọn hệ" id="he">							 	
-                                <option value="1" selected="selected">Cao đẳng</option>
-                                <option value="2">trung cấp</option>
-                            </select>
-                    </div>
-            </div>         
+            </div>       
         </div>
         <div style="float:right;margin-bottom: 30px"><button type="button" class="btn btn-custom" type="button" id="insert">Thêm</button></div>
     

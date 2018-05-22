@@ -75,7 +75,7 @@
 			else
 			{
 				$ma_old = $_POST["chon"];
-				$address = "QuanTri_CanBo";							
+				$address = "QuanTri_CanBo";						
 				Sua($conn, $address, $ma_old, $maCb, $hoCb, $tenCb, $maBm, $matKhau);	
 			}	
 	}	
