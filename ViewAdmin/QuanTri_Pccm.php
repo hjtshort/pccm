@@ -63,6 +63,8 @@
 	
 ?>
 <input type="text" hidden  id="maCB" value="<?php echo $maCb; ?>">
+
+<input type="text" hidden  id="namhoc" value="<?php echo $namHoc; ?>">
 <input type="text" hidden  id="maBM" value="<?php echo $maBm; ?>">		
 <div class="wrapper" style="background-color:#FFFFFF"> 
 <div>
@@ -112,6 +114,14 @@
 									<option value="4">4</option>
 									<option value="5" >5</option>
 									<option value="6">6</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td >Học kỳ</td>
+							<td><select name="hocky" id="hockiphancong">
+									<option value="1" >1</option>
+									<option value="2" >2</option>
 								</select>
 							</td>
 						</tr>
@@ -434,6 +444,11 @@
 	$(document).ready(function () {
 		//title()
 		get_table()
+	// 	$('.cc').on('click', function () {
+	// 	// var heso = $(this).closest('tr').find('.heso').val();
+	// 	// console.log(heso)
+	// 	console.log('123')
+	// });
 		
 		
 	});
@@ -470,9 +485,7 @@
 		});
 	}
 
-	function cc(){
-		console.log('123');
-	}
+
 	function ins(e)
 	{
 		var macb=$('#maCB').val()
@@ -502,6 +515,7 @@
 	}
 	function del(e)
 	{
+		//console.log(e)
 		$.ajax({
 			type: "post",
 			url: "index.php?f=function",
@@ -510,17 +524,50 @@
 			},
 
 			success: function (response) {
-				if(response=="ok")
-					get_table()
+				// if(response=="ok")
+				// 	get_table()
+				console.log(response)
 			}
 		});
 	}
-	// $('.click').click(function () { 
-	// 	var heso = $('.click').closest('tr').find('.heso').val();
-	// 	console.log('123')
-		
-	// });
-	$('.cc').on('click', function () {
-		console.log('123')
+
+$("#print").on('click','button',function()
+{
+	var he=$(this).closest('tr').find('.heso').val()
+	var nhom=$(this).closest('tr').find('.nhom').val() 
+	var lythuyet=$(this).closest('tr').find('.soTietLt').text()
+	var baitap=$(this).closest('tr').find('.soTietBT').text()
+	var thuchanh=$(this).closest('tr').find('.soTietTh').text()
+	var kiemtra=$(this).closest('tr').find('.soTietKt').text()
+	var hocki=$('#hockiphancong').val()
+	var macb=$('#maCB').val()
+	var namhoc=$('#namhoc').val()
+	var malop=$('#lop').val()
+	var mamon=$(this).closest('tr').find('.maMon').text()
+	$.ajax({
+		type: "post",
+		url: "index.php?f=function",
+		data: {"action":"phan_cong",
+		'he':he,
+		'nhom':nhom,
+		'lythuyet':lythuyet,
+		'baitap':baitap,
+		'thuchanh':thuchanh,
+		'kiemtra':kiemtra,
+		'hocki':hocki,
+		'macb':macb,
+		'namhoc':namhoc,
+		'malop':malop,
+		'mamon':mamon
+		},
+		success: function (response) {
+			if(response=='ok')
+				get_table()
+		}
 	});
+
+
+
+})
+
 </script>

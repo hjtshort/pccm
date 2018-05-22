@@ -96,18 +96,23 @@ else if(isset($_POST['action']) && trim($_POST['action'])=="NMTANE")
 }
 else if(isset($_POST['action']) && trim($_POST['action'])=="get_table")
 {
+
 	$data=explode('+',$_POST['nganh']);
 	get_table($data[0],$_POST['he'],$data[2],$data[1],$_POST['hocki']);
 }
 else if(isset($_POST['action']) && trim($_POST['action'])=="phan_cong")
 {
-	$data=explode('+',$_POST['data']);
-	//echo $data;
-	phan_cong($_POST['macb'],$data[0],$data[1],$data[2],$data[3],$_POST['sonth'],$_POST['sotietlt'],$_POST['sotietth'],$_POST['sotietbt'],$_POST['sotietkt']);
+	//$data=explode('+',$_POST['data']);
+	//var_dump($_POST);
+	$data=explode('+',$_POST['malop']);
+	 phan_cong($_POST['macb'],$data[1],$_POST['mamon'],$_POST['hocki'],$_POST['namhoc'],$_POST['nhom'],
+	 $_POST['lythuyet'],$_POST['thuchanh'],$_POST['baitap'],$_POST['kiemtra'],$_POST['he']);
 }
 else if(isset($_POST['action']) && trim($_POST['action'])=="xoa_phan_cong")
 {
 	xoa_phan_cong($_POST['data']);
+	//echo $_POST['data'];
+	
 }
 else if(isset($_POST['action']) && trim($_POST['action'])=="get_khoa")
 {
@@ -128,6 +133,7 @@ else if(isset($_POST['action']) && trim($_POST['action'])=="get_namhoc")
 	//var_dump($_POST);
 	get_namhoc($_POST['nganh'],intval($_POST['hocki']),intval($_POST['he']),intval($_POST['sttKhoa']));
 }
+xoa_phan_cong("4600B118+1+1.GC01+1+2018");
 function get_clas($mbm)
 {
 	$db=new db();
@@ -161,17 +167,27 @@ function xoa_phan_cong($e)
 {
 	$db=new db();
 	$val=explode('+',$e);
-	$data=$db->mysql->query("delete from pcday where maCb='".$val[0]."' and maLop='".$val[1]."' and maMon='".$val[2]."' and hocKi=".$val[3]." and namHoc=".$val[4]."");
+	//var_dump($val);
+	$namhoc=intval($val[4]);
+	$hocki=intval($val[3]);
+	$data=$db->mysql->query("delete from pcday where maCb='$val[0]' and maLop='$val[1]' and maMon='$val[2]' and hocKi=$hocki and namHoc=$namhoc");
 	if($data)
+	{
 		echo "ok";
+	}
+		
 	else 
+	{
 		echo "error";
+	}
+	
+	
 }
-function phan_cong($macb,$malop,$mamon,$hocki,$namhoc,$sonth,$sotietlt,$sotietth,$sotietbt,$sotietkt)
+function phan_cong($macb,$malop,$mamon,$hocki,$namhoc,$sonth,$sotietlt,$sotietth,$sotietbt,$sotietkt,$heso)
 {
 	$db=new db();
 	$data=$db->mysql->query("insert into pcday values('".$macb."','".$malop."','".$mamon."',".$hocki.",".$namhoc.",
-	".$sonth.",".$sotietlt.",".$sotietth.",".$sotietbt.",".$sotietkt.")");
+	".$sonth.",".$sotietlt.",".$sotietth.",".$sotietbt.",".$sotietkt.",".$heso.")");
 	if($data)
 	{
 		echo "ok";
@@ -188,14 +204,14 @@ function check_phan_cong($malop,$mamon,$hocki,$namhoc)
 	where maLop='".$malop."' and maMon='".$mamon."' and hocKi=".$hocki."")->fetch_assoc();
 	if($data1!=false)
 	{
-		$t=$data1['maCb']."+".$malop."+".$mamon."+".$hocki."+".$namhoc;
+		$t=$data1['maCb']."+".$malop."+".$mamon."+".$hocki."+".$data1['namHoc'];
 		return "<td>".$data1['hoCb'].$data1['tenCb']."(".$data1['maCb'].")".ahihi($data1['maCb'],$malop).
 		"</td>"."<td><button class='btn btn-danger' onclick='del(\"".$t."\")'>Hủy</button></td>";
 	}
 	else 
 	{
 		//$t=$malop."+".$mamon."+".$hocki."+".$namhoc;
-		return  '<td><button class="btn btn-success cc" onclick="cc(123)">Phân công</button></td>';
+		return  '<td><button class="btn btn-success cc">Phân công</button></td>';
 		
 	}
 }
