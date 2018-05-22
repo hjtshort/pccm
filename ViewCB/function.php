@@ -31,6 +31,10 @@ else if(isset($_GET['action']) && trim($_GET['action'])=="xuat")
 	$xuat->xuly();
 
 }
+else if(isset($_POST['action']) && trim($_POST['action'])=="get_khoa")
+{
+	 get_max_khoa($_POST['maNganh']);
+}
 else if (isset($_POST['action']) && trim($_POST['action'])=="laymonhoc"){
 	laymonhoc($_POST['nganh'],$_POST['he']);
 }
@@ -68,6 +72,24 @@ else if(isset($_POST['action']) && trim($_POST['action'])=="search"){
 }else if(isset($_POST['action']) && trim($_POST['action'])=="search2"){
 	search2($_POST['nganh'],$_POST['search']);
 }
+else if(isset($_POST['action']) && trim($_POST['action'])=="get_namhoc")
+{	
+	//var_dump($_POST);
+	get_namhoc($_POST['nganh'],intval($_POST['hocki']),intval($_POST['he']),intval($_POST['sttKhoa']));
+}
+function get_namhoc($nganh,$hocki,$he,$khoa)
+{
+	$db=new db();
+	$data=$db->mysql->query("select distinct namHoc from chuongtrinhhoc where maNganh='$nganh' and hocKi=$hocki and he=$he and sttKhoa=$khoa ")->fetch_assoc();
+	echo $data['namHoc'];
+}
+function get_max_khoa($maNganh)
+{
+	$db=new db();
+	$data=$db->mysql->query("SELECT MAX(sttKhoa) as maxkhoa from chuongtrinhhoc WHERE maNganh='$maNganh'")->fetch_assoc();
+	echo $data['maxkhoa'];
+}
+
 function hienthitable($maNganh,$he,$sttKhoa,$hk)
 {
 	$db=new db();
@@ -83,27 +105,52 @@ function hienthitable($maNganh,$he,$sttKhoa,$hk)
 	$data=$db->mysql->query($sql_hienThi);
 	$t="";
 	$tong=0;
+	$tonglt=0;
+	$tongbt=0;
+	$tongth=0;
+	$tongkt=0;
 	$stt=1;
+	$tongbatbuoc=0;
+	$tongtuchon=0;
 	while($row=$data->fetch_assoc()){
+		if($row['batbuoc']=='x')
+			$tongbatbuoc+=$row['soTc'];
+		else
+			$tongtuchon+=$row['soTc'];
+
 		$tong+=intval($row["soTc"]);
+		$tonglt+=intval($row['soTietLt']);
+		$tongbt+=intval($row['soTietBT']);
+		$tongth+=intval($row['soTietTh']);
+		$tongkt+=intval($row['soTietKt']);
 		$chuoi=$row["maNganh"]."+".$row["maMon"]."+".$row["he"]."+".$row["sttKhoa"]."+".$row["hocKi"]."+".$row["namHoc"]."+".$stt;	
-		$loai= $row['batbuoc']=="x"? "Bắt buộc":"Tự chọn";
+		$kk=checkmontienquyet($row["maNganh"],$row["he"],$row["maMon"],$row["hocKi"],$row["sttKhoa"])==false ? "<p><span style='color:red;'>Cần phải xóa vì môn tiên quyết chưa có trong chương trình</span></p>": "";
+		$loai= $row['batbuoc']=="x"? "Bắt buộc":"Tự chọn";	
 		$t.='<tr>
 				<td scope="row">'. $stt++ .'</td>
-				<td>'. $row["tenNganh"].' </td>	
-				<td>'. $row["sttKhoa"].'</td>	
-				<td>'. $row["hocKi"].'</td>	
-				<td>'. $row["namHoc"].'</td>
-				<td>'. $row["tenMon"].'</td>			
+				<td>'. $row["maMon"].'</td>
+				<td>'. $row["tenMon"].$kk.'</td>			
 				<td>'. $row["soTc"].'</td>
+				<td>'. $row["soTietLt"].'</td>
+				<td>'. $row["soTietBT"].'</td>
+				<td>'. $row["soTietTh"].'</td>
+				<td>'. $row["soTietKt"].'</td>
+
 				<td>'.$loai.'</td>			
-				<td>							
+				<td>
+											
 		</td>
 	  </tr>	';
 	}
 	return $t.'  <tr>
-	<td colspan="6" align="center"> Tổng số</td>
+	<td colspan="3" align="center"> Tổng số</td>
 	<td>'.$tong.' </td>
+	<td>'.$tonglt.' </td>
+	<td>'.$tongbt.' </td>
+	<td>'.$tongth.' </td>
+	<td>'.$tongkt.' </td>
+	<td><b>Bắt buộc:'.$tongbatbuoc.'</b></td>
+	<td><b>Tự chọn:'.$tongtuchon.'</b></td>
 	</tr>';
 }
 //xóa môn học trong bảng chương trình học
@@ -219,7 +266,6 @@ function laybang()
 			<td>".$mang1[$key]['tenMon']."</td>
 			<td>".$mang2[$key]['maMonTq']."</td>
 			<td>".$mang2[$key]['tenMon']."</td>
-			<td><button type='button' onclick= 'del(\"".$k."\")' class='del'><img src='img/delete.png' width='20' height='20' ></button></td>
 		</tr>";
 		$stt++;
 	}

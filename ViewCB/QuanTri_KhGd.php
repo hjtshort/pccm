@@ -10,7 +10,7 @@
 	<link rel="stylesheet" type="text/css" href="css/reset.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	<link rel="stylesheet" href="css/style.css" />
+	<link href="ViewAdmin/style.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="js/jquery.js"></script>
 
     <script type="text/javascript" src="js/main.js"></script>
@@ -28,7 +28,7 @@
 <?php
 	require_once("lib/QuanTri_KhGd.php");	
 	require_once("ViewCB/header.php");
-	require_once("ViewCB/function.php");
+	require_once("ViewAdmin/function.php");
 	$now=getdate();
 	$nh1=$now["year"];
 	$sql="select max(sttKhoa) as khoa from chuongtrinhhoc";
@@ -41,14 +41,14 @@
 	     <form name="form1" method="POST" action="index.php?f=QuanTri_KhGd">
 	 	<div class="container">
       		<div class="row">	
-			<h3 class="style1"> THÊM KẾ HOẠCH GIẢNG DẠY </h3>
+			<h3 class="style1"> QUẢN LÝ KẾ HOẠCH GIẢNG DẠY </h3>
 			
 			<Center>				 		  
 					<input type="image" name="test"  value=""  width="3" height="3">
 			        <table width="800" border="1" >
 					  <tr>
-                        <td height="35" width="140">Ngành: </td>
-                        <td ><select name="maNganh" title="chọn mã ngành" id="nganh">							 	
+                        <td height="35" width="302">Ngành: </td>
+                        <td width="379" ><select name="maNganh" title="chọn mã ngành" id="nganh">							 	
 							<?php								
 								$data4=laynganh();
 								foreach ($data4 as $key=>$value) {
@@ -59,82 +59,80 @@
 									
 								
 						  </select>	
-						 </td>						
+					    </td>						
                       </tr>
 					  <tr>
-					  	<td height="35" width="140"> Hệ: </td>
+					  	<td height="35" width="302"> Hệ: </td>
                         <td ><select name="he" title="chọn hệ" id="he">							 	
 									<option value=1 selected="selected" >Cao đẳng</option>
 									<option value=2 >trung cấp</option>
 							 </select>						
 					  </tr>					  
                       <tr>
-                        <td height="35" width="140"> Học kỳ: </td>
+                        <td height="35" width="302"> Học kỳ: </td>
                         <td ><select name="hk"  id="hocky">
-								<option value=1 selected="selected" >1</option>
+								<option value="0" select="selected">Chọn học kì</option>
+								<option value=1 >1</option>
 								<option value=2 >2</option>
 								<option value=3 >3</option>
 								<option value=4 >4</option>
 								<option value=5 >5</option>
 								<option value=6 >6</option>
 							 </select>	
-						 </td>						
-                      </tr>
-                      <tr>
-                        <td height="35"> Năm học: </td>
-						<td ><input type="text" name="namHoc" size="2" id="namhoc" value="<?php echo $now["year"]; ?>"> - &nbsp;&nbsp;
-							<input type="text" size="2" value="<?php echo $now["year"]+1; ?>"><br> 
-							<div style="color:red;" id="validationnamhoc">
-							</div>              
-						</td>                       
+					    </td>						
                       </tr>
                       <tr>
                         <td height="35"> Khóa: </td>
-						<td ><input type="text" name="sttKhoa" size="1" id="sttKhoa"  value="<?php echo $data['khoa']; ?>"><br> 
+						<td ><input type="text" name="sttKhoa" size="1" id="sttKhoa"  value="43"><br> 
 						<div style="color:red;" id="validationkhoa">
 							
 						</div>  
 						</td>
-						               
+					             
                       </tr>
 					  
+						
 					  <tr>
                         <td colspan="5" height="10"></td>
                       </tr>
                       <tr>
                         <td colspan="3" height="55">		
 							<!-- <input  type="submit" value="TÌM KIẾM" name="btn_tim">  -->
-							<input  type="button" value="XUẤT MÔN HỌC" class="btn btn-custom" style="width: 150px" name="btn_them" id="btn-xuat">     													
+							
+							<input  type="button" value="XUẤT CHƯƠNG TRÌNH" class="btn btn-custom" style="width: 200px" name="btn_them" id="btn-xuat">     													
 							<!--<input  type="submit" value="CHỈNH SỬA" name="btn_sua">    -->
 						</td>
-                      </tr>                 
+                      </tr>  
+					                 
                     </table>
 			</center>		
 			
 			
 			
     	    <table class="table"  >
-          		<h3 class="style1"> Danh sách các môn học    </h3>
+          		<h3 class="style1">Danh sách môn học ngành: <a style="color:red;" id="tk"></a>-<a style="color:red;" id="namhoc"></a></h3>
+				
 
 	          	<thead>
 					<tr >
 					  <th width="20"> STT </th>
-					  <th ><center>Tên ngành</center></th>
- 					  <th><center>Khóa</center></th>
-				  	  <th><center>Học kì</center></th>
-					  <th ><center>Năm học</center></th>
-					  <th><center>Tên môn</center></th>
-					  <th><center>Tín chỉ</center></th>
-					  <th ><center>loại</center></th>
+					  <th width="30">Mã môn</th>
+					  <th width="130"><center>Tên môn</center></th>
+					  <th width="30"><center>Tín chỉ</center></th>
+					  <th width="30">LT</th>
+					  <th width="30">BT</th>
+					  <th width="30">Th</th>
+					  <th width="30">KT</th>
+					  <th width="30"><center>loại</center></th>
+					  <th width="50">  </th>
 					</tr>
 				  </thead>
 			  <tbody id="print">
 					
 			  </tbody>
 			</table>	
-      	</div>
- 
-    	</div>
+			
+
 		</form>	
 	</div>
 	</div>
@@ -143,6 +141,44 @@
 </body>
 </html>
 <script>
+function get_khoa()
+{
+    var e= $('#nganh').val()
+	$.ajax({
+		type: "post",
+		url: "index.php?f=function",
+		data: {
+			"action":"get_khoa",
+			"maNganh":e
+		},
+		success: function (response) {
+			if(response!='')
+				$('#sttKhoa').val(response)
+		}
+	});
+}
+	$('.create').click(function (e) { 
+		var r = confirm("Are you sure!");
+		if (r == true){
+			var nganh=$('#nganh').val()
+			var he= $('#he').val()
+			var sttKhoa=$('#sttKhoa').val()
+			$.ajax({
+				url: 'index.php?f=function',
+				type: 'post',
+				data: {'action': 'NMTANE',
+				'nganh':nganh,
+				'he':he,
+				'khoa':sttKhoa
+				},
+				success:function(response)
+				{
+					console.log(response)
+				}
+			})
+		}
+			
+	});
 	$('#inp-search').keyup(function (e) { 
 		var search =this.value
 		var nganh=$('#nganh').val()
@@ -160,6 +196,39 @@
 				$('#mamon').html(response)
 			}
 		});
+	});
+	$('.btn-xoa').click(function (e) { 
+
+		var r = confirm("Bạn chắc xóa không?!");
+		if (r == true) {
+			var nganh = $('#nganh').val()
+			var sttKhoa=$('#sttKhoa').val()
+			var he =$('#he').val()
+			$.ajax({
+				type: "post",
+				url: "index.php?f=function",
+				data: {"action":"delete-all",
+					"maNganh":nganh,
+					"sttKhoa":sttKhoa,
+					"he":he
+				},
+				success: function (response) {
+					if(response=="ok"){
+						gettable()
+						NMT()
+					}
+					else{
+						alert("Không thể xóa!")		
+					}
+					
+				}
+			});
+			
+		} 
+		else {
+			
+		}
+		
 	});
 
 	function NMT(){
@@ -195,6 +264,7 @@
 		});
 	}
 	function gettable(){
+		
 			var nganh = $('#nganh').val()
 			var he =$('#he').val()
 			var sttKhoa=$('#sttKhoa').val()
@@ -213,11 +283,19 @@
 					$('#print').html(response)
 				}
 			});
+			//console.log(sttKhoa)
+			
 	}
 	$(document).ready(function () {
+		get_khoa()
+	
 		gettable()
 		laymonhoc()
 		NMT()
+
+		tk()
+
+	
 	});
 
 	$('#print').on("change",function(e){
@@ -240,30 +318,61 @@
 	 //lấy cái dong cái nào thay đổi thằng target mới lấy đc hả
 		
 	});
-	$('#nganh').change(function (e) { 
+	$('#nganh').change(function (e) {
+	
 		gettable()
+		get_khoa()
 		laymonhoc()
 		NMT()
 		$('#inp-search').val('')
+		$('#hocky').val("0");
+		tk()
+		get_namhoc()
 	});
 		//lấy lại dữ liệu bảng nếu hệ thay đổi
 	$('#he').change(function (e) { 
 		gettable()
 		laymonhoc()	
 		$('#inp-search').val('')
+		
 
 	});
 		//lấy lại dữ liệu bảng nếu khóa thay đổi
 	 $('#sttKhoa').change(function (e) { 
 	 	gettable()
-		 NMT()		
+		 NMT()
+	
+		 tk()	
+		 get_namhoc()	
+		 console.log($('#sttKhoa').val())
+	
 	 });
 	 	//lấy lại dữ liệu bảng nếu học kỳ thay đổi
 	 $('#hocky').change(function (e) { 
 	 	gettable()		
+		 tk()
+		 get_namhoc()
 	 });
 	 	//lấy lại dữ liệu bảng nếu năm học thay đổi
 	 //xóa môn học ra khỏi kế hoạch giản dạy của 1 lớp
+	 function del(a){
+		 $.ajax({
+			 type: "post",
+			 url: "index.php?f=function",
+			 data: {"data":a,
+					"action":"delete"
+			 },
+			 success: function (response) {
+				 if(response.trim()=="ok"){
+					 //lấy lại dữ liệu bảng
+					gettable()
+					NMT()
+				 }
+				 else
+				 	alert("Không thể xóa!")
+			 }
+		 });
+	 }
 	 function TryParseInt(str,defaultValue) {
      var retValue = defaultValue;
      if(str !== null) {
@@ -339,6 +448,47 @@
 
 			}  
 	 });
+function get_khoa()
+{
+    var e= $('#nganh').val()
+	$.ajax({
+		type: "post",
+		url: "index.php?f=function",
+		data: {
+			"action":"get_khoa",
+			"maNganh":e
+		},
+		success: function (response) {
+			if(response!='')
+				$('#sttKhoa').val(response)
+		}
+	});
+}
+function get_namhoc(){
+	var nganh=$('#nganh').val()
+	var he=$('#he').val()
+	var hocki=$('#hocky').val()
+	var sttKhoa=$('#sttKhoa').val()
+	$.ajax({
+		type: "post",
+		url: "index.php?f=function",
+		data: {
+			'nganh':nganh,
+			'he':he,
+			'hocki':hocki,
+			'sttKhoa':sttKhoa,
+			'action':'get_namhoc'
+		},
+		success: function (response) {
+			$('#namhoc').text('Năm: '+response+')')
+		}
+	 });
+	
+}
+function tk(){
+	var t=$('#nganh option:selected').text()
+	$('#tk').text(t+'-Khóa '+$('#sttKhoa').val()+'(Học kì '+$('#hocky option:selected').text())	
+}
 
 
 </script>
