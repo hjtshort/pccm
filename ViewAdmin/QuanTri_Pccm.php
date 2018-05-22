@@ -459,6 +459,9 @@
 	$('#hocky').on('change', function () {
 		get_table()
 	});
+	$('#he').on('change',function (){
+		get_table()
+	})
 
 	// function title()
 	// {
@@ -515,7 +518,7 @@
 	}
 	function del(e)
 	{
-		//console.log(e)
+		console.log(e)
 		$.ajax({
 			type: "post",
 			url: "index.php?f=function",
@@ -524,15 +527,16 @@
 			},
 
 			success: function (response) {
-				// if(response=="ok")
-				// 	get_table()
-				console.log(response)
+				if(response=="ok")
+					get_table()
+				// console.log(response)
 			}
 		});
 	}
 
-$("#print").on('click','button',function()
+$("#print").on('click','.cc',function()
 {
+	//console.log('phancong')
 	var he=$(this).closest('tr').find('.heso').val()
 	var nhom=$(this).closest('tr').find('.nhom').val() 
 	var lythuyet=$(this).closest('tr').find('.soTietLt').text()

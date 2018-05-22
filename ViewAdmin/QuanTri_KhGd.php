@@ -334,7 +334,7 @@
 		gettable()
 		laymonhoc()	
 		$('#inp-search').val('')
-		
+//console.log('123')
 
 	});
 		//lấy lại dữ liệu bảng nếu khóa thay đổi
@@ -344,7 +344,7 @@
 	
 		 tk()	
 		 get_namhoc()	
-		 console.log($('#sttKhoa').val())
+		 //console.log($('#sttKhoa').val())
 	
 	 });
 	 	//lấy lại dữ liệu bảng nếu học kỳ thay đổi
