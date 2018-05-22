@@ -701,4 +701,21 @@ function get_namhoc($nganh,$hocki,$he,$khoa)
 	$data=$db->mysql->query("select distinct namHoc from chuongtrinhhoc where maNganh='$nganh' and hocKi=$hocki and he=$he and sttKhoa=$khoa ")->fetch_assoc();
 	echo $data['namHoc'];
 }
+function get_name($malop,$mamon,$hocki,$namhoc)
+{
+	$db=new db();
+	$data1=$db->mysql->query("select * from pcday inner join canbo on pcday.maCb=canbo.maCb 
+	where maLop='".$malop."' and maMon='".$mamon."' and hocKi=".$hocki."")->fetch_assoc();
+	if($data1!=false)
+	{
+		$t=$data1['maCb']."+".$malop."+".$mamon."+".$hocki."+".$data1['namHoc'];
+		return $data1['hoCb'].$data1['tenCb']."(".$data1['maCb'].")";
+		
+	}
+	else 
+	{
+		return  'Thỉnh giảng';
+		
+	}
+}
 ?>
