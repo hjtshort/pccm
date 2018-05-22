@@ -524,7 +524,7 @@
 				if(response=="ok")
 				{
 					get_table()
-					location.reload()
+					//location.reload()
 				}
 					
 				// console.log(response)
@@ -565,8 +565,12 @@ $("#print").on('click','.cc',function()
 		success: function (response) {
 			if(response=='ok')
 			{
-				location.reload()
+				//location.reload()
 			}
+<<<<<<< HEAD
+=======
+			get_table()
+>>>>>>> edfc4fb4be81a1d8d061f0a459e38fe4c3e739d0
 		}
 	});
 

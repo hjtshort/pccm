@@ -3,7 +3,6 @@
 ob_start();
 
 
-
 		function ThemCv($conn, $address, $maCb, $maLop,$namHoc)
 		{			
 			// Làm sạch chuổi nhập vào 	
