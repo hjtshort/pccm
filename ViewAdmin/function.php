@@ -133,11 +133,6 @@ else if(isset($_POST['action']) && trim($_POST['action'])=="get_namhoc")
 	//var_dump($_POST);
 	get_namhoc($_POST['nganh'],intval($_POST['hocki']),intval($_POST['he']),intval($_POST['sttKhoa']));
 }
-<<<<<<< HEAD
-//xoa_phan_cong('4300S282+1+TU030+1+2018');
-=======
-//xoa_phan_cong("4600B118+1+1.GC01+1+2018");
->>>>>>> ece57a393a9be5f26cf14b76bf28f48892f9c215
 function get_clas($mbm)
 {
 	$db=new db();
