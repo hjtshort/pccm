@@ -90,13 +90,17 @@ ob_start();
 		}
 
 
-		function SuaLop($conn, $address, $maLop ,$tenLop,$siSo, $maNganh, $sttKhoa,$he)
+		function SuaLop($conn, $address, $ma_old,$maLop ,$tenLop,$siSo, $maNganh, $sttKhoa,$he)
 		{			
 			// Làm sạch chuổi nhập vào 	
 			
-			$tenLop = trim($maLop);
-			$tenLop = strip_tags($maLop);
-			$tenLop = addslashes($maLop);
+			$ma_old = trim($ma_old);
+			$ma_old = strip_tags($ma_old);
+			$ma_old = addslashes($ma_old);
+			
+			$maLop = trim($maLop);
+			$maLop = strip_tags($maLop);
+			$maLop = addslashes($maLop);
 			
 			$tenLop = trim($tenLop);
 			$tenLop = strip_tags($tenLop);
@@ -107,6 +111,9 @@ ob_start();
 			$siSo = strip_tags($siSo);
 			$siSo = addslashes($siSo);
 
+			$maNganh = trim($maNganh);
+			$maNganh = strip_tags($maNganh);
+			$maNganh = addslashes($maNganh);
 
 
 			$sttKhoa = trim($sttKhoa);
