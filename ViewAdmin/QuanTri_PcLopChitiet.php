@@ -134,11 +134,11 @@ vertical-align:middle !important;
 						  <th  width="29" scope="row"><?php echo $stt ?></th>
 						  <td width="30"><?php echo $row["maMon"]; ?></td>	
 						  <td width="100"><?php echo $row["tenMon"]; ?></td>	
-						  <td width="51"><center><?php echo $row['soTc']; ?></center></td>	
-						  <td width="51"><center><?php echo $row['soTietLt']; ?></center></td>	
-						  <td width="51"><center><?php echo $row['soTietBT']; ?></center></td>	
-						  <td width="51"><center><?php echo $row['soTietTh']; ?></center></td>	
-						  <td width="51"><center><?php echo $row['soTietKt']; ?></center></td>	
+						  <td width="51"><?php echo $row['soTc']; ?></td>	
+						  <td width="51"><?php echo $row['soTietLt']; ?></td>	
+						  <td width="51"><?php echo $row['soTietBT']; ?></td>	
+						  <td width="51"><?php echo $row['soTietTh']; ?></td>	
+						  <td width="51"><?php echo $row['soTietKt']; ?></td>	
 						  <td width="51"><center><?php echo $row['batbuoc']=='x'? "Bắt buộc":"Tự chọn"; ?></center></td>	
  						  <td width="30"><center><input style="width:30px;" class='sonhom' value="1"></center></td>	
 						  <?php echo  check_thinh_giang($malop,$row["maMon"],$row['hocKi'],$row['namHoc'])==1? "<td><label class='text-danger'>Thỉnh giảng</label></td>":check_phan_cong($malop,$row["maMon"],$row['hocKi'],$row['namHoc']); ?>

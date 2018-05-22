@@ -522,7 +522,11 @@
 
 			success: function (response) {
 				if(response=="ok")
+				{
 					get_table()
+					location.reload()
+				}
+					
 				// console.log(response)
 			}
 		});
@@ -560,7 +564,10 @@ $("#print").on('click','.cc',function()
 		},
 		success: function (response) {
 			if(response=='ok')
-				get_table()
+			{
+				location.reload()
+			}
+//get_table()
 		}
 	});
 

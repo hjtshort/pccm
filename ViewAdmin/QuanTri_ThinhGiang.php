@@ -28,7 +28,18 @@ vertical-align:middle !important;
  <div class="wrapper" style="background-color:#FFFFFF"> 
 <?php
     require_once("ViewAdmin/header.php");
-    require_once("ViewAdmin/function.php");
+	require_once("ViewAdmin/function.php");
+	$malop=$_GET['malop'];
+	if(isset($_POST['hocky']))
+	{
+		$chon=$_POST['hocky'];
+		$data1= get_table_class($malop,$_POST['hocky']);
+	}
+	else
+	{
+		$chon=1;
+		$data1= get_table_class($malop,1);
+	}
 ?>		
 	
 <div class="wrapper" style="background-color:#FFFFFF"> 
@@ -43,22 +54,31 @@ vertical-align:middle !important;
 
 			<a href="index.php?f=xuat&idMau=<?php $chuoi=$data["maBm"]." ".$namHoc; echo $chuoi; ?>"><img src="img/excel.jpg" title="Xuất file Excel" height="30" width="30" /></a>
 			</h3>
+			<Center>
 			
+			</Center>
 			<Center>				 		  
 					<input type="image" name="test"  value=""  width="3" height="3">
 					<input type="hidden" id="malop" value="<?php echo $_GET['malop'] ?>">
 			        <table width="800" border="1" >					  
                    </table>
-				   <!-- <input type="text" id="sonth" placeholder="số nhóm thực hành!">
-					<input type="text" id="sotietlt" placeholder="số tiết lý thuyết!">
-					<input type="text" id="sotietth" placeholder="số tiết thực hành!">
-					<input type="text" id="sotietbt" placeholder="số tiết bài tập!">
-					<input type="text" id="sotietkt" placeholder="số tiết kiếm tra!"> -->
+				   <form action="" method="post" id="myform">
+				   <label>Học kì</label>
+					<select name="hocky" id="hocky">
+						<option value="1" <?php if($chon==1) echo 'selected="selected"' ?>>1</option>
+						<option value="2" <?php if($chon==2) echo 'selected="selected"' ?>>2</option>
+						<option value="3" <?php if($chon==3) echo 'selected="selected"' ?>>3</option>
+						<option value="4" <?php if($chon==4) echo 'selected="selected"' ?>>4</option>
+						<option value="5" <?php if($chon==5) echo 'selected="selected"' ?>>5</option>
+						<option value="6" <?php if($chon==6) echo 'selected="selected"' ?>>6</option>
+					</select>
+					</form>
 					<?php
 					  $mabm = $_SESSION['ss_user_token']['Mabm'];
 					$cb=get_bo_mon() ;
 					?>
-					Chọn bộ môn cần thỉnh giảng:
+					<label>Chọn bộ môn cần thỉnh giảng:</label>
+					
 					<select name="" id="maBm">
 						<?php while($row=$cb->fetch_assoc()){
 						?>
@@ -100,12 +120,12 @@ vertical-align:middle !important;
 			  <tbody>
 				  <?php		
 				
-                  	$malop=$_GET['malop'];
+                  
 
-                    $data= get_table_class($malop,1);
+                  
 
                     $stt=0;
-                    while($row=$data->fetch_assoc()){	
+                    while($row=$data1->fetch_assoc()){	
                         $stt++;	
 					?>
 						<tr>
@@ -131,24 +151,6 @@ vertical-align:middle !important;
 	</div>
 	</div>
 	<script>
-	// function ins(e)
-	// {
-	// 	var maBm=$('#maBm').val()
-	// 	$.ajax({
-	// 		type: "post",
-	// 		url: "index.php?f=function",
-	// 		data: {"data":e,
-	// 		"action":"thinh_giang",
-	// 		"maBm":maBm
-	// 		},
-	// 		success: function (response) {
-	// 			if(response=="ok")
-	// 				location.reload();
-                
-			
-	// 		}
-	// 	});
-	// }
 	function del(e)
 	{
 		$.ajax({
@@ -186,6 +188,9 @@ vertical-align:middle !important;
 						location.reload()
 				}
 			});
+	});
+	$('#hocky').on('change', function () {
+		$('#myform').submit()
 	});
 	</script>
 	
