@@ -46,6 +46,7 @@ vertical-align:middle !important;
 			
 			<Center>				 		  
 					<input type="image" name="test"  value=""  width="3" height="3">
+					<input type="hidden" id="malop" value="<?php echo $_GET['malop'] ?>">
 			        <table width="800" border="1" >					  
                    </table>
 				   <!-- <input type="text" id="sonth" placeholder="số nhóm thực hành!">
@@ -109,12 +110,12 @@ vertical-align:middle !important;
 					?>
 						<tr>
 						  <th  width="29" scope="row"><?php echo $stt ?></th>
-						  <td width="30"><?php echo $row["maMon"]; ?></td>	
+						  <td width="30" class="mamon"><?php echo $row["maMon"]; ?></td>	
 						  <td width="100"><?php echo $row["tenMon"]; ?></td>	
-						  <td width="51"><center><?php echo $row['hocKi']; ?></center></td>	
-						  <td width="51"><center><?php echo $row['namHoc']; ?></center></td>	
-						  <td width="51"><center><?php echo $row['sttKhoa']; ?></center></td>	
- 						  <td width="40"><center><?php echo $row['he']==1? "Cao Đẳng":"Trung Cấp";?></center></td>	
+						  <td width="51" class="hocki"><?php echo $row['hocKi']; ?></td>	
+						  <td width="51" class="namhoc"><?php echo $row['namHoc']; ?></td>	
+						  <td width="51"><?php echo $row['sttKhoa']; ?></td>	
+ 						  <td width="40"><?php echo $row['he']==1? "Cao Đẳng":"Trung Cấp";?></center></td>	
 						  <?php echo check_phan_cong_thinh_giang($malop,$row["maMon"],$row['hocKi'],$row['namHoc']); ?>
   						  
 						</tr>	
@@ -130,24 +131,24 @@ vertical-align:middle !important;
 	</div>
 	</div>
 	<script>
-	function ins(e)
-	{
-		var maBm=$('#maBm').val()
-		$.ajax({
-			type: "post",
-			url: "index.php?f=function",
-			data: {"data":e,
-			"action":"thinh_giang",
-			"maBm":maBm
-			},
-			success: function (response) {
-				if(response=="ok")
-					location.reload();
+	// function ins(e)
+	// {
+	// 	var maBm=$('#maBm').val()
+	// 	$.ajax({
+	// 		type: "post",
+	// 		url: "index.php?f=function",
+	// 		data: {"data":e,
+	// 		"action":"thinh_giang",
+	// 		"maBm":maBm
+	// 		},
+	// 		success: function (response) {
+	// 			if(response=="ok")
+	// 				location.reload();
                 
 			
-			}
-		});
-	}
+	// 		}
+	// 	});
+	// }
 	function del(e)
 	{
 		$.ajax({
@@ -163,6 +164,29 @@ vertical-align:middle !important;
 			}
 		});
 	}
+	$('.btn-success').click(function () { 
+			var mamon= $(this).closest('tr').find('.mamon').text()
+			var hocki=$(this).closest('tr').find('.hocki').text()
+			var namhoc=$(this).closest('tr').find('.namhoc').text()
+			var mabm=$('#maBm').val()
+			var malop=$('#malop').val()
+			$.ajax({
+				type: "post",
+				url: "index.php?f=function",
+				data:{
+					"action":"thinh_giang",
+					'mamon':mamon,
+					'hocki':hocki,
+					'namhoc':namhoc,
+					'mabm':mabm,
+					'malop':malop,
+				},
+				success: function (response) {
+					if(response=='ok')
+						location.reload()
+				}
+			});
+	});
 	</script>
 	
 	
