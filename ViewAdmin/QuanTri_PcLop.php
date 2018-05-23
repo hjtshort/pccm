@@ -24,15 +24,46 @@ vertical-align:middle !important;
 }
 	</style>
 </head>
+
 <body>
  <div class="wrapper" style="background-color:#FFFFFF"> 
 <?php
     require_once("ViewAdmin/header.php");
     require_once("ViewAdmin/function.php");
+		
 ?>		
+
+
 	
+
 <div class="wrapper" style="background-color:#FFFFFF"> 
 <div>
+<?php
+	$now=getdate();
+	$nh1=$now["year"];
+//////////////////////////////////
+	if (isset($_POST["namHoc"])) {		
+		if( $_POST["namHoc"]=='')
+		{		
+			$now = getdate();
+			$namHoc = $now["year"]; 	
+		}	
+		else if( !is_numeric($_POST["namHoc"]))
+			thongBao("Vui lòng nhập năm học là một số");
+		else if( $_POST["namHoc"]<2010 & $_POST["namHoc"]>2050)
+			thongBao("Vui lòng nhập năm học là một số hợp lệ");
+		else
+			$namHoc =	$_POST["namHoc"];			
+	}		
+	else
+		{		
+			$now = getdate();
+			$namHoc = $now["year"]; 	
+			$nh= $now["year"]; 	
+		}	
+		
+	
+?>
 	     <form name="form1" method="POST" action=''>
 	 	<div class="container">
       		<div class="row">	
@@ -59,7 +90,7 @@ vertical-align:middle !important;
 					  <th width="30" valign="middle">Mã lớp</th>
  					  <th width="100"  ><center>Tên lớp</center></th>
 				  	  <th width="51"  ><center>
-				  	    Khoa
+				  	    Khóa
 				  	  </center></th>
 					  <th width="40"  ><center>
 					    hệ 
@@ -82,7 +113,7 @@ vertical-align:middle !important;
 						<tr>
 						  <th  width="29" scope="row"><?php echo $stt ?></th>
 						  <td width="30"><?php echo $row["maLop"]; ?></td>	
-						  <td width="100"><a href="index.php?f=QuanTri_PcLopChitiet&malop=<?php  echo $row["maLop"]; ?>"><?php echo $row['tenLop'];?></a></td>	
+						  <td width="100"><a href="index.php?f=QuanTri_PcLopChitiet&malop=<?php  echo $row["maLop"]." ".$namHoc; ?>"><?php echo $row['tenLop'];?></a></td>	
 						  <td width="51"><center><?php echo $row['sttKhoa']; ?></center></td>	
  						  <td width="40"><center><?php echo $row['he']==1? "Cao Đẳng":"Trung Cấp";?></center></td>	
 							<td width="40"><center><a href="index.php?f=QuanTri_ThinhGiang&malop=<?php  echo $row["maLop"]; ?>">Thỉnh giảng</a></center></td>	

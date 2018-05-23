@@ -110,7 +110,7 @@
                       </tr>
                       <tr>
                         <td height="35"> Họ và tên: </td>
-                        <td ><input type="text" name="hoCb" size="15" readonly="true" value="<?php echo $ten; ?>"> 	</td>						
+                        <td ><input type="text" name="hoCb" size="30" readonly="true" value="<?php echo $ten; ?>"> 	</td>						
                       </tr>
                       <tr>
                         <td height="35"> Bộ môn: </td>
