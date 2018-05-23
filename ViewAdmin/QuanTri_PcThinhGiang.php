@@ -28,7 +28,8 @@ vertical-align:middle !important;
  <div class="wrapper" style="background-color:#FFFFFF"> 
 <?php
     require_once("ViewAdmin/header.php");
-    require_once("ViewAdmin/function2.php");
+	require_once("ViewAdmin/function2.php");
+	
 ?>		
 	
 <div class="wrapper" style="background-color:#FFFFFF"> 
@@ -37,8 +38,8 @@ vertical-align:middle !important;
 	 	<div class="container">
       		<div class="row">	
 			<h3 class="style1">Phân công chuyên môn bộ môn: <font color="#c70000"></font> &nbsp;&nbsp;	Năm học: 
-							<input type="text" id="namhoc" name="namHoc" size="4"  onChange="this.form.submit()" value="<?php echo $namHoc; ?>"> - &nbsp;&nbsp;
-							<input type="text" size="4" value="<?php echo ($namHoc+1); ?>" readonly="true">
+							<input style="width:100px;" type="number" id="namhoc" name="namHoc"    value="<?php echo date('Y'); ?>"> - &nbsp;&nbsp;
+							<input style="width:100px;" type="number" id="namhoc2"  value="<?php echo date("Y")+1; ?>" readonly="true">
 
 
 			<a href="index.php?f=xuat&idMau=<?php $chuoi=$data["maBm"]." ".$namHoc; echo $chuoi; ?>"><img src="img/excel.jpg" title="Xuất file Excel" height="30" width="30" /></a>
@@ -223,6 +224,9 @@ $('.cc').on('click',function()
 
 
 })
+$('#namhoc').keyup(function () { 
+	$('#namhoc2').val(parseInt(this.value)+1)
+});
 	</script>
 	
 	
