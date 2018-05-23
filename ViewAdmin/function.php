@@ -146,7 +146,7 @@ function get_max_khoa_lop($mabm)
 {
 	$db=new db();
 	$key_max=$db->mysql->query("SELECT MAX(sttKhoa) as maxkhoa from lop join nganh on lop.maNganh=nganh.maNganh where maBm=$mabm")->fetch_assoc();//lấy khóa lớn nhất của lớp
-	echo $key_max['maxkhoa'];
+	return $key_max['maxkhoa'];
 }
 
 
@@ -680,10 +680,10 @@ function check_phan_cong_thinh_giang($malop,$mamon,$hocki,$namhoc)
 		return "<td><button class='btn btn-success' >Thỉnh Giảng</button></td>";
 	}
 }
-function get_bo_mon()
+function get_bo_mon($maBm)
 {
 	$db=new db();
-	$data=$db->mysql->query("select * from bomon");
+	$data=$db->mysql->query("select * from bomon where maBm !=$maBm");
 	return $data;
 }
 function thinh_giang($malop,$mamon,$mabm,$hocki,$namhoc)

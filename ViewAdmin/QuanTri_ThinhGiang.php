@@ -1,4 +1,4 @@
-<?php	
+﻿<?php	
 	if (!defined('IN_SITE')) 
  	 	header('Location: ../index.php')	;	
 ?>
@@ -30,6 +30,7 @@ vertical-align:middle !important;
     require_once("ViewAdmin/header.php");
 	require_once("ViewAdmin/function.php");
 	$malop=$_GET['malop'];
+	$mabm = $_SESSION['ss_user_token']['Mabm'];
 	if(isset($_POST['hocky']))
 	{
 		$chon=$_POST['hocky'];
@@ -74,8 +75,8 @@ vertical-align:middle !important;
 					</select>
 					</form>
 					<?php
-					  $mabm = $_SESSION['ss_user_token']['Mabm'];
-					$cb=get_bo_mon() ;
+					
+					$cb=get_bo_mon($mabm) ;
 					?>
 					<label>Chọn bộ môn cần thỉnh giảng:</label>
 					
@@ -192,47 +193,7 @@ vertical-align:middle !important;
 	$('#hocky').on('change', function () {
 		$('#myform').submit()
 	});
-	$("#print").on('click','.cc',function()
-{
-	//console.log('phancong')
-	var he=$(this).closest('tr').find('.heso').val()
-	var nhom=$(this).closest('tr').find('.nhom').val() 
-	var lythuyet=$(this).closest('tr').find('.soTietLt').text()
-	var baitap=$(this).closest('tr').find('.soTietBT').text()
-	var thuchanh=$(this).closest('tr').find('.soTietTh').text()
-	var kiemtra=$(this).closest('tr').find('.soTietKt').text()
-	var hocki=$('#hockiphancong').val()
-	var macb=$('#maCB').val()
-	var namhoc=$('#namhoc').val()
-	var malop=$('#lop').val()
-	var mamon=$(this).closest('tr').find('.maMon').text()
-	$.ajax({
-		type: "post",
-		url: "index.php?f=function",
-		data: {"action":"phan_cong",
-		'he':he,
-		'nhom':nhom,
-		'lythuyet':lythuyet,
-		'baitap':baitap,
-		'thuchanh':thuchanh,
-		'kiemtra':kiemtra,
-		'hocki':hocki,
-		'macb':macb,
-		'namhoc':namhoc,
-		'malop':malop,
-		'mamon':mamon
-		},
-		success: function (response) {
-			if(response=='ok')
-			{
-				location.reload()
-			}
-		}
-	});
-
-
-
-})
+	
 	</script>
 	
 	

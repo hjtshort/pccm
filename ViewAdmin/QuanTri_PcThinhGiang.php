@@ -48,14 +48,6 @@ vertical-align:middle !important;
 					<input type="image" name="test"  value=""  width="3" height="3">
 			        <table width="800" border="1" >					  
                    </table>
-<<<<<<< HEAD
-				  <!-- <input type="text" id="sonth" placeholder="số nhóm thực hành!">
-					<input type="text" id="sotietlt" placeholder="số tiết lý thuyết!">
-					<input type="text" id="sotietth" placeholder="số tiết thực hành!">
-					<input type="text" id="sotietbt" placeholder="số tiết bài tập!">
-					<input type="text" id="sotietkt" placeholder="số tiết kiếm tra!">-->
-=======
->>>>>>> 582c7554ab6b2f2ec2a241efa8755df4848a1070
 					<?php
 					  $mabm = $_SESSION['ss_user_token']['Mabm'];
 					$cb=get_can_bo($mabm) ;
@@ -86,11 +78,7 @@ vertical-align:middle !important;
 					    LT 
 					  </center></th>
 					  <th width="40"  ><center>
-<<<<<<< HEAD
-					    Khóa 
-=======
 					    BT
->>>>>>> 582c7554ab6b2f2ec2a241efa8755df4848a1070
 					  </center></th>
 					  <th width="40"  ><center>
 					    TH

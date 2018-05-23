@@ -31,6 +31,7 @@ vertical-align:middle !important;
 	require_once("ViewAdmin/function.php");
 	$ma =explode(" ",$_GET['malop']);
 	$malop=$ma[0];
+	$namHoc=$ma[1];
 	$db=new db();
 	$data=$db->mysql->query("select tenLop,he,sttKhoa from lop where maLop='$malop'")->fetch_assoc();
 	if(isset($_POST['hocky']))
@@ -56,7 +57,8 @@ vertical-align:middle !important;
 
 			
 			<Center>		
-					<input type="hidden" id="lop" value="<?php echo $_GET['malop'] ?>">		 		  
+					<input type="hidden" id="lop" value="<?php echo $malop ?>">	
+					<input type="hidden" id="namhoc" value="<?php echo $namHoc ?>">		 	 		  
 					<input type="image" name="test"  value=""  width="3" height="3">
 			        <table width="800" border="1" >					  
                    </table>
@@ -231,7 +233,6 @@ vertical-align:middle !important;
 	var namhoc=$('#namhoc').val()
 	var malop=$('#lop').val()
 	var mamon=$(this).closest('tr').find('.maMon').text()
-
 	$.ajax({
 		type: "post",
 		url: "index.php?f=function",
@@ -253,7 +254,7 @@ vertical-align:middle !important;
 			{
 				location.reload()
 			}
-		
+	
 		}
 	});
 

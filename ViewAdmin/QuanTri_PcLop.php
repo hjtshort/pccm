@@ -31,8 +31,17 @@ vertical-align:middle !important;
     require_once("ViewAdmin/header.php");
 	require_once("ViewAdmin/function.php");
 	$mbm = $_SESSION['ss_user_token']['Mabm'];
-	$maxkhoa=get_max_khoa_lop($mbm);
-	$sttKhoa=42;
+	$maxsttkhoa=get_max_khoa_lop($mbm);
+	if(isset($_GET['khoa']) && $_GET['khoa']!='')
+	{
+		$sttKhoa=$_GET['khoa'];
+	}
+	else
+	{
+		$sttKhoa=$maxsttkhoa;
+	}
+	
+
 		
 ?>		
 
@@ -84,7 +93,17 @@ vertical-align:middle !important;
                    </table>
 			</center>		
 			
-			
+			<center>
+				<label for="">Chọn khóa</label>
+				<form  id="form" action="" method="get" >
+					<input type="hidden" name="khoa" id="khoa">
+				</form>
+				<select id="chonkhoa">
+						<option value="<?php echo $maxsttkhoa; ?>"><?php echo $maxsttkhoa; ?></option>
+						<option value="<?php echo $maxsttkhoa-1; ?>"><?php echo $maxsttkhoa-1; ?></option>
+						<option value="<?php echo $maxsttkhoa-2; ?>"><?php echo $maxsttkhoa-2; ?></option>
+					</select>
+			</center>
     	    <table class="table table-hover" border="1"  >
 
 	          	<thead>
@@ -134,7 +153,13 @@ vertical-align:middle !important;
 	</div>
 	</div>
 	
-	
+	<script>
+		$('#chonkhoa').change(function () { 
+			
+			location.href="index.php?f=QuanTri_PcLop&khoa="+this.value
+
+		});
+	</script>
 
 
 	
