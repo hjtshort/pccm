@@ -29,7 +29,8 @@ vertical-align:middle !important;
 <?php
     require_once("ViewAdmin/header.php");
 	require_once("ViewAdmin/function.php");
-	$malop=$_GET['malop'];
+	$ma =explode(" ",$_GET['malop']);
+	$malop=$ma[0];
 	$db=new db();
 	$data=$db->mysql->query("select tenLop,he,sttKhoa from lop where maLop='$malop'")->fetch_assoc();
 	if(isset($_POST['hocky']))
@@ -49,13 +50,10 @@ vertical-align:middle !important;
 	    
 	 	<div class="container">
       		<div class="row">	
-			<h3 class="style1">Phân công lớp: <?php echo $data['he']==1? "Cao đẳng":"Trung cấp"; echo " ".$data['tenLop']." Khóa: ".$data['sttKhoa']; ?><font color="#c70000"></font> &nbsp;&nbsp;	Năm học: 
-							<input type="text" id="namhoc" name="namHoc" size="4"  onChange="this.form.submit()" value="<?php echo $namHoc; ?>"> - &nbsp;&nbsp;
-							<input type="text" size="4" value="<?php echo ($namHoc+1); ?>" readonly="true">
+			<h3 class="style1">Phân công lớp: <font color="#000099"><?php echo $data['he']==1? "Cao đẳng":"Trung cấp"; echo " ".$data['tenLop']." Khóa: ".$data['sttKhoa']; ?></font><font color="#c70000"> &nbsp;&nbsp;	 Năm học:<?php echo $namHoc."-"; echo $namHoc+1;?> </font></h3>
 
 
-			<a href="index.php?f=xuat&idMau=<?php $chuoi=$data["maBm"]." ".$namHoc; echo $chuoi; ?>"><img src="img/excel.jpg" title="Xuất file Excel" height="30" width="30" /></a>
-			</h3>
+
 			
 			<Center>		
 					<input type="hidden" id="lop" value="<?php echo $_GET['malop'] ?>">		 		  
@@ -63,8 +61,11 @@ vertical-align:middle !important;
 			        <table width="800" border="1" >					  
                    </table>
 				   <form action="" method="post" id="myform">
-				   <label>Học kì</label>
-					<select name="hocky" id="hocky">
+				   <table width="800" border="1" >
+				   <tr>
+				   <td>
+				   <label>Học kì</label></td>
+					<td><select name="hocky" id="hocky">
 						<option value="1" <?php if($chon==1) echo 'selected="selected"' ?>>1</option>
 						<option value="2" <?php if($chon==2) echo 'selected="selected"' ?>>2</option>
 						<option value="3" <?php if($chon==3) echo 'selected="selected"' ?>>3</option>
@@ -72,8 +73,11 @@ vertical-align:middle !important;
 						<option value="5" <?php if($chon==5) echo 'selected="selected"' ?>>5</option>
 						<option value="6" <?php if($chon==6) echo 'selected="selected"' ?>>6</option>
 					</select>
+					</td>
 					</form>
-					<label>Chọn giáo viên</label>
+					<td width="150">
+					<label>Chọn giáo viên</label></td>
+					<td>
 					<?php
 					  $mabm = $_SESSION['ss_user_token']['Mabm'];
 					$cb=get_can_bo($mabm) ;
@@ -84,6 +88,10 @@ vertical-align:middle !important;
 						<option value="<?php echo $row['maCb']; ?>"><?php echo $row['hoCb']." ".$row['tenCb']."(".$row['maCb'].")"; ?></option>
 						<?php }?>
 					</select>
+					</td>
+					</tr>
+					<tr>
+					</table>
 			</center>		
 			
 			

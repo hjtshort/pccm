@@ -41,10 +41,11 @@
 	$nh1=$now["year"];
 	
 	///Lấy khóa lớn nhất
-	$sql="select max(sttKhoa) as khoa from chuongtrinhhoc";
+	$sql="select max(sttKhoa) as khoa from lop";
 	$query = mysqli_query($conn,$sql);
 	$data = mysqli_fetch_array($query);
 	$khoa_max=$data["khoa"];
+
 	$khoa_max1=$khoa_max-1;
 	$khoa_max2=$khoa_max-2;
 	$ma =explode(" ",$_GET['idMau']);
@@ -62,10 +63,12 @@
 	
 	
 ?>
+
 <input type="text" hidden  id="maCB" value="<?php echo $maCb; ?>">
 
 <input type="text" hidden  id="namhoc" value="<?php echo $namHoc; ?>">
-<input type="text" hidden  id="maBM" value="<?php echo $maBm; ?>">		
+<input type="text" hidden  id="maBM" value="<?php echo $maBm; ?>"> 		
+
 <div class="wrapper" style="background-color:#FFFFFF"> 
 <div>
 	  
@@ -82,13 +85,13 @@
 			        <table width="800" border="1" >
 					
 						<tr>
-							<td width="200"> Lớp thuộc bộ môn: </td>									
+							<td width="200"> Lớp thuộc bộ môn: <? echo $khoa_max; ?></td>									
 							<td>        
 								<select name="maLop" id="lop">
 								<?php														
 																
 								$sql7 = "SELECT * FROM lop 
-											WHERE maNganh in (select maNganh from nganh where maBm=".$maBm.")";												
+											WHERE (sttKhoa=$khoa_max or sttKhoa=$khoa_max1 or sttKhoa=$khoa_max2) and maNganh in (select maNganh from nganh where maBm=".$maBm.")";												
 								$query7 = $db->mysql->query($sql7);
 								while($row=$query7->fetch_assoc()){																	
 								?>									 

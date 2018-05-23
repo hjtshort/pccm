@@ -46,7 +46,7 @@
 </li>
 
 <li><a href="index.php?f=QuanTri_ThongTinCanBo">Thông tin cá nhân</a></li>
-<li><a href="index.php?f=QuanTri_KhGd">Kết hoạch giảng </a></li>
+<li><a href="index.php?f=QuanTri_KhGd">Kết hoạch giảng dạy </a></li>
 <li><a href="index.php?f=QuanTri_MTQ">Môn tiên quyết </a></li>
 
 </ul>

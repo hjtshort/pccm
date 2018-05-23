@@ -2,7 +2,6 @@
 
 ob_start();
 
-
 		function ThemCv($conn, $address, $maCb, $maLop,$namHoc)
 		{			
 			// Làm sạch chuổi nhập vào 	
@@ -33,8 +32,12 @@ ob_start();
 						 			"where maCb='".$maCb."' and maLop=' ".$maLop."'".
 									"and namHoc='".$namHoc."'";
 						 $query1 = mysqli_query($conn,$sql1);
-						 $data1 = mysqli_fetch_array($query1);	
-						 if($data1["sl"]!=0){ 
+						 if($query1){
+						  $data1 = mysqli_fetch_array($query1);	
+						 }
+						 
+						
+						 if(isset($data1["sl"])!=0){ 
 						 		thongBao("Đã phân công rồi");
 						}
 						 else{
@@ -44,7 +47,8 @@ ob_start();
 						 $sql = "INSERT INTO cvht( maCb, maLop, namHoc) ".
 								" VALUES ('".$maCb."','".$maLop."','".$namHoc."')";												
 						mysqli_query($conn,$sql); 
-						header('Location: index.php?f='.$address);	
+						echo '<script>window.location = "index.php?f='.$address.'"</script>';
+						//exit(header('Location: index.php?f='.$address));	
 						}
 					}									   								
 			  		  
@@ -60,8 +64,9 @@ ob_start();
 			  }		
 			  else
 			  {			
-					header('Location: index.php?f='.$address);	
-					exit;
+			  		echo '<script>window.location = "index.php?f='.$address.'"</script>';
+					//exit(header('Location: index.php?f='.$address));	
+					
 			  }				
 		}
 
@@ -113,5 +118,7 @@ ob_start();
 					}									   								
 			  }			  
 		}	
+		
+ob_end_flush();
 
 ?>
