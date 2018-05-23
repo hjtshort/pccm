@@ -37,7 +37,7 @@ vertical-align:middle !important;
 	 	<div class="container">
       		<div class="row">	
 			<h3 class="style1">Phân công chuyên môn bộ môn: <font color="#c70000"></font> &nbsp;&nbsp;	Năm học: 
-							<input type="text" name="namHoc" size="4"  onChange="this.form.submit()" value="<?php echo $namHoc; ?>"> - &nbsp;&nbsp;
+							<input type="text" id="namhoc" name="namHoc" size="4"  onChange="this.form.submit()" value="<?php echo $namHoc; ?>"> - &nbsp;&nbsp;
 							<input type="text" size="4" value="<?php echo ($namHoc+1); ?>" readonly="true">
 
 
@@ -48,11 +48,14 @@ vertical-align:middle !important;
 					<input type="image" name="test"  value=""  width="3" height="3">
 			        <table width="800" border="1" >					  
                    </table>
+<<<<<<< HEAD
 				  <!-- <input type="text" id="sonth" placeholder="số nhóm thực hành!">
 					<input type="text" id="sotietlt" placeholder="số tiết lý thuyết!">
 					<input type="text" id="sotietth" placeholder="số tiết thực hành!">
 					<input type="text" id="sotietbt" placeholder="số tiết bài tập!">
 					<input type="text" id="sotietkt" placeholder="số tiết kiếm tra!">-->
+=======
+>>>>>>> 582c7554ab6b2f2ec2a241efa8755df4848a1070
 					<?php
 					  $mabm = $_SESSION['ss_user_token']['Mabm'];
 					$cb=get_can_bo($mabm) ;
@@ -70,26 +73,42 @@ vertical-align:middle !important;
 
 	          	<thead>
 					<tr >
-					  <th width="29" ><center> STT</center> </th>
-					  <th width="30" valign="middle">Lớp</th>
+					<th width="29" ><center> STT</center> </th>
+					  <th>Mã lớp</th>
+					  <th>Tên lớp</th>
+					  <th width="30" valign="middle">Mã Môn</th>
  					  <th width="100"  ><center>Tên Môn</center></th>
+					   <th>Học kì</th>
 				  	  <th width="51"  ><center>
-				  	    Học kì
+				  	    Số Tc
 				  	  </center></th>
 					  <th width="40"  ><center>
-					    Năm học 
+					    LT 
 					  </center></th>
 					  <th width="40"  ><center>
+<<<<<<< HEAD
 					    Khóa 
+=======
+					    BT
+>>>>>>> 582c7554ab6b2f2ec2a241efa8755df4848a1070
 					  </center></th>
 					  <th width="40"  ><center>
-					    Hệ 
+					    TH
 					  </center></th>
 					  <th width="40"  ><center>
-					    Thao tác 
+					    KT 
+					  </center></th>
+					  <th width="20"  ><center>
+							số nhóm
+					  </center></th>
+					  <th width="20"  ><center>
+							Hệ số
 					  </center></th>
 					  <th width="40"  ><center>
-					 
+							Thao tác
+					  </center></th>
+					  <th width="40"  ><center>
+							
 					  </center></th>
 
 					</tr>
@@ -104,6 +123,7 @@ vertical-align:middle !important;
                         $stt++;	
 					?>
 						<tr>
+<<<<<<< HEAD
 						  <th  width="29" scope="row"><?php echo $stt ?></th>
 						  <td width="100"><?php echo $row["tenLop"]; ?></td>	
 						  <td width="100"><?php echo $row["tenMon"]; ?></td>	
@@ -111,6 +131,21 @@ vertical-align:middle !important;
 						  <td width="51"><center><?php echo $row['namHoc']; ?></center></td>	
 						  <td width="51"><center><?php echo $row['sttKhoa']; ?></center></td>	
 						  <td width="51"><center><?php echo $row['he']==1? "Cao đẳng":"Trung cấp"; ?></center></td>	
+=======
+						<th  width="29" scope="row"><?php echo $stt ?></th>
+						<td width="30" class='maLop'><?php echo $row["maLop"]; ?></td>	
+						<td width="30"><?php echo $row["tenLop"]; ?></td>	
+							<td width="30" class='maMon'><?php echo $row["maMon"]; ?></td>	
+						  <td width="100"><?php echo $row["tenMon"]; ?></td>
+						  <td width="30" class='hocKi'><?php echo $row["hocKi"]; ?></td>		
+						  <td width="51"><?php echo $row['soTc']; ?></td>	
+						  <td width="51" class='soTietLt'><?php echo $row['soTietLt']; ?></td>	
+						  <td width="51" class='soTietBT'><?php echo $row['soTietBT']; ?></td>	
+						  <td width="51" class='soTietTh'><?php echo $row['soTietTh']; ?></td>	
+						  <td width="51" class='soTietKt'><?php echo $row['soTietKt']; ?></td>		
+ 						  <td width="30"><center><input style="width:30px;" class='nhom' value="1"></center></td>	
+						   <td width="30"><center><input style="width:30px;" class='heso' value="1"></center></td>
+>>>>>>> 582c7554ab6b2f2ec2a241efa8755df4848a1070
 						 <?php echo  check_phan_cong($row['maLop'],$row["maMon"],$row['hocKi'],$row['namHoc']); ?>
  						 
   						  
@@ -169,6 +204,47 @@ vertical-align:middle !important;
 			}
 		});
 	}
+$('.cc').on('click',function()
+{
+	var he=$(this).closest('tr').find('.heso').val()
+	var nhom=$(this).closest('tr').find('.nhom').val() 
+	var lythuyet=$(this).closest('tr').find('.soTietLt').text()
+	var baitap=$(this).closest('tr').find('.soTietBT').text()
+	var thuchanh=$(this).closest('tr').find('.soTietTh').text()
+	var kiemtra=$(this).closest('tr').find('.soTietKt').text()
+	var hocki=$(this).closest('tr').find('.hocKi').text()
+	var macb=$('#maCB').val()
+	var namhoc=$('#namhoc').val()
+	var malop=$(this).closest('tr').find('.maLop').text()
+	var mamon=$(this).closest('tr').find('.maMon').text()
+
+	$.ajax({
+		type: "post",
+		url: "index.php?f=function",
+		data: {"action":"phan_cong2",
+		'he':he,
+		'nhom':nhom,
+		'lythuyet':lythuyet,
+		'baitap':baitap,
+		'thuchanh':thuchanh,
+		'kiemtra':kiemtra,
+		'hocki':hocki,
+		'macb':macb,
+		'namhoc':namhoc,
+		'malop':malop,
+		'mamon':mamon
+		},
+		success: function (response) {
+			if(response=='ok')
+			{
+				location.reload()
+			}
+		}
+	});
+
+
+
+})
 	</script>
 	
 	

@@ -108,6 +108,13 @@ else if(isset($_POST['action']) && trim($_POST['action'])=="phan_cong")
 	 phan_cong($_POST['macb'],$data[1],$_POST['mamon'],$_POST['hocki'],$_POST['namhoc'],$_POST['nhom'],
 	 $_POST['lythuyet'],$_POST['thuchanh'],$_POST['baitap'],$_POST['kiemtra'],$_POST['he']);
 }
+else if(isset($_POST['action']) && trim($_POST['action'])=="phan_cong2")
+{
+	//$data=explode('+',$_POST['data']);
+	//var_dump($_POST);
+	 phan_cong($_POST['macb'],$_POST['malop'],$_POST['mamon'],$_POST['hocki'],$_POST['namhoc'],$_POST['nhom'],
+	 $_POST['lythuyet'],$_POST['thuchanh'],$_POST['baitap'],$_POST['kiemtra'],$_POST['he']);
+}
 else if(isset($_POST['action']) && trim($_POST['action'])=="xoa_phan_cong")
 {
 	xoa_phan_cong($_POST['data']);
@@ -121,6 +128,7 @@ else if(isset($_POST['action']) && trim($_POST['action'])=="get_khoa")
 else if(isset($_POST['action']) && trim($_POST['action'])=="thinh_giang")
 {	
 	thinh_giang($_POST['malop'],$_POST['mamon'],$_POST['mabm'],$_POST['hocki'],$_POST['namhoc']);
+
 }
 else if(isset($_POST['action']) && trim($_POST['action'])=="xoa_thinh_giang")
 {	
@@ -692,5 +700,22 @@ function get_namhoc($nganh,$hocki,$he,$khoa)
 	$db=new db();
 	$data=$db->mysql->query("select distinct namHoc from chuongtrinhhoc where maNganh='$nganh' and hocKi=$hocki and he=$he and sttKhoa=$khoa ")->fetch_assoc();
 	echo $data['namHoc'];
+}
+function get_name($malop,$mamon,$hocki,$namhoc)
+{
+	$db=new db();
+	$data1=$db->mysql->query("select * from pcday inner join canbo on pcday.maCb=canbo.maCb 
+	where maLop='".$malop."' and maMon='".$mamon."' and hocKi=".$hocki."")->fetch_assoc();
+	if($data1!=false)
+	{
+		$t=$data1['maCb']."+".$malop."+".$mamon."+".$hocki."+".$data1['namHoc'];
+		return $data1['hoCb'].$data1['tenCb']."(".$data1['maCb'].")";
+		
+	}
+	else 
+	{
+		return  'Thỉnh giảng';
+		
+	}
 }
 ?>

@@ -568,8 +568,8 @@ $("#print").on('click','.cc',function()
 			if(response=='ok')
 			{
 				//location.reload()
-			}
 			get_table()
+			}
 		}
 	});
 
