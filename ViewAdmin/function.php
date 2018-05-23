@@ -140,18 +140,20 @@ else if(isset($_POST['action']) && trim($_POST['action'])=="get_namhoc")
 	//var_dump($_POST);
 	get_namhoc($_POST['nganh'],intval($_POST['hocki']),intval($_POST['he']),intval($_POST['sttKhoa']));
 }
-function get_max_khoa_lop()
+
+
+function get_max_khoa_lop($mabm)
 {
 	$db=new db();
-	$key_max=$db->mysql->query("SELECT MAX(sttKhoa) as maxkhoa from lop'")->fetch_assoc();//lấy khóa lớn nhất của lớp
+	$key_max=$db->mysql->query("SELECT MAX(sttKhoa) as maxkhoa from lop join nganh on lop.maNganh=nganh.maNganh where maBm=$mabm")->fetch_assoc();//lấy khóa lớn nhất của lớp
 	echo $key_max['maxkhoa'];
 }
 
 
-function get_clas($mbm)
+function get_clas($mbm,$sttkhoa)
 {
 	$db=new db();
-	$dslop = $db->mysql->query("select * from lop join nganh on lop.maNganh = nganh.maNganh where maBm=$mbm  and nganh.maNganh in (select distinct maNganh from chuongtrinhhoc) order by sttKhoa");
+	$dslop = $db->mysql->query("select * from lop join nganh on lop.maNganh = nganh.maNganh where maBm=$mbm and sttKhoa=$sttkhoa");
 	return $dslop;
 }
 function get_max_khoa($maNganh)

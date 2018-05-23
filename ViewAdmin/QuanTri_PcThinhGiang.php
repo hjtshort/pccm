@@ -123,15 +123,6 @@ vertical-align:middle !important;
                         $stt++;	
 					?>
 						<tr>
-<<<<<<< HEAD
-						  <th  width="29" scope="row"><?php echo $stt ?></th>
-						  <td width="100"><?php echo $row["tenLop"]; ?></td>	
-						  <td width="100"><?php echo $row["tenMon"]; ?></td>	
-						  <td width="51"><center><?php echo $row['hocKi']; ?></center></td>	
-						  <td width="51"><center><?php echo $row['namHoc']; ?></center></td>	
-						  <td width="51"><center><?php echo $row['sttKhoa']; ?></center></td>	
-						  <td width="51"><center><?php echo $row['he']==1? "Cao đẳng":"Trung cấp"; ?></center></td>	
-=======
 						<th  width="29" scope="row"><?php echo $stt ?></th>
 						<td width="30" class='maLop'><?php echo $row["maLop"]; ?></td>	
 						<td width="30"><?php echo $row["tenLop"]; ?></td>	
@@ -145,7 +136,6 @@ vertical-align:middle !important;
 						  <td width="51" class='soTietKt'><?php echo $row['soTietKt']; ?></td>		
  						  <td width="30"><center><input style="width:30px;" class='nhom' value="1"></center></td>	
 						   <td width="30"><center><input style="width:30px;" class='heso' value="1"></center></td>
->>>>>>> 582c7554ab6b2f2ec2a241efa8755df4848a1070
 						 <?php echo  check_phan_cong($row['maLop'],$row["maMon"],$row['hocKi'],$row['namHoc']); ?>
  						 
   						  

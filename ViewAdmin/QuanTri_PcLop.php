@@ -29,7 +29,10 @@ vertical-align:middle !important;
  <div class="wrapper" style="background-color:#FFFFFF"> 
 <?php
     require_once("ViewAdmin/header.php");
-    require_once("ViewAdmin/function.php");
+	require_once("ViewAdmin/function.php");
+	$mbm = $_SESSION['ss_user_token']['Mabm'];
+	$maxkhoa=get_max_khoa_lop($mbm);
+	$sttKhoa=42;
 		
 ?>		
 
@@ -105,7 +108,7 @@ vertical-align:middle !important;
 			  <tbody>
                   <?php		
                   $mbm = $_SESSION['ss_user_token']['Mabm'];
-                    $data=get_clas($mbm);
+                    $data=get_clas($mbm,$sttKhoa);
                     $stt=0;
                     while($row=$data->fetch_assoc()){	
                         $stt++;	
