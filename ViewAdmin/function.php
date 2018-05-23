@@ -159,13 +159,13 @@ function get_Bm_session($macb)
 	$data=$db->mysql->query("select maBm from canbo where maCb='".$macb."'")->fetch_assoc();
 	return $data['maBm'];
 }
-function ahihi($macb,$malop)//Gv dạy lớp thứ 3
+function ahihi($macb,$mamon,$hocki,$namhoc)//Gv dạy lớp thứ 3
 {
 	$db=new db();
-	$data=$db->mysql->query("select * from pcday where maCb='".$macb."' and maLop='".$malop."'")->num_rows;
-	if($data>3)
+	$data=$db->mysql->query("select * from pcday where maCb='$macb' and maMon='$mamon' and hocKi=$hocki and namHoc=$namhoc")->num_rows;
+	if($data>=3)
 	{
-		return "<br><span style='color:red;'>Giảng viên này đã được phân công hơn 3 môn</span>";
+		return "<br><span style='color:red;'>Giáo án 3</span>";
 	}
 	else
 		return "";
@@ -212,7 +212,7 @@ function check_phan_cong($malop,$mamon,$hocki,$namhoc)
 	if($data1!=false)
 	{
 		$t=$data1['maCb']."+".$malop."+".$mamon."+".$hocki."+".$data1['namHoc'];
-		return "<td>".$data1['hoCb'].$data1['tenCb']."(".$data1['maCb'].")".ahihi($data1['maCb'],$malop).
+		return "<td>".$data1['hoCb'].$data1['tenCb']."(".$data1['maCb'].")".ahihi($data1['maCb'],$mamon,$hocki,$data1['namHoc']).
 		"</td>"."<td><button class='btn btn-danger' onclick='del(\"".$t."\")'>Hủy</button></td>";
 	}
 	else 
