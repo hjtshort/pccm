@@ -85,7 +85,7 @@
 			        <table width="800" border="1" >
 					
 						<tr>
-							<td width="200"> Lớp thuộc bộ môn: <? echo $khoa_max; ?></td>									
+							<td width="200"> Lớp thuộc bộ môn: </td>									
 							<td>        
 								<select name="maLop" id="lop">
 								<?php														
@@ -95,7 +95,7 @@
 								$query7 = $db->mysql->query($sql7);
 								while($row=$query7->fetch_assoc()){																	
 								?>									 
-									<option value='<?php echo $row["maNganh"]."+".$row['maLop']."+".$row['sttKhoa']; ?>'><?php echo $row["tenLop"]." - K".$row["sttKhoa"].""; ?></option>
+									<option value='<?php echo $row["maNganh"]."+".$row['maLop']."+".$row['sttKhoa']; ?>'><?php echo ($row["he"]==1?  "CĐ": "TC")." ". $row["tenLop"]." - K".$row["sttKhoa"].""; ?></option>
 								<?php }
 									?>
 			
@@ -186,7 +186,7 @@
 					    <p>chỉ</p>
 					  </center></th>
 					  <th colspan="2"  ><center>Số tiết</center></th>
-					  <th colspan="2"  ><center>
+					  <th colspan="3"  ><center>
 					    <p>Thực dạy</p>
 					    </center></th>
 					  <th width="28"   rowspan="2"><center>
@@ -218,7 +218,9 @@
 					     HK2
 					  </center></th>
 					  <th width="49"><center> LT</center></th>
-					  <th width="41"><center> TH</center></th>					
+					  <th width="41"><center> BT</center></th>
+					  <th width="41"><center> TH</center></th>
+					  		
 						
 						
 					</tr>
@@ -230,7 +232,8 @@
 					$tong=0;
 					$tongHk1=0;											 						 						 
 					$tongHk2=0;											 						 						 
-					$tongLt=0;											 						 						 
+					$tongLt=0;		
+					$tongBt=0;											 						 						 
 					$tongTh=0;											 						 						 
 /*					$sql_hienThi = 	"SELECT * FROM chuongtrinhhoc cth, monhoc mh, nganh n ".
 									" Where cth.maNganh like '%".$maNganh."%'" .
@@ -267,13 +270,6 @@
 					$num_rows2 = mysqli_num_rows($query2);	
 					$tbg=0;				
 					if ($num_rows2>0) $tbg=1;//có nckh thì bật biến nc=1
-
-
-
-					
-					
-					
-									
 					$query = mysqli_query($conn,$sql_hienThi);
 					while ($row = mysqli_fetch_array($query)) {		
 						
@@ -286,15 +282,16 @@
 						  <td width="184"><?php echo $row["tenMon"]; ?></td>	
   						  <td><?php echo $row["soTc"]; ?></td>	
 						  <td><?php if ($row["hocKi"]==1){ 
-						  					$tongHk1+=$row["soTietLt"]+$row["soTietTh"];
-											echo $row["soTietLt"]+$row["soTietTh"]; 
+						  					$tongHk1+=$row["soTietLt"]+$row["soTietTh"]+$row["soTietBt"]+$row["soTietKt"];
+											echo $row["soTietLt"]+$row["soTietTh"]+$row["soTietBt"]+$row["soTietKt"]; 
 						  			}else echo " "; ?></td>	
 						  <td><?php if ($row["hocKi"]==2){
-						  						   echo $row["soTietLt"]+$row["soTietTh"]; 
-	   						  					$tongHk2+=$row["soTietLt"]+$row["soTietTh"];
+						  						   echo $row["soTietLt"]+$row["soTietTh"]+$row["soTietBt"]+$row["soTietKt"]; 
+	   						  					$tongHk2+=$row["soTietLt"]+$row["soTietTh"]+$row["soTietBt"]+$row["soTietKt"];
 									}else echo " "; ?></td>	
 					  	  <td><?php $tongLt+=$row["soTietLt"]; echo $row["soTietLt"]; ?></td>	
-						  <td><?php  $tongTh+=$row["soTietTh"];echo $row["soTietTh"]; ?></td>	
+  					  	  <td><?php $tongBt+=$row["soTietBt"]; echo $row["soTietBt"]; ?></td>	
+						  <td><?php  $tongTh+=$row["soTietTh"]+$row["soTietKt"];echo $row["soTietTh"]+$row["soTietKt"]; ?></td>	
 						  <td ><?php  if ($nc==1){
 						  							echo "NCKH"."<br>" ;
 													$nc=0;//Để không in những dòng sau
@@ -311,13 +308,18 @@
    						  <td><?php "" ?></td>	
 						  <td><?php //////Tổng qui đổi, nếu trung cấp hệ =2, cao đẳng hệ =1
 						  		$tongtam=0;
-						  		if ($row["he"]==2) echo $tongtam=($row["soTietLt"]+$row["soTietTh"])*0.7;
-								else {
-										if ($row["siSo"]<=50)echo $tongtam=($row["soTietLt"]+$row["soTietTh"]);
-										else if ($row["siSo"]<=80)
-											echo $tongtam=($row["soTietLt"]*1.1+$row["soTietTh"]);												
-										else 	echo $tongtam=($row["soTietLt"]*1.2+$row["soTietTh"]);
-									}	
+									if ($row["siSo"]<=50)echo $tongtam=($row["soTietLt"]+$row["soTietTh"]+$row["soTietBt"]+$row["soTietKt"]);
+										else if ($row["siSo"]<=70)
+											echo $tongtam=($row["soTietLt"]+$row["soTietTh"]+$row["soTietBt"]+$row["soTietKt"])*1.1;												
+										else if ($row["siSo"]<=90)
+											echo $tongtam=($row["soTietLt"]+$row["soTietTh"]+$row["soTietBt"]+$row["soTietKt"])*1.2;
+										else if ($row["siSo"]<=110)
+											echo $tongtam=($row["soTietLt"]+$row["soTietTh"]+$row["soTietBt"]+$row["soTietKt"])*1.3;																								
+										else if ($row["siSo"]<=130)
+											echo $tongtam=($row["soTietLt"]+$row["soTietTh"]+$row["soTietBt"]+$row["soTietKt"])*1.4;												
+										else
+											echo $tongtam=($row["soTietLt"]+$row["soTietTh"]+$row["soTietBt"]+$row["soTietKt"])*1.5;												
+
 								$tong+=$tongtam;	
 						  
 						  

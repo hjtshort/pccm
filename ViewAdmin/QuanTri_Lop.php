@@ -45,7 +45,7 @@
 	isset($_POST["maNganh"])? $maNganh=trim($_POST["maNganh"]):	$maNganh = '';	
 	isset($_POST["sttKhoa"])? $sttKhoa=trim($_POST["sttKhoa"]):	$sttKhoa =$khoa_max;	
 	isset($_POST["chon"])	? $chon=trim($_POST["chon"])	:	$chon= '';	
-	isset($_POST["he"])	? $he=trim($_POST["he"])	:	$he= '';	
+	isset($_POST["he"])	? $he=trim($_POST["he"])	:	$he= '1';	
 	
 	
 		//Lấy bộ môn
@@ -66,6 +66,7 @@
 			$address = "QuanTri_Lop";
 			ThemLop($conn, $address,$maLop, $tenLop,$siSo, $maNganh, $sttKhoa,$he);		
 			
+			
 	}	
 	
 	if (isset($_POST["btn_xoa"])) {		  								
@@ -84,7 +85,8 @@
 			{
 				$ma_old = $_POST["chon"];
 				$address = "QuanTri_Lop";							
-				SuaLop($conn, $address, $maLop,$tenLop,$siSo, $maNganh, $sttKhoa,$he);	
+				SuaLop($conn, $address, $ma_old,$maLop,$tenLop,$siSo, $maNganh, $sttKhoa,$he);	
+				//		var_dump("sua:".$maLop."-" .$tenLop." " .$siSo." ".$maNganh." ".$sttKhoa." ".$he);		
 			}	
 	}	
 	
@@ -102,6 +104,8 @@
 		$siSo= $data_chon["siSo"];
 		$sttKhoa= $data_chon["sttKhoa"];	
 		$he=$data_chon["he"];
+		//var_dump($maLop."-" .$tenLop." " .$siSo." ".$maNganh." ".$sttKhoa." ".$he);		
+//		var_dump($he);
 	}	
 
 ?>
@@ -119,7 +123,7 @@
 			        <table width="800" border="1" >	
 					<tr>
                         <td height="35" width="100"> Mã lớp: </td>
-                        <td ><input type="text" name="maLop" size="30"  > 	</td>						
+                        <td ><input type="text" name="maLop" size="30"  value="<?php echo $maLop; ?>"> 	</td>						
                       </tr>			
 					 <tr>
                         <td height="35" width="100"> Tên lớp học: </td>
@@ -166,11 +170,8 @@
 								<option value='1' >Cao đẳng</option>
 								<?php	
 									}
-									else { ?>
-											<option value='1' selected="selected">Cao đẳng</option>
-											<option value='2' >Trung cấp</option>
-									<?php }?>											
-						</select>			
+									 ?>
+											
 						</td>
                       </tr>
 					  <tr>
@@ -209,7 +210,7 @@
 									" where a.maNganh = b.maNganh ".									
 									" 	 and tenLop like '%".$tenLop."%'" .
 									"   and a.maNganh like '%".$maNganh."%'".
-									"   and sttKhoa like '%".$sttKhoa."%'".						
+									//"   and sttKhoa like '%".$sttKhoa."%'".						
 									" and b.maBm='".$maBm."'".
 									" ORDER BY sttKhoa DESC ";
 					$query = mysqli_query($conn,$sql_hienThi);

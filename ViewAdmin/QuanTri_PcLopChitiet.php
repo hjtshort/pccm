@@ -51,7 +51,7 @@ vertical-align:middle !important;
 	    
 	 	<div class="container">
       		<div class="row">	
-			<h3 class="style1">Phân công lớp: <font color="#000099"><?php echo $data['he']==1? "Cao đẳng":"Trung cấp"; echo " ".$data['tenLop']." Khóa: ".$data['sttKhoa']; ?></font><font color="#c70000"> &nbsp;&nbsp;	 Năm học:<?php echo $namHoc."-"; echo $namHoc+1;?> </font></h3>
+			<h3 class="style1">Phân công lớp: <font color="#000099"><?php echo $data['he']==1? "Cao đẳng":"Trung cấp"; echo " ".$data['tenLop']." Khóa: ".$data['sttKhoa']; ?></font><font color="#c70000"> &nbsp;&nbsp;	  Năm học:<?php echo $namHoc."-"; echo $namHoc+1;?> </font></h3>
 
 
 

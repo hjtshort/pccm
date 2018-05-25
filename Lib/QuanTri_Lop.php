@@ -4,6 +4,7 @@ ob_start();
 		{			
 			// Làm sạch chuổi nhập vào 	
 			// echo $address."/".$maLop."/". $tenLop."/". $siSo."/".$maNganh."/".$sttKhoa."/".$he;
+
 			// die();
 			$tenLop = trim($tenLop);
 			$tenLop = strip_tags($tenLop);
@@ -163,8 +164,8 @@ ob_start();
 								" SET tenLop  = '".$tenLop."' ," .
 								"	  siSo  = '".$siSo."' ," .
 								"	  maNganh = '".$maNganh."' ," .
-								"	  sttKhoa = '".$sttKhoa."'," .		
-								"	  he = '".$he."'" .																																
+								"	  sttKhoa = '".$sttKhoa."'" .		
+								//"	  he = '".$he."'" .																																
 								" where maLop = '".$maLop."'";			
 
 						$query = mysqli_query($conn,$sql); 
