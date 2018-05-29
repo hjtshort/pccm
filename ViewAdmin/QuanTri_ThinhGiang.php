@@ -30,6 +30,7 @@ vertical-align:middle !important;
     require_once("ViewAdmin/header.php");
 	require_once("ViewAdmin/function.php");
 	$malop=$_GET['malop'];
+	$namHoc=$_GET['namhoc']!=''? $_GET['namhoc']:date("Y");
 	$mabm = $_SESSION['ss_user_token']['Mabm'];
 	if(isset($_POST['hocky']))
 	{
@@ -48,8 +49,14 @@ vertical-align:middle !important;
 	    
 	 	<div class="container">
       		<div class="row">	
-			<h3 class="style1">Thỉnh giảng của lớp: <font color="#c70000"></font> &nbsp;&nbsp;	Năm học: 
-							<input type="text" name="namHoc" size="4"  onChange="this.form.submit()" value="<?php echo $namHoc; ?>"> - &nbsp;&nbsp;
+			<h3 class="style1">Thỉnh giảng của lớp: <font color="#c70000"></font> &nbsp;&nbsp;
+			Học kỳ: <select name="hocky" id="hockiphancong">
+									<option value="1" >1</option>
+									<option value="2" >2</option>
+								</select>  
+				Năm học: 
+							<input type="text" name="namHoc" id="namHoc" size="4"  onChange="this.form.submit()" value="<?php echo $namHoc; ?>"> - &nbsp;&nbsp;
+
 							<input type="text" size="4" value="<?php echo ($namHoc+1); ?>" readonly="true">
 
 
@@ -170,24 +177,27 @@ vertical-align:middle !important;
 	}
 	$('.btn-success').click(function () { 
 			var mamon= $(this).closest('tr').find('.mamon').text()
-			var hocki=$(this).closest('tr').find('.hocki').text()
-			var namhoc=$(this).closest('tr').find('.namhoc').text()
+			var hockicth=$(this).closest('tr').find('.hocki').text()
+			var namhoc=$('#namHoc').val()
 			var mabm=$('#maBm').val()
 			var malop=$('#malop').val()
+			var hocki=$('#hockiphancong').val()
 			$.ajax({
 				type: "post",
 				url: "index.php?f=function",
 				data:{
 					"action":"thinh_giang",
 					'mamon':mamon,
-					'hocki':hocki,
+					'hockicth':hockicth,
 					'namhoc':namhoc,
 					'mabm':mabm,
 					'malop':malop,
+					'hocki':hocki
 				},
 				success: function (response) {
 					if(response=='ok')
 						location.reload()
+				
 				}
 			});
 	});

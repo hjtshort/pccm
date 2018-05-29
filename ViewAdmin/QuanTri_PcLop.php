@@ -80,7 +80,7 @@ vertical-align:middle !important;
 	 	<div class="container">
       		<div class="row">	
 			<h3 class="style1">Phân công Theo lớp: <font color="#c70000"></font> &nbsp;&nbsp;	Năm học: 
-							<input type="text" name="namHoc" size="4"  onChange="this.form.submit()" value="<?php echo $namHoc; ?>"> - &nbsp;&nbsp;
+							<input type="text" name="namHoc" size="4" id="namhoc"  onChange="this.form.submit()" value="<?php echo $namHoc; ?>"> - &nbsp;&nbsp;
 							<input type="text" size="4" value="<?php echo ($namHoc+1); ?>" readonly="true">
 
 
@@ -138,7 +138,7 @@ vertical-align:middle !important;
 						  <td width="100"><a href="index.php?f=QuanTri_PcLopChitiet&malop=<?php  echo $row["maLop"]." ".$namHoc; ?>"><?php echo $row['tenLop'];?></a></td>	
 						  <td width="51"><center><?php echo $row['sttKhoa']; ?></center></td>	
  						  <td width="40"><center><?php echo $row['he']==1? "Cao Đẳng":"Trung Cấp";?></center></td>	
-							<td width="40"><center><a href="index.php?f=QuanTri_ThinhGiang&malop=<?php  echo $row["maLop"]; ?>">Thỉnh giảng</a></center></td>	
+							<td width="40"><center><a href="index.php?f=QuanTri_ThinhGiang&malop=<?php  echo $row["maLop"]; ?>&namhoc=<?php echo $namHoc; ?>">Thỉnh giảng</a></center></td>	
   						  
 						</tr>	
                 <?php }?>				

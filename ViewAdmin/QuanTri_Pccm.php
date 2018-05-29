@@ -551,6 +551,7 @@ $("#print").on('click','.cc',function()
 	var namhoc=$('#namhoc').val()
 	var malop=$('#lop').val()
 	var mamon=$(this).closest('tr').find('.maMon').text()
+	var hockicth=$('#hocky').val()
 	$.ajax({
 		type: "post",
 		url: "index.php?f=function",
@@ -565,7 +566,8 @@ $("#print").on('click','.cc',function()
 		'macb':macb,
 		'namhoc':namhoc,
 		'malop':malop,
-		'mamon':mamon
+		'mamon':mamon,
+		'hockicth':hockicth
 		},
 		success: function (response) {
 			if(response=='ok')
@@ -573,6 +575,7 @@ $("#print").on('click','.cc',function()
 				//location.reload()
 			get_table()
 			}
+		
 		}
 	});
 
