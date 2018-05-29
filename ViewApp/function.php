@@ -100,6 +100,23 @@ else if(isset($_POST['action']) && trim($_POST['action'])=="get_khoa")
 {
 	 get_max_khoa($_POST['maNganh']);
 }
+else if(isset($_POST['action']) && trim($_POST['action'])=="get_tc")
+{
+	 get_tc($_POST['nganh'],$_POST['he'],$_POST['sttKhoa']);
+}
+
+
+function get_tc($nganh,$he,$sttkhoa)
+{
+	$db=new db();
+	$data['tc']=$db->mysql->query("SELECT sum(soTc)  as tinchi FROM `chuongtrinhhoc` 
+	join monhoc on chuongtrinhhoc.maMon=monhoc.maMon WHERE maNganh='$nganh' and he=$he and sttKhoa=$sttkhoa")->fetch_assoc();
+	$data['batbuoc']=$db->mysql->query("SELECT sum(soTc) as bb FROM `chuongtrinhhoc` 
+	join monhoc on chuongtrinhhoc.maMon=monhoc.maMon WHERE maNganh='$nganh' and he=$he and sttKhoa=$sttkhoa and batbuoc='x'")->fetch_assoc();
+	$data['tuchon']=$db->mysql->query("SELECT sum(soTc) as tc FROM `chuongtrinhhoc` 
+	join monhoc on chuongtrinhhoc.maMon=monhoc.maMon WHERE maNganh='$nganh' and he=$he and sttKhoa=$sttkhoa and tuchon='x'")->fetch_assoc();
+	echo json_encode($data);
+}
 function get_max_khoa($maNganh)
 {
 	$db=new db();
@@ -151,20 +168,37 @@ function hienthitable($maNganh,$he,$sttKhoa,$hk)
 	$data=$db->mysql->query($sql_hienThi);
 	$t="";
 	$tong=0;
+	$tonglt=0;
+	$tongbt=0;
+	$tongth=0;
+	$tongkt=0;
 	$stt=1;
+	$tongbatbuoc=0;
+	$tongtuchon=0;
 	while($row=$data->fetch_assoc()){
+		if($row['batbuoc']=='x')
+			$tongbatbuoc+=$row['soTc'];
+		else
+			$tongtuchon+=$row['soTc'];
+
 		$tong+=intval($row["soTc"]);
+		$tonglt+=intval($row['soTietLt']);
+		$tongbt+=intval($row['soTietBT']);
+		$tongth+=intval($row['soTietTh']);
+		$tongkt+=intval($row['soTietKt']);
 		$chuoi=$row["maNganh"]."+".$row["maMon"]."+".$row["he"]."+".$row["sttKhoa"]."+".$row["hocKi"]."+".$row["namHoc"]."+".$stt;	
 		$kk=checkmontienquyet($row["maNganh"],$row["he"],$row["maMon"],$row["hocKi"],$row["sttKhoa"])==false ? "<p><span style='color:red;'>Cần phải xóa vì môn tiên quyết chưa có trong chương trình</span></p>": "";
 		$loai= $row['batbuoc']=="x"? "<select id='bb_tc' kai-value=".$chuoi." class='chon'><option selected='selected' value='bb'>Bắt buộc</option><option value='tt' >Tự chọn</option></select>":"<select class='chon' kai-value=".$chuoi."><option value='bb'>Bắt buộc</option><option selected='selected' value='tt'>Tự chọn</option></select>";	
 		$t.='<tr>
 				<td scope="row">'. $stt++ .'</td>
-				<td>'. $row["tenNganh"].' </td>	
-				<td>'. $row["sttKhoa"].'</td>	
-				<td>'. $row["hocKi"].'</td>	
-				<td>'. $row["namHoc"].'</td>
+				<td>'. $row["maMon"].'</td>
 				<td>'. $row["tenMon"].$kk.'</td>			
 				<td>'. $row["soTc"].'</td>
+				<td>'. $row["soTietLt"].'</td>
+				<td>'. $row["soTietBT"].'</td>
+				<td>'. $row["soTietTh"].'</td>
+				<td>'. $row["soTietKt"].'</td>
+
 				<td>'.$loai.'</td>			
 				<td>
 				<button type="button" onclick="del(\''.$chuoi.'\')" style="border:none; background-color:transparent"> <img src="img/delete.png" width="20" height="20" ></button>							
@@ -172,8 +206,14 @@ function hienthitable($maNganh,$he,$sttKhoa,$hk)
 	  </tr>	';
 	}
 	return $t.'  <tr>
-	<td colspan="6" align="center"> Tổng số</td>
+	<td colspan="3" align="center"> Tổng số</td>
 	<td>'.$tong.' </td>
+	<td>'.$tonglt.' </td>
+	<td>'.$tongbt.' </td>
+	<td>'.$tongth.' </td>
+	<td>'.$tongkt.' </td>
+	<td><b>Bắt buộc:'.$tongbatbuoc.'</b></td>
+	<td><b>Tự chọn:'.$tongtuchon.'</b></td>
 	</tr>';
 }
 //xóa môn học trong bảng chương trình học
