@@ -90,7 +90,15 @@
 						</div>  
 						</td>
 					    <td width="97" height="35"><button type="button" class="btn btn-success create">Tạo KHGD khóa mới</button> </td>              
-                      </tr>
+					  </tr>
+					  <tr>
+						  <td>Tổng tc:</td>
+						  <td class='tc'>123</td>
+						  <td>Tổng bắt buộc:</td>
+						  <td class='batbuoc'>1</td>
+						  <td>Tổng tự chọn:</td>
+						  <td class='tuchon'>2</td>
+					  </tr>
 					   <tr>
 							<td>&nbsp</td>
 							<td><input  type="text" value="" id="inp-search" placeholder="Tìm kiếm"></td>
@@ -295,6 +303,7 @@
 		NMT()
 
 		tk()
+		get_tc()
 
 	
 	});
@@ -328,12 +337,14 @@
 		$('#inp-search').val('')
 		$('#hocky').val("0");
 		tk()
+		get_tc()
 		get_namhoc()
 	});
 		//lấy lại dữ liệu bảng nếu hệ thay đổi
 	$('#he').change(function (e) { 
 		gettable()
 		laymonhoc()	
+		get_tc()
 		$('#inp-search').val('')
 //console.log('123')
 
@@ -344,6 +355,7 @@
 		 NMT()
 	
 		 tk()	
+		 get_tc()
 		 get_namhoc()	
 		 //console.log($('#sttKhoa').val())
 	
@@ -493,6 +505,30 @@ function get_namhoc(){
 function tk(){
 	var t=$('#nganh option:selected').text()
 	$('#tk').text(t+'-Khóa '+$('#sttKhoa').val()+'(Học kì '+$('#hocky option:selected').text())	
+}
+function get_tc()
+{
+	var nganh=$('#nganh').val()
+	var he=$('#he').val()
+	var sttKhoa=$('#sttKhoa').val()
+	$.ajax({
+		type: "post",
+		url: "index.php?f=function",
+		data:{
+			"action":'get_tc',
+			'nganh':nganh,
+			'he':he,
+			'sttKhoa':sttKhoa
+		},
+	
+		success: function (response) {
+			var obj = jQuery.parseJSON(response);
+			$('.tc').text(obj['tc']['tinchi'])
+			$('.batbuoc').text(obj['batbuoc']['bb'])
+			$('.tuchon').text(obj['tuchon']['tc'])
+			
+		}
+	});
 }
 
 </script>

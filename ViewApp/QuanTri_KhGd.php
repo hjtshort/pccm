@@ -163,7 +163,15 @@
 						</td>
 						<td height="35"><button type="button" class="btn btn-success create">Tạo</button> </td>
 						               
-                      </tr>
+					  </tr>
+					  <tr>
+						  <td>Tổng tc:</td>
+						  <td class='tc'>123</td>
+						  <td>Tổng bắt buộc:</td>
+						  <td class='batbuoc'>1</td>
+						  <td>Tổng tự chọn:</td>
+						  <td class='tuchon'>2</td>
+					  </tr>
 					  <tr>
 							<td>&nbsp</td>
 							<td><input  type="text" value="" id="inp-search" placeholder="Tìm kiếm"></td>
@@ -203,14 +211,15 @@
 				<h3 class="style1">Danh sách môn học ngành: <a style="color:red;" id="tk"></a>-<a style="color:red;" id="namhoc"></a></h3>
 
 	          	<thead>
-					<tr >
+				  <tr >
 					  <th width="20"> STT </th>
-					  <th width="100"><center>Tên ngành</center></th>
- 					  <th width="20"><center>Khóa</center></th>
-				  	  <th width="10"><center>Học kì</center></th>
-					  <th width="20"><center>Năm học</center></th>
+					  <th width="30">Mã môn</th>
 					  <th width="130"><center>Tên môn</center></th>
 					  <th width="30"><center>Tín chỉ</center></th>
+					  <th width="30">LT</th>
+					  <th width="30">BT</th>
+					  <th width="30">Th</th>
+					  <th width="30">KT</th>
 					  <th width="30"><center>loại</center></th>
 					  <th width="50"><button type="button" class="btn btn-xoa"><i class="fa fa-trash"></i> Xóa hết</button>  </th>
 					</tr>
@@ -393,6 +402,7 @@
 		NMT()
 		get_namhoc()
 		tk()
+		get_tc()
 		$('#inp-search').val('')
 	});
 		//lấy lại dữ liệu bảng nếu hệ thay đổi
@@ -555,4 +565,29 @@ function tk(){
 	var t=$('#nganh option:selected').text()
 	$('#tk').text(t+'-Khóa '+$('#sttKhoa').val()+'(Học kì '+$('#hocky option:selected').text())	
 }
+function get_tc()
+{
+	var nganh=$('#nganh').val()
+	var he=$('#he').val()
+	var sttKhoa=$('#sttKhoa').val()
+	$.ajax({
+		type: "post",
+		url: "index.php?f=function",
+		data:{
+			"action":'get_tc',
+			'nganh':nganh,
+			'he':he,
+			'sttKhoa':sttKhoa
+		},
+	
+		success: function (response) {
+			var obj = jQuery.parseJSON(response);
+			$('.tc').text(obj['tc']['tinchi'])
+			$('.batbuoc').text(obj['batbuoc']['bb'])
+			$('.tuchon').text(obj['tuchon']['tc'])
+			
+		}
+	});
+}
+get_tc()
 </script>

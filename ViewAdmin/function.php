@@ -140,6 +140,23 @@ else if(isset($_POST['action']) && trim($_POST['action'])=="get_namhoc")
 	//var_dump($_POST);
 	get_namhoc($_POST['nganh'],intval($_POST['hocki']),intval($_POST['he']),intval($_POST['sttKhoa']));
 }
+else if(isset($_POST['action']) && trim($_POST['action'])=="get_tc")
+{
+	 get_tc($_POST['nganh'],$_POST['he'],$_POST['sttKhoa']);
+}
+
+
+function get_tc($nganh,$he,$sttkhoa)
+{
+	$db=new db();
+	$data['tc']=$db->mysql->query("SELECT sum(soTc)  as tinchi FROM `chuongtrinhhoc` 
+	join monhoc on chuongtrinhhoc.maMon=monhoc.maMon WHERE maNganh='$nganh' and he=$he and sttKhoa=$sttkhoa")->fetch_assoc();
+	$data['batbuoc']=$db->mysql->query("SELECT sum(soTc) as bb FROM `chuongtrinhhoc` 
+	join monhoc on chuongtrinhhoc.maMon=monhoc.maMon WHERE maNganh='$nganh' and he=$he and sttKhoa=$sttkhoa and batbuoc='x'")->fetch_assoc();
+	$data['tuchon']=$db->mysql->query("SELECT sum(soTc) as tc FROM `chuongtrinhhoc` 
+	join monhoc on chuongtrinhhoc.maMon=monhoc.maMon WHERE maNganh='$nganh' and he=$he and sttKhoa=$sttkhoa and tuchon='x'")->fetch_assoc();
+	echo json_encode($data);
+}
 
 
 function get_max_khoa_lop($mabm)

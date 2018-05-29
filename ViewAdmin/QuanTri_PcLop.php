@@ -1,4 +1,4 @@
-<?php	
+ <?php	
 	if (!defined('IN_SITE')) 
  	 	header('Location: ../index.php')	;	
 ?>
@@ -99,9 +99,9 @@ vertical-align:middle !important;
 					<input type="hidden" name="khoa" id="khoa">
 				</form>
 				<select id="chonkhoa">
-						<option value="<?php echo $maxsttkhoa; ?>"><?php echo $maxsttkhoa; ?></option>
-						<option value="<?php echo $maxsttkhoa-1; ?>"><?php echo $maxsttkhoa-1; ?></option>
-						<option value="<?php echo $maxsttkhoa-2; ?>"><?php echo $maxsttkhoa-2; ?></option>
+						<option <?php echo $sttKhoa==$maxsttkhoa? "selected":''; ?> value="<?php echo $maxsttkhoa; ?>"><?php echo $maxsttkhoa; ?></option>
+						<option <?php echo $sttKhoa==$maxsttkhoa-1? "selected":''; ?> value="<?php echo $maxsttkhoa-1; ?>"><?php echo $maxsttkhoa-1; ?></option>
+						<option <?php echo $sttKhoa==$maxsttkhoa-2? "selected":''; ?> value="<?php echo $maxsttkhoa-2; ?>"><?php echo $maxsttkhoa-2; ?></option>
 					</select>
 			</center>
     	    <table class="table table-hover" border="1"  >
