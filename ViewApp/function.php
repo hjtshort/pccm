@@ -91,6 +91,27 @@ else if(isset($_POST['action']) && trim($_POST['action'])=="NMTANE")
 {
 	create($_POST['nganh'],$_POST['he'],$_POST['khoa']);
 }
+else if(isset($_POST['action']) && trim($_POST['action'])=="get_namhoc")
+{	
+	//var_dump($_POST);
+	get_namhoc($_POST['nganh'],intval($_POST['hocki']),intval($_POST['he']),intval($_POST['sttKhoa']));
+}
+else if(isset($_POST['action']) && trim($_POST['action'])=="get_khoa")
+{
+	 get_max_khoa($_POST['maNganh']);
+}
+function get_max_khoa($maNganh)
+{
+	$db=new db();
+	$data=$db->mysql->query("SELECT MAX(sttKhoa) as maxkhoa from chuongtrinhhoc WHERE maNganh='$maNganh'")->fetch_assoc();
+	echo $data['maxkhoa'];
+}
+function get_namhoc($nganh,$hocki,$he,$khoa)
+{
+	$db=new db();
+	$data=$db->mysql->query("select distinct namHoc from chuongtrinhhoc where maNganh='$nganh' and hocKi=$hocki and he=$he and sttKhoa=$khoa ")->fetch_assoc();
+	echo $data['namHoc'];
+}
 function create($nganh,$he,$khoa)
 {
 	$db=new db();

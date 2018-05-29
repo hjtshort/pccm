@@ -51,9 +51,9 @@
                         <td width="379" ><select name="maNganh" title="chọn mã ngành" id="nganh">							 	
 							<?php								
 								$data4=laynganh();
+								var_dump($data4);
 								foreach ($data4 as $key=>$value) {
 									?>
-								
 										<option value='<?php echo $value["maNganh"]; ?>' selected="selected"><?php echo $value["tenNganh"]; ?></option>
 								<?php } ?>
 									
@@ -84,6 +84,7 @@
                       <tr>
                         <td height="35"> Khóa: </td>
 						<td ><input type="text" name="sttKhoa" size="1" id="sttKhoa"  value="43"><br> 
+								<input type="hidden" name="" id="namHoc">
 						<div style="color:red;" id="validationkhoa">
 							
 						</div>  
@@ -392,36 +393,37 @@
 
 			 });
 	 $('#btn-them').click(function (e) { 
+		 console.log('a')
 			var nganh = $('#nganh').val()
 			var he =$('#he').val()
 			var sttKhoa=$('#sttKhoa').val()
 			var hocky =$('#hocky').val()
-			var namHoc=$('#namhoc').val()
+			var namHoc=$('#namHoc').val()
 			var mamon=$('#mamon').val()
 			var check=1;
-			if(namHoc.toString().length==0){
-				$('#validationnamhoc').html('<span>Năm học không được để trống</span><br>');
-				check=0
-			}
-			else if(TryParseInt(namHoc.toString(),0)==0){
-				$('#validationnamhoc').html('<span>Năm học phải là số</span><br>');
-				check=0
-			}
-			else if(parseInt(namHoc.toString())>2050 || parseInt(namHoc.toString())<2010 ){
-				$('#validationnamhoc').html('<span>Năm học không hợp lệ</span><br>');
-				check=0
-			}
-			if(sttKhoa.toString().length==0){
-				$('#validationkhoa').html('<span>Năm học không được để trống</span><br>');
-				check=0
-			}
-			else if(TryParseInt(sttKhoa.toString(),0)==0){
-				$('#validationkhoa').html('<span>Năm học phải là số</span><br>');
-				check=0
-			}
-			if(parseInt(check)==1){
-				$('#validationkhoa').html('');
-				$('#validationnamhoc').html('');
+			// if(namHoc.toString().length==0){
+			// 	$('#validationnamhoc').html('<span>Năm học không được để trống</span><br>');
+			// 	check=0
+			// }
+			// else if(TryParseInt(namHoc.toString(),0)==0){
+			// 	$('#validationnamhoc').html('<span>Năm học phải là số</span><br>');
+			// 	check=0
+			// }
+			// else if(parseInt(namHoc.toString())>2050 || parseInt(namHoc.toString())<2010 ){
+			// 	$('#validationnamhoc').html('<span>Năm học không hợp lệ</span><br>');
+			// 	check=0
+			// }
+			// if(sttKhoa.toString().length==0){
+			// 	$('#validationkhoa').html('<span>Năm học không được để trống</span><br>');
+			// 	check=0
+			// }
+			// else if(TryParseInt(sttKhoa.toString(),0)==0){
+			// 	$('#validationkhoa').html('<span>Năm học phải là số</span><br>');
+			// 	check=0
+			// }
+			// if(parseInt(check)==1){
+			// 	$('#validationkhoa').html('');
+			// 	$('#validationnamhoc').html('');
 				$.ajax({
 					type: "post",
 					url: "index.php?f=function",
@@ -434,7 +436,7 @@
 							"action":"insertcth"
 							},
 					success: function (response) {
-						//alert(response)
+					
 						if(response.trim()=="ok"){
 							gettable()
 							NMT()
@@ -443,10 +445,11 @@
 							alert('Không thể thêm do môn tiên quyết chưa có trong chương trình học!')
 						else 
 							alert('Môn học đã có trong chương trình học!')
+						
 					}
 				});
 
-			}  
+			//}
 	 });
 function get_khoa()
 {
@@ -481,6 +484,8 @@ function get_namhoc(){
 		},
 		success: function (response) {
 			$('#namhoc').text('Năm: '+response+')')
+			$('#namHoc').val(response)
+
 		}
 	 });
 	

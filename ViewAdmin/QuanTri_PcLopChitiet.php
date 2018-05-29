@@ -51,7 +51,12 @@ vertical-align:middle !important;
 	    
 	 	<div class="container">
       		<div class="row">	
-			<h3 class="style1">Phân công lớp: <font color="#000099"><?php echo $data['he']==1? "Cao đẳng":"Trung cấp"; echo " ".$data['tenLop']." Khóa: ".$data['sttKhoa']; ?></font><font color="#c70000"> &nbsp;&nbsp;	  Năm học:<?php echo $namHoc."-"; echo $namHoc+1;?> </font></h3>
+			<h3 class="style1">Phân công lớp: <font color="#000099"><?php echo $data['he']==1? "Cao đẳng":"Trung cấp"; echo " ".$data['tenLop']." Khóa: ".$data['sttKhoa']; ?></font><font color="#c70000"> &nbsp;&nbsp;	  
+			Học kỳ: <select name="hocky" id="hockiphancong">
+									<option value="1" >1</option>
+									<option value="2" >2</option>
+								</select>  
+			Năm học:<?php echo $namHoc."-"; echo $namHoc+1;?> </font></h3>
 
 
 
@@ -228,11 +233,12 @@ vertical-align:middle !important;
 	var baitap=$(this).closest('tr').find('.soTietBT').text()
 	var thuchanh=$(this).closest('tr').find('.soTietTh').text()
 	var kiemtra=$(this).closest('tr').find('.soTietKt').text()
-	var hocki=$('#hocky').val()
+	var hocki=$('#hockiphancong').val()
 	var macb=$('#maCB').val()
 	var namhoc=$('#namhoc').val()
 	var malop=$('#lop').val()
 	var mamon=$(this).closest('tr').find('.maMon').text()
+	var hockicth=$('#hocky').val()
 	$.ajax({
 		type: "post",
 		url: "index.php?f=function",
@@ -247,7 +253,8 @@ vertical-align:middle !important;
 		'macb':macb,
 		'namhoc':namhoc,
 		'malop':malop,
-		'mamon':mamon
+		'mamon':mamon,
+		'hockicth':hockicth
 		},
 		success: function (response) {
 			if(response=='ok')

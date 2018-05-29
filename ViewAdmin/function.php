@@ -1,8 +1,6 @@
 <?php 
 require_once "db.php";
 
-
-//var_dump(checkmontienquyet(1,1,'TU090',1));
 if(isset($_POST['action']) && trim($_POST['action'])=="gettable"){
 	$maNganh= addslashes(strip_tags(trim($_POST['nganh'])));
 	$he= addslashes(strip_tags(trim($_POST['he'])));
@@ -21,6 +19,7 @@ else if(isset($_POST['action']) && trim($_POST['action'])=="insertcth"){
 	$hk=addslashes(strip_tags(trim($_POST['hocky'])));
 	$namHoc=addslashes(strip_tags(trim($_POST['namhoc'])));
 	$maMon=addslashes(strip_tags(trim($_POST['mamon'])));
+	//var_dump($_POST);
 	insertcth($maNganh,$maMon,$he,$sttKhoa,$hk,$namHoc);
 }
 else if(isset($_GET['action']) && trim($_GET['action'])=="xuat")
@@ -106,14 +105,14 @@ else if(isset($_POST['action']) && trim($_POST['action'])=="phan_cong")
 	//var_dump($_POST);
 	$data=explode('+',$_POST['malop']);
 	 phan_cong($_POST['macb'],$data[1],$_POST['mamon'],$_POST['hocki'],$_POST['namhoc'],$_POST['nhom'],
-	 $_POST['lythuyet'],$_POST['thuchanh'],$_POST['baitap'],$_POST['kiemtra'],$_POST['he']);
+	 $_POST['lythuyet'],$_POST['thuchanh'],$_POST['baitap'],$_POST['kiemtra'],$_POST['he'],$_POST['hockicth']);
 }
 else if(isset($_POST['action']) && trim($_POST['action'])=="phan_cong2")
 {
 	//$data=explode('+',$_POST['data']);
 	//var_dump($_POST);
 	 phan_cong($_POST['macb'],$_POST['malop'],$_POST['mamon'],$_POST['hocki'],$_POST['namhoc'],$_POST['nhom'],
-	 $_POST['lythuyet'],$_POST['thuchanh'],$_POST['baitap'],$_POST['kiemtra'],$_POST['he']);
+	 $_POST['lythuyet'],$_POST['thuchanh'],$_POST['baitap'],$_POST['kiemtra'],$_POST['he'],$_POST['hockicth']);
 }
 else if(isset($_POST['action']) && trim($_POST['action'])=="xoa_phan_cong")
 {
@@ -127,7 +126,8 @@ else if(isset($_POST['action']) && trim($_POST['action'])=="get_khoa")
 }
 else if(isset($_POST['action']) && trim($_POST['action'])=="thinh_giang")
 {	
-	thinh_giang($_POST['malop'],$_POST['mamon'],$_POST['mabm'],$_POST['hocki'],$_POST['namhoc']);
+	 thinh_giang($_POST['malop'],$_POST['mamon'],$_POST['mabm'],$_POST['hocki'],$_POST['namhoc'],$_POST['hockicth']);
+
 
 }
 else if(isset($_POST['action']) && trim($_POST['action'])=="xoa_thinh_giang")
@@ -171,7 +171,7 @@ function get_Bm_session($macb)
 function ahihi($macb,$mamon,$hocki,$namhoc)//Gv dạy lớp thứ 3
 {
 	$db=new db();
-	$data=$db->mysql->query("select * from pcday where maCb='$macb' and maMon='$mamon' and hocKi=$hocki and namHoc=$namhoc")->num_rows;
+	$data=$db->mysql->query("select * from pcday where maCb='$macb' and maMon='$mamon' and namHoc=$namhoc")->num_rows;
 	if($data>=3)
 	{
 		return "<br><span style='color:red;'>Giáo án 3</span>";
@@ -186,7 +186,7 @@ function xoa_phan_cong($e)
 	//var_dump($val);
 	$namhoc=intval($val[4]);
 	$hocki=intval($val[3]);
-	$data=$db->mysql->query("delete from pcday where maCb='$val[0]' and maLop='$val[1]' and maMon='$val[2]' and hocKi=$hocki and namHoc=$namhoc");
+	$data=$db->mysql->query("delete from pcday where maCb='$val[0]' and maLop='$val[1]' and maMon='$val[2]' and hocKiCTH=$hocki and namHoc=$namhoc");
 	if($data)
 	{
 		echo "ok";
@@ -199,10 +199,10 @@ function xoa_phan_cong($e)
 	
 	
 }
-function phan_cong($macb,$malop,$mamon,$hocki,$namhoc,$sonth,$sotietlt,$sotietth,$sotietbt,$sotietkt,$heso)
+function phan_cong($macb,$malop,$mamon,$hocki,$namhoc,$sonth,$sotietlt,$sotietth,$sotietbt,$sotietkt,$heso,$hockicth)
 {
 	$db=new db();
-	$data=$db->mysql->query("insert into pcday values('".$macb."','".$malop."','".$mamon."',".$hocki.",".$namhoc.",
+	$data=$db->mysql->query("insert into pcday values('".$macb."','".$malop."','".$mamon."',".$hocki.",".$hockicth.",".$namhoc.",
 	".$sonth.",".$sotietlt.",".$sotietth.",".$sotietbt.",".$sotietkt.",".$heso.")");
 	if($data)
 	{
@@ -217,7 +217,7 @@ function check_phan_cong($malop,$mamon,$hocki,$namhoc)
 {
 	$db=new db();
 	$data1=$db->mysql->query("select * from pcday inner join canbo on pcday.maCb=canbo.maCb 
-	where maLop='".$malop."' and maMon='".$mamon."' and hocKi=".$hocki."")->fetch_assoc();
+	where maLop='".$malop."' and maMon='".$mamon."' and hocKiCTH=".$hocki."")->fetch_assoc();
 	if($data1!=false)
 	{
 		$t=$data1['maCb']."+".$malop."+".$mamon."+".$hocki."+".$data1['namHoc'];
@@ -379,13 +379,15 @@ function insertcth($maNganh,$maMon,$he,$sttKhoa,$hocKi,$namHoc)
 		$checked=checkmontienquyet($maNganh,$he,$maMon,$hocKi,$sttKhoa);
 		if($checked==true){
 			$query1=$db->mysql->query("select * from chuongtrinhhoc where maNganh='$maNganh' and maMon='$maMon' and sttKhoa=$sttKhoa ")->num_rows;
-			if($query>0)
+	
+			if($query1==0)
 			{
-				$query=$db->mysql->query("insert into chuongtrinhhoc values (".$maNganh.",'".$maMon."',".$he.",".$sttKhoa.",".$hocKi.",".$namHoc.",' ','x')");
+				$query=$db->mysql->query("insert into chuongtrinhhoc values ('$maNganh','$maMon',$he,$sttKhoa,$hocKi,$namHoc,' ','x')");
 				if($query)
 					echo 'ok';
 				else
 					echo 'error';
+		
 			
 			}
 			else
@@ -665,7 +667,7 @@ function get_can_bo($mabm)
 function check_phan_cong_thinh_giang($malop,$mamon,$hocki,$namhoc)
 {
 	$db=new db();
-	$data1=$db->mysql->query("select * from thinhgiang join bomon on thinhgiang.maBm=bomon.maBm  where maLop='$malop' and maMon='$mamon' and hocKi=$hocki")->fetch_assoc();
+	$data1=$db->mysql->query("select * from thinhgiang join bomon on thinhgiang.maBm=bomon.maBm  where maLop='$malop' and maMon='$mamon' and hocKiCTH=$hocki")->fetch_assoc();
 	if($data1)
 	{
 		$t=$malop."+".$mamon."+".$hocki."+".$namhoc;
@@ -686,10 +688,10 @@ function get_bo_mon($maBm)
 	$data=$db->mysql->query("select * from bomon where maBm !=$maBm");
 	return $data;
 }
-function thinh_giang($malop,$mamon,$mabm,$hocki,$namhoc)
+function thinh_giang($malop,$mamon,$mabm,$hocki,$namhoc,$hockicth)
 {
 	$db=new db();
-	$data=$db->mysql->query("insert into thinhgiang values('$malop','$mamon',$mabm,$hocki,$namhoc)");
+	$data=$db->mysql->query("insert into thinhgiang values('$malop','$mamon',$mabm,$hocki,$hockicth,$namhoc)");
 	if($data)
 		echo "ok";
 	else

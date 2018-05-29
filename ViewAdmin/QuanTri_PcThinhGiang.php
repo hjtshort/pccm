@@ -29,6 +29,15 @@ vertical-align:middle !important;
 <?php
     require_once("ViewAdmin/header.php");
 	require_once("ViewAdmin/function2.php");
+	$mabm = $_SESSION['ss_user_token']['Mabm'];
+
+	if(isset($_POST['namHoc']))
+	{
+		$namhoc=$_POST['namHoc'];
+	}
+	else
+		$namhoc=date("Y");
+	$data=get_table_thinh_giang($mabm,$namhoc);
 	
 ?>		
 	
@@ -37,12 +46,14 @@ vertical-align:middle !important;
 	    
 	 	<div class="container">
       		<div class="row">	
+			<form action="" method="post" id="mummim">
 			<h3 class="style1">Phân công chuyên môn bộ môn: <font color="#c70000"></font> &nbsp;&nbsp;	Năm học: 
-							<input style="width:100px;" type="number" id="namhoc" name="namHoc"    value="<?php echo date('Y'); ?>"> - &nbsp;&nbsp;
-							<input style="width:100px;" type="number" id="namhoc2"  value="<?php echo date("Y")+1; ?>" readonly="true">
+							<input style="width:100px;" type="number" id="namhoc" name="namHoc"    value="<?php echo $namhoc; ?>"> - &nbsp;&nbsp;
+							<input style="width:100px;" type="number" id="namhoc2"  value="<?php echo $namhoc+1; ?>" readonly="true">
+							</form>
 
 
-			<a href="index.php?f=xuat&idMau=<?php $chuoi=$data["maBm"]." ".$namHoc; echo $chuoi; ?>"><img src="img/excel.jpg" title="Xuất file Excel" height="30" width="30" /></a>
+			<a href="index.php?f=xuat&idMau=<?php $chuoi=$mabm." ".$namHoc; echo $chuoi; ?>"><img src="img/excel.jpg" title="Xuất file Excel" height="30" width="30" /></a>
 			</h3>
 			
 			<Center>				 		  
@@ -50,7 +61,7 @@ vertical-align:middle !important;
 			        <table width="800" border="1" >					  
                    </table>
 					<?php
-					  $mabm = $_SESSION['ss_user_token']['Mabm'];
+					
 					$cb=get_can_bo($mabm) ;
 					?>
 					<select name="" id="maCB">
@@ -72,6 +83,7 @@ vertical-align:middle !important;
 					  <th width="30" valign="middle">Mã Môn</th>
  					  <th width="100"  ><center>Tên Môn</center></th>
 					   <th>Học kì</th>
+					   <th>Học kì CTH</th>
 				  	  <th width="51"  ><center>
 				  	    Số Tc
 				  	  </center></th>
@@ -106,7 +118,7 @@ vertical-align:middle !important;
 			  <tbody>
 				  <?php		
 				
-                    $data=get_table_thinh_giang($mabm);
+               
                     $stt=0;
                     while($row=$data->fetch_assoc()){	
                         $stt++;	
@@ -117,7 +129,8 @@ vertical-align:middle !important;
 						<td width="30"><?php echo $row["tenLop"]; ?></td>	
 							<td width="30" class='maMon'><?php echo $row["maMon"]; ?></td>	
 						  <td width="100"><?php echo $row["tenMon"]; ?></td>
-						  <td width="30" class='hocKi'><?php echo $row["hocKi"]; ?></td>		
+						  <td width="30" class='hocKi'><?php echo $row["hocKi"]; ?></td>
+						  <td width="30" class='hocKiCTH'><?php echo $row["hocKiCTH"]; ?></td>			
 						  <td width="51"><?php echo $row['soTc']; ?></td>	
 						  <td width="51" class='soTietLt'><?php echo $row['soTietLt']; ?></td>	
 						  <td width="51" class='soTietBT'><?php echo $row['soTietBT']; ?></td>	
@@ -125,7 +138,7 @@ vertical-align:middle !important;
 						  <td width="51" class='soTietKt'><?php echo $row['soTietKt']; ?></td>		
  						  <td width="30"><center><input style="width:30px;" class='nhom' value="1"></center></td>	
 						   <td width="30"><center><input style="width:30px;" class='heso' value="1"></center></td>
-						 <?php echo  check_phan_cong($row['maLop'],$row["maMon"],$row['hocKi'],$row['namHoc']); ?>
+						 <?php echo  check_phan_cong($row['maLop'],$row["maMon"],$row['hocKiCTH'],$row['namHoc']); ?>
  						 
   						  
 						</tr>	
@@ -196,6 +209,7 @@ $('.cc').on('click',function()
 	var namhoc=$('#namhoc').val()
 	var malop=$(this).closest('tr').find('.maLop').text()
 	var mamon=$(this).closest('tr').find('.maMon').text()
+	var hockicth=$(this).closest('tr').find('.hocKiCTH').text()
 
 	$.ajax({
 		type: "post",
@@ -211,21 +225,27 @@ $('.cc').on('click',function()
 		'macb':macb,
 		'namhoc':namhoc,
 		'malop':malop,
-		'mamon':mamon
+		'mamon':mamon,
+		'hockicth':hockicth
 		},
 		success: function (response) {
 			if(response=='ok')
 			{
 				location.reload()
 			}
+			
 		}
 	});
 
 
 
 })
-$('#namhoc').keyup(function () { 
-	$('#namhoc2').val(parseInt(this.value)+1)
+// $('#namhoc').keyup(function () { 
+// 	$('#namhoc2').val(parseInt(this.value)+1)
+// });
+$('#namhoc').change(function () { 
+	$('#mummim').submit()
+	
 });
 	</script>
 	
