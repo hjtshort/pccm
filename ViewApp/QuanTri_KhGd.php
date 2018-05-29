@@ -112,7 +112,7 @@
 	     <form name="form1" method="POST" action="index.php?f=QuanTri_KhGd">
 	 	<div class="container">
       		<div class="row">	
-			<h3 class="style1"> QUẢN LÝ KẾ HOẠCH GIẢNG DẠY </h3>
+			<h3 class="style1"> QUẢN LÝ KẾ HOẠCH  DẠY HỌC </h3>
 			
 			<Center>				 		  
 					<input type="image" name="test"  value=""  width="3" height="3">
@@ -132,7 +132,7 @@
 									<?php }	}?>
 								
 						  </select>	
-						 </td>						
+					    </td>						
                       </tr>
 					  <tr>
 					  	<td height="35" width="140"> Hệ: </td>
@@ -151,7 +151,7 @@
 								<option value=5 >5</option>
 								<option value=6 >6</option>
 							 </select>	
-						 </td>						
+					    </td>						
                       </tr>
                       <tr>
                         <td height="35"> Năm học: </td>
@@ -173,7 +173,7 @@
 					  <tr>
 							<td>&nbsp</td>
 							<td><input  type="text" value="" id="inp-search" placeholder="Tìm kiếm"></td>
-						</tr>
+					  </tr>
 					   <tr>
                         <td height="35"> Môn học: </td>
 						<td ><select name="maMon"  id="mamon" size="5">							 							
@@ -188,7 +188,7 @@
                         <td colspan="3" height="55">		
 							<!-- <input  type="submit" value="TÌM KIẾM" name="btn_tim">  -->
 							<input  type="button" value="THÊM MÔN HỌC" class="btn btn-custom" style="width: 150px" name="btn_them" id="btn-them">
-							<input  type="button" value="XUẤT CHƯƠNG TRÌNH" class="btn btn-custom" style="width: 200px" name="btn_them" id="btn-xuat">     													
+							<input  type="button" value="XUẤT KHDH" class="btn btn-custom" style="width: 200px" name="btn_them" id="btn-xuat">     													
 							<!--<input  type="submit" value="CHỈNH SỬA" name="btn_sua">    -->
 						</td>
                       </tr>  
@@ -220,7 +220,7 @@
 					  <th width="30"><center>loại</center></th>
 					  <th width="50"><button type="button" class="btn btn-xoa"><i class="fa fa-trash"></i> Xóa hết</button>  </th>
 					</tr>
-				  </thead>
+			  </thead>
 			  <tbody id="print">
 					
 			  </tbody>

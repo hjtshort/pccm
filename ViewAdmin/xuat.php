@@ -140,9 +140,9 @@
 
 
 	$objPHPExcel->setActiveSheetIndex(0)
-				->setCellValue('A1', strtoupper($data_Khoa["tenKhoa"]))
+				->setCellValue('A1', $data_Khoa["tenKhoa"])
 				->setCellValue('F1', 'CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM')
-				->setCellValue('A2', 'BỘ MÔN '.strtoupper($data_Bm["tenBm"]))
+				->setCellValue('A2', 'BỘ MÔN '.$data_Bm["tenBm"])
 				->setCellValue('F2', 'Độc lập - Tự do - Hạnh phúc')
 				->setCellValue('H4', 'Cần Thơ, ngày '.$ngay. ' tháng '.$thang. ' năm '. $nam)
 				->setCellValue('A5', 'PHÂN CÔNG CHUYÊN MÔN VÀ CÔNG TÁC')
@@ -393,8 +393,8 @@ $objPHPExcel->getActiveSheet()->getStyle('A' . (string)($i1) . ':' . 'R' . (stri
 	 $objPHPExcel->setActiveSheetIndex(0)
 						->setCellValue('A'.$i,"PHÓ HIỆU TRƯỞNG")
 						->setCellValue('E'.$i,"PHÒNG QL.ĐÀO TẠO")
-						->setCellValue('F'.$i, strtoupper($data_Khoa["tenKhoa"]))
-						->setCellValue('N'.$i,'BỘ MÔN '.strtoupper($data_Bm["tenBm"]));
+						->setCellValue('F'.$i, $data_Khoa["tenKhoa"])
+						->setCellValue('N'.$i,'BỘ MÔN '.$data_Bm["tenBm"]);
 	$objPHPExcel->getActiveSheet()->getStyle('A'.$i.':Q'.$i)->getFont()->setBold(true);
 	 $i=$i+1;
 

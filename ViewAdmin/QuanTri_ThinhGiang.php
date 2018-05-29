@@ -53,6 +53,7 @@ vertical-align:middle !important;
 							<input type="text" size="4" value="<?php echo ($namHoc+1); ?>" readonly="true">
 
 
+
 			<a href="index.php?f=xuat&idMau=<?php $chuoi=$data["maBm"]." ".$namHoc; echo $chuoi; ?>"><img src="img/excel.jpg" title="Xuất file Excel" height="30" width="30" /></a>
 			</h3>
 			<Center>

@@ -114,7 +114,7 @@ vertical-align:middle !important;
 						<tr>
 						<th  width="29" scope="row"><?php echo $stt ?></th>
 						<td width="30" class='maLop'><?php echo $row["maLop"]; ?></td>	
-						<td width="30"><?php echo $row["tenLop"]; ?></td>	
+						<td width="30"><?php echo $row["tenLop"]."-K".$row["sttKhoa"]; ?></td>	
 							<td width="30" class='maMon'><?php echo $row["maMon"]; ?></td>	
 						  <td width="100"><?php echo $row["tenMon"]; ?></td>
 						  <td width="30" class='hocKi'><?php echo $row["hocKi"]; ?></td>		

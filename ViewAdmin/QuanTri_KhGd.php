@@ -41,7 +41,7 @@
 	     <form name="form1" method="POST" action="index.php?f=QuanTri_KhGd">
 	 	<div class="container">
       		<div class="row">	
-			<h3 class="style1"> QUẢN LÝ KẾ HOẠCH GIẢNG DẠY </h3>
+			<h3 class="style1"> QUẢN LÝ KẾ HOẠCH DẠY HỌC </h3>
 			
 			<Center>				 		  
 					<input type="image" name="test"  value=""  width="3" height="3">
@@ -93,7 +93,7 @@
 					   <tr>
 							<td>&nbsp</td>
 							<td><input  type="text" value="" id="inp-search" placeholder="Tìm kiếm"></td>
-						</tr>
+					  </tr>
 						<tr>			
 							<td height="35"> Môn học: </td>
 							<td ><select name="maMon"  id="mamon" size="5">							 							
@@ -142,7 +142,7 @@
 					  <th width="30"><center>loại</center></th>
 					  <th width="50"><button type="button" class="btn btn-xoa"><i class="fa fa-trash"></i> Xóa hết</button>  </th>
 					</tr>
-				  </thead>
+			  </thead>
 			  <tbody id="print">
 					
 			  </tbody>

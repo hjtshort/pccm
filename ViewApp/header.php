@@ -40,7 +40,7 @@
 				<li><a href="index.php?f=QuanTri_DoiTuongGiam">Đối tượng giảm</a></li>
 				<li><a href="index.php?f=QuanTri_KhGd">Kế hoạch dạy</a>
 				<ul>
-					<li><a href="index.php?f=QuanTri_ThemKH">Thêm kế hoạch giảng dạy</a></li>
+					<li><a href="index.php?f=QuanTri_ThemKH">Thêm kế hoạch DH </a></li>
 					<li><a href="index.php?f=QuanTri_MTQ">Thêm môn tiên quyết</a></li>
 				</ul>
 				</li>

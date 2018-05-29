@@ -39,11 +39,11 @@
 
 <ul id="nav">
 <li><a href="index.php?f=QuanTri_Pccm1">Trang chủ</a></li>
-<li><a href="index.php?f=QuanTri_KhGd">Kế hoạch giảng dạy</a>
+<li><a href="index.php?f=QuanTri_KhGd">Kế hoạch  dạy</a>
 <ul>
 
-	<li><a href="index.php?f=QuanTri_KhGd">Kế hoạch giảng dạy</a></li>
-	<li><a href="index.php?f=QuanTri_ThemKH">Thêm kế hoạch giảng dạy</a></li>
+	<li><a href="index.php?f=QuanTri_KhGd">Kế hoạch  dạy học </a></li>
+	<li><a href="index.php?f=QuanTri_ThemKH">Thêm kế hoạch DH </a></li>
 </ul>
 </li>
 <li><a href="index.php?f=QuanTri_Pccm1">Phân công</a>
