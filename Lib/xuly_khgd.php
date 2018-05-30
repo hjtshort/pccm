@@ -2,6 +2,8 @@
 
 require_once 'Classes/PHPExcel.php';
 
+
+
 class xuly
 {
     public $name;
@@ -36,6 +38,7 @@ $TotalCol = PHPExcel_Cell::columnIndexFromString($LastColumn);
 $data = [];
 $datadump = array();
 $hocki = "";
+$tuchon = "";
 $ma_nghanh = "";
 $khoahoc = "";
 $tennghanh = "";
@@ -71,10 +74,17 @@ for ($i = 0; $i <= $Totalrow; $i++)
 			$hocki = $matched[0];
 		}
 
+		if(preg_match("/Tự chọn:(.*)$/",$data[$i][$j],$matched))
+		{
+			preg_match("/[\d+]{2}|[\d+]{1}/", $matched[1],$tuchon);
+			$tuchon = intval($tuchon[0]);
+			
+		}
+
 		// Tiến hành lấy giá trị của từng ô đổ vào mảng
 		if(preg_match("/^[\w]{2}\d{3}|^[\w]{2}\d{2}/",$data[$i][$j]))
 		{
-			$datadump[] = array("mamon"=>$data[$i][$j] , "tenhocphan" => $sheet->getCellByColumnAndRow($j+1, $i)->getValue(), "sotc" => $sheet->getCellByColumnAndRow($j+2, $i)->getValue(),"batbuot" => $sheet->getCellByColumnAndRow($j+3, $i)->getValue(),"tuchon" => $sheet->getCellByColumnAndRow($j+4, $i)->getValue(),"tongsotiet" => $sheet->getCellByColumnAndRow($j+5, $i)->getValue(),"sotietlt"=>$sheet->getCellByColumnAndRow($j+6, $i)->getValue(),"sotietbt" => $sheet->getCellByColumnAndRow($j+7, $i)->getValue(),"kiemtra"=>$sheet->getCellByColumnAndRow($j+8, $i)->getValue(),"hocki" => $hocki);
+			$datadump[] = array("mamon"=>$data[$i][$j] , "tenhocphan" => $sheet->getCellByColumnAndRow($j+1, $i)->getValue(), "sotc" => $sheet->getCellByColumnAndRow($j+2, $i)->getValue(),"batbuot" => $sheet->getCellByColumnAndRow($j+3, $i)->getValue(),"tuchon" => $sheet->getCellByColumnAndRow($j+4, $i)->getValue(),"tongsotiet" => $sheet->getCellByColumnAndRow($j+5, $i)->getValue(),"sotietlt"=>$sheet->getCellByColumnAndRow($j+6, $i)->getValue(),"sotietbt" => $sheet->getCellByColumnAndRow($j+7, $i)->getValue(),"kiemtra"=>$sheet->getCellByColumnAndRow($j+8, $i)->getValue(),"hocki" => $hocki, "tuchon"=> $tuchon);
 			// echo $data[$i][$j] ."<br>";
 
 			// echo $sheet->getCellByColumnAndRow($j+1, $i)->getValue() . ' ' .$sheet->getCellByColumnAndRow($j+2, $i)->getValue() ;
@@ -94,6 +104,8 @@ for ($i = 0; $i <= $Totalrow; $i++)
 }
 
 
+// $db = new xuly("test.xlsx");
+// print_r(json_encode($db->mother_of_xl()));
 
 
 
