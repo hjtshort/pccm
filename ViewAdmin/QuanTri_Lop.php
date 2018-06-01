@@ -157,7 +157,7 @@
                       </tr>
 					  <tr>
 					    <td height="35"> Hệ: </td>
-                        <td>
+						<td>
 						<select name="he">	
 							<?php
 							if (is_numeric($he)&&$he==1){	?>					 	
@@ -171,8 +171,9 @@
 								<?php	
 									}
 									 ?>
-											
-						</td>
+						</select>
+						</td>					
+
                       </tr>
 					  <tr>
                         <td colspan="5" height="10"></td>

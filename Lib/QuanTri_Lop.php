@@ -6,6 +6,10 @@ ob_start();
 			// echo $address."/".$maLop."/". $tenLop."/". $siSo."/".$maNganh."/".$sttKhoa."/".$he;
 
 			// die();
+			$maLop = trim($maLop);
+			$maLop = strip_tags($maLop);
+			$maLop = addslashes($maLop);
+
 			$tenLop = trim($tenLop);
 			$tenLop = strip_tags($tenLop);
 			$tenLop = addslashes($tenLop);
@@ -25,7 +29,10 @@ ob_start();
 			$he = addslashes($he);
 						
   			//Kiểm tra nội dung không được rỗng
-			  if ( $tenLop == "" ) {
+				if ( $maLop == "" ) {
+				  	thongBao(" Bạn vui lòng nhập mã cho lớp học!");
+  			   }
+			  else if ( $tenLop == "" ) {
 				  	thongBao(" Bạn vui lòng nhập tên cho lớp học!");
   			   }
 			  else if ( $sttKhoa == ""  ) {
@@ -63,7 +70,7 @@ ob_start();
 					   //them vao bang 
 												
 								try{
-									mysqli_query($conn,"insert into lop values('$maLop','$tenLop',$siSo,'$maNganh',$sttKhoa,$he)"); 
+									mysqli_query($conn,"insert into lop values('$maLop','$tenLop',$siSo,'$maNganh','$sttKhoa','$he')"); 
 								}	
 								catch(Exception $e)		
 								{
