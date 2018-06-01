@@ -35,6 +35,7 @@
 <?php
 	require_once("lib/QuanTri_Pccm.php");	
 	require_once("ViewAdmin/header.php");
+	require_once("ViewAdmin/function.php");
 	$now=getdate();
 	$nh1=$now["year"];
 	
@@ -174,7 +175,7 @@
 					    <p> chỉ</p>
 					  </center></th>
 					  <th colspan="2"  ><center>Số tiết</center></th>
-					  <th colspan="2"  ><center>
+					  <th colspan="3"  ><center>
 					    Thực dạy
 					  </center></th>
 					  <th width="30"   rowspan="2"><center>
@@ -206,6 +207,7 @@
 					  <th width="56"><center> HK 1</center></th>
 					  <th width="55"><center> HK 2</center></th>
 					  <th width="48"><center> LT</center></th>
+					   <th width="41"><center> BT</center></th>
 					  <th width="37"><center> TH</center></th>					
 						
 						
@@ -219,6 +221,7 @@
 					$tongHk1=0;											 						 						 
 					$tongHk2=0;											 						 						 
 					$tongLt=0;											 						 						 
+					$tongBt=0;
 					$tongTh=0;											 						 						 
 /*					$sql_hienThi = 	"SELECT * FROM chuongtrinhhoc cth, monhoc mh, nganh n ".
 									" Where cth.maNganh like '%".$maNganh."%'" .
@@ -256,11 +259,13 @@
 					$tbg=0;				
 					if ($num_rows2>0) $tbg=1;//có nckh thì bật biến nc=1
 
+					$i=0;
 
 									
 					$query = mysqli_query($conn,$sql_hienThi);
 					while ($row = mysqli_fetch_array($query)) {		
-						
+						$so=giao_an($maCb,$row["maMon"],$row["namHoc"]);
+						if($so>=3) $i=$i+1;;
 						if ($row["he"]==1) $he="CĐ";else $he="TC";						
 
 					?>
@@ -271,15 +276,16 @@
 						  <td width="192"><?php echo $row["tenMon"]; ?></td>	
   						  <td><?php echo $row["soTc"]; ?></td>	
 						  <td><center><?php if ($row["hocKi"]==1){ 
-						  					$tongHk1+=$row["soTietLt"]+$row["soTietTh"];
-											echo $row["soTietLt"]+$row["soTietTh"]; 
+						  					$tongHk1+=$row["soTietLt"]+$row["soTietTh"]+$row["soTietBt"]+$row["soTietKt"];
+											echo $row["soTietLt"]+$row["soTietTh"]+$row["soTietBt"]+$row["soTietKt"]; 
 						  			}else echo " "; ?></center></td>	
 						  <td><?php if ($row["hocKi"]==2){
-						  						   echo $row["soTietLt"]+$row["soTietTh"]; 
-	   						  					$tongHk2+=$row["soTietLt"]+$row["soTietTh"];
+						  						   echo $row["soTietLt"]+$row["soTietTh"]+$row["soTietBt"]+$row["soTietKt"]; 
+	   						  					$tongHk2+=$row["soTietLt"]+$row["soTietTh"]+$row["soTietBt"]+$row["soTietKt"];
 									}else echo " "; ?></td>	
 					  	  <td><?php $tongLt+=$row["soTietLt"]; echo $row["soTietLt"]; ?></td>	
-						  <td><?php  $tongTh+=$row["soTietTh"];echo $row["soTietTh"]; ?></td>	
+						  <td><?php $tongBt+=$row["soTietBt"]; echo $row["soTietBt"]; ?></td>	
+						  <td><?php  $tongTh+=$row["soTietTh"]+$row["soTietKt"];echo $row["soTietTh"]+$row["soTietKt"]; ?></td>	
 						  <td ><?php  if ($nc==1){
 						  							echo "NCKH"."<br>" ;
 													$nc=0;//Để không in những dòng sau
@@ -296,13 +302,20 @@
    						  <td><?php "" ?></td>	
 						  <td><?php //////Tổng qui đổi, nếu trung cấp hệ =2, cao đẳng hệ =1
 						  		$tongtam=0;
-						  		if ($row["he"]==2) echo $tongtam=($row["soTietLt"]+$row["soTietTh"])*0.7;
-								else {
-										if ($row["siSo"]<=50)echo $tongtam=($row["soTietLt"]+$row["soTietTh"]);
-										else if ($row["siSo"]<=80)
-											echo $tongtam=($row["soTietLt"]*1.1+$row["soTietTh"]);												
-										else 	echo $tongtam=($row["soTietLt"]*1.2+$row["soTietTh"]);
-									}	
+								$lt=$row["soTietLt"];
+								if ($i>=3) $lt=	$row["soTietLt"]*0.7;
+						  		if ($row["siSo"]<=50)echo $tongtam=($lt+$row["soTietTh"]+$row["soTietBt"]+$row["soTietKt"]);
+										else if ($row["siSo"]<=70)
+											echo $tongtam=($lt+$row["soTietTh"]+$row["soTietBt"]+$row["soTietKt"])*1.1;												
+										else if ($row["siSo"]<=90)
+											echo $tongtam=($lt+$row["soTietTh"]+$row["soTietBt"]+$row["soTietKt"])*1.2;
+										else if ($row["siSo"]<=110)
+											echo $tongtam=($lt+$row["soTietTh"]+$row["soTietBt"]+$row["soTietKt"])*1.3;																								
+										else if ($row["siSo"]<=130)
+											echo $tongtam=($lt+$row["soTietTh"]+$row["soTietBt"]+$row["soTietKt"])*1.4;												
+										else
+											echo $tongtam=($lt+$row["soTietTh"]+$row["soTietBt"]+$row["soTietKt"])*1.5;			
+											
 								$tong+=$tongtam;	
 						  
 						  
@@ -315,6 +328,8 @@
 							 ?>
 
 							 <input type="image" name="btn_xoa" onClick=" return confirmAction()" value="<?php echo  $chuoi;?>"src="img/delete.png" width="20" height="20">		
+ 							 <a><?php if ($i>=3) echo "Giáo án 3"; ?></a>	
+
 						  </td>
 						</tr>					
 			  <?php }  ?>	
@@ -338,11 +353,13 @@
 					  	  <td>&nbsp;</td>	
 						  <td>&nbsp;</td>	
 						  <td >&nbsp;</td>	
+  						  <td >&nbsp;</td>	
 						  <td colspan="4"><?php echo $row_Covan["tenLop"]."-K".$row_Covan["sttKhoa"];; ?></td>
 						  <td><?php //////Tổng qui đổi, nếu trung cấp hệ =2, cao đẳng hệ =1
 						  		$tongtam=62.4;
 									echo 62.4;
 								$tong+=$tongtam;	
+
 						    ?></td>			
 
 						  <td>						
@@ -377,6 +394,7 @@
 						  <td>&nbsp;</td>	
 						  <td >&nbsp;</td>	
 						  <td >&nbsp;</td>	
+  						  <td >&nbsp;</td>	
 						  <td colspan="3"><?php echo $row_ChucVu["tenCv"]; ?></td>
 						  <td><?php //////Tổng qui đổi, nếu trung cấp hệ =2, cao đẳng hệ =1
 						  		$tongtam=$row_ChucVu["soTiet"];
@@ -398,10 +416,12 @@
 				
 				
 			  <tr>
-			  	<td colspan="5" align="center"> <b>Tổng số</b></td>
+			  	<td colspan="4" align="center"> <b>Tổng số</b></td>
+				<td></td>
 				<td><b><?php echo $tongHk1 ?> </b></td>
 				<td><b><?php echo $tongHk2?></b> </td>
 				<td><b><?php echo $tongLt?> </b></td>
+				<td><b><?php echo $tongBt?> </b></td>
 				<td><b><?php echo $tongTh?></b> </td>
 				<td> </td>
 				<td> </td>

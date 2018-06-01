@@ -133,6 +133,7 @@ else if(isset($_POST['action']) && trim($_POST['action'])=="thinh_giang")
 else if(isset($_POST['action']) && trim($_POST['action'])=="xoa_thinh_giang")
 {	
 	$data=explode('+',$_POST['data']);
+	
 	xoa_thinh_giang($data[0],$data[1],$data[2],$data[3]);
 }
 else if(isset($_POST['action']) && trim($_POST['action'])=="get_namhoc")
@@ -233,8 +234,7 @@ function phan_cong($macb,$malop,$mamon,$hocki,$namhoc,$sonth,$sotietlt,$sotietth
 function check_phan_cong($malop,$mamon,$hocki,$namhoc)
 {
 	$db=new db();
-	$data1=$db->mysql->query("select * from pcday inner join canbo on pcday.maCb=canbo.maCb 
-	where maLop='".$malop."' and maMon='".$mamon."' and hocKiCTH=".$hocki."")->fetch_assoc();
+	$data1=$db->mysql->query("select * from pcday inner join canbo on pcday.maCb=canbo.maCb where maLop='".$malop."' and maMon='".$mamon."' and hocKiCTH=".$hocki."")->fetch_assoc();
 	if($data1!=false)
 	{
 		$t=$data1['maCb']."+".$malop."+".$mamon."+".$hocki."+".$data1['namHoc'];
@@ -685,7 +685,7 @@ function check_phan_cong_thinh_giang($malop,$mamon,$hocki,$namhoc)
 {
 	$db=new db();
 	$data1=$db->mysql->query("select * from thinhgiang join bomon on thinhgiang.maBm=bomon.maBm  where maLop='$malop' and maMon='$mamon' and hocKiCTH=$hocki")->fetch_assoc();
-	if($data1)
+	if(!empty($data1))
 	{
 		$t=$malop."+".$mamon."+".$hocki."+".$namhoc;
 		return "<td><label class='text-danger'>Thỉnh giảng(".$data1['tenBm'].")</label></td><td><button class='btn btn-danger' onclick='del(\"".$t."\")'>Hủy</button></td>";
@@ -716,8 +716,9 @@ function thinh_giang($malop,$mamon,$mabm,$hocki,$namhoc,$hockicth)
 }
 function xoa_thinh_giang($malop,$mamon,$hocki,$namhoc)
 {
+	
 	$db=new db();
-	$data=$db->mysql->query("delete from thinhgiang where maLop='$malop' and maMon='$mamon' and hocKi=$hocki and namHoc=$namhoc");
+	$data=$db->mysql->query("delete from thinhgiang where maLop='$malop' and maMon='$mamon' and hocKiCTH=$hocki");
 	if($data)
 		echo "ok";
 	else

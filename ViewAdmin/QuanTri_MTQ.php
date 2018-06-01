@@ -55,7 +55,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                    <label for="">Chọn lớp: </label>
+                    <label for="">Chọn ngành: </label>
                     <div class="chonmon">
                     <select name="" id="nganh">
                         <?php  $data=laynganh();
@@ -68,7 +68,8 @@
             </div>
             <div class="col-md-12 row">
                     <div class="col-md-6">
-                    <label for="">Chọn môn: </label><br>
+                    <label for="">Chọn môn tiên quyết: </label>
+                    <br>
                     <input type="text" id="inp-search1" placeholder="Tìm kiếm">
                 <div class="chonmon">
                 <select name="" id="monhoc" size="5">
@@ -77,12 +78,13 @@
                 </div>
             </div>
             <div class="col-md-6">
-                    <label for="">Chọn môn tiên quyết</label><br>
+                    <label for="">Chọn môn </label>
+                    <br>
                     <input type="text" id="inp-search2" placeholder="Tìm kiếm">
                     <div class="chonmontienquyet">
                     <select name="" id="monhoctienquyet" size="5">
                               
-                            </select>
+                      </select>
                     </div>
             </div>
             

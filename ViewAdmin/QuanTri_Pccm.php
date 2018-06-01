@@ -60,7 +60,16 @@
 	$data1 = mysqli_fetch_array($query1);
 	$maBm=$data1["maBm"];
 
-	
+	if (isset($_POST["btn_xoa"])) {		  				
+			$chuoi=$_POST["btn_xoa"];	  	
+			$ma =explode("+",$chuoi);//Tach các cot
+
+			$address = "QuanTri_Pccm";
+			$maCb=$ma[0];
+			
+			XoaPccm($conn, $address, $ma[0],$ma[1],$ma[2],$ma[3],$ma[4]);
+			
+	}
 	
 ?>
 
@@ -71,10 +80,10 @@
 
 <div class="wrapper" style="background-color:#FFFFFF"> 
 <div>
-	  
+
 	 	<div class="container">
       		<div class="row">	
-			<h3 class="style1">Phân công cán bộ<font color="#990000" >  <?php echo $data["ten"];	?></font> <font size="-1"><a href="index.php?f=QuanTri_ChiTietGv&idMau=<?php $chuoi=$maCb." ".$namHoc." ".$maLop; echo $chuoi; ?>"> <img src="img/Edit.png" width="20" height="20" title="Chi tiết phân công" /></a></font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+			<h3 class="style1">Phân công cán bộ<font color="#990000" >  <?php echo $data["ten"];	?></font> <font size="-1"><a href="index.php?f=QuanTri_ChiTietGv&idMau=<?php $chuoi=$maCb." ".$namHoc." ".$ma[2]; echo $chuoi; ?>"> <img src="img/Edit.png" width="20" height="20" title="Chi tiết phân công" /></a></font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 			<font color="#FF00FF"> Học kỳ: <select name="hocky" id="hockiphancong">
 									<option value="1" >1</option>
 									<option value="2" >2</option>
@@ -171,7 +180,7 @@
 			
 			?>
 			<Center>				 		  
-					
+						   <form name="form1" method="POST" action="index.php?f=QuanTri_Pccm">
 					  <table class="table" border="1"  >
           		<h3 class="style1"> Chi tiết phân công   </h3>
 
@@ -271,8 +280,11 @@
 					$tbg=0;				
 					if ($num_rows2>0) $tbg=1;//có nckh thì bật biến nc=1
 					$query = mysqli_query($conn,$sql_hienThi);
+					$i=0;
+
 					while ($row = mysqli_fetch_array($query)) {		
-						
+						$so=giao_an($row["maCb"],$row["maMon"],$row["namHoc"]);
+						if($so>=3) $i=$i+1;;
 						if ($row["he"]==1) $he="CĐ";else $he="TC";						
 					?>
 						<tr>
@@ -308,17 +320,19 @@
    						  <td><?php "" ?></td>	
 						  <td><?php //////Tổng qui đổi, nếu trung cấp hệ =2, cao đẳng hệ =1
 						  		$tongtam=0;
-									if ($row["siSo"]<=50)echo $tongtam=($row["soTietLt"]+$row["soTietTh"]+$row["soTietBt"]+$row["soTietKt"]);
+								$lt=$row["soTietLt"];
+								if ($i>=3) $lt=	$row["soTietLt"]*0.7;
+									if ($row["siSo"]<=50)echo $tongtam=($lt+$row["soTietTh"]+$row["soTietBt"]+$row["soTietKt"]);
 										else if ($row["siSo"]<=70)
-											echo $tongtam=($row["soTietLt"]+$row["soTietTh"]+$row["soTietBt"]+$row["soTietKt"])*1.1;												
+											echo $tongtam=($lt+$row["soTietTh"]+$row["soTietBt"]+$row["soTietKt"])*1.1;												
 										else if ($row["siSo"]<=90)
-											echo $tongtam=($row["soTietLt"]+$row["soTietTh"]+$row["soTietBt"]+$row["soTietKt"])*1.2;
+											echo $tongtam=($lt+$row["soTietTh"]+$row["soTietBt"]+$row["soTietKt"])*1.2;
 										else if ($row["siSo"]<=110)
-											echo $tongtam=($row["soTietLt"]+$row["soTietTh"]+$row["soTietBt"]+$row["soTietKt"])*1.3;																								
+											echo $tongtam=($lt+$row["soTietTh"]+$row["soTietBt"]+$row["soTietKt"])*1.3;																								
 										else if ($row["siSo"]<=130)
-											echo $tongtam=($row["soTietLt"]+$row["soTietTh"]+$row["soTietBt"]+$row["soTietKt"])*1.4;												
+											echo $tongtam=($lt+$row["soTietTh"]+$row["soTietBt"]+$row["soTietKt"])*1.4;												
 										else
-											echo $tongtam=($row["soTietLt"]+$row["soTietTh"]+$row["soTietBt"]+$row["soTietKt"])*1.5;												
+											echo $tongtam=($lt+$row["soTietTh"]+$row["soTietBt"]+$row["soTietKt"])*1.5;												
 
 								$tong+=$tongtam;	
 						  
@@ -329,9 +343,12 @@
 							  
 							  <?php
 							  	$chuoi=$row["maCb"]."+".$row["maLop"]."+".$row["maMon"]."+".$row["hocKi"]."+".$row["namHoc"];
+
+								
 							 ?>
 
-							 <input type="image" name="btn_xoa" onClick="return confirmAction()" value="<?php echo  $chuoi;?>"src="img/delete.png" width="20" height="20">		
+							 <input type="image" name="btn_xoa" onClick="return confirmAction()" value="<?php echo  $chuoi;?>"src="img/delete.png" width="20" height="20">	
+							 <a><?php if ($i>=3) echo "Giáo án 3"; ?></a>	
 						  </td>
 						</tr>					
 			  <?php }  ?>	
@@ -354,7 +371,8 @@
 						  <td>&nbsp;</td>	
 					  	  <td>&nbsp;</td>	
 						  <td>&nbsp;</td>	
-						  <td >&nbsp;</td>	
+						  <td >&nbsp;</td>
+  						  <td >&nbsp;</td>	
 						  <td colspan="4"><?php echo $row_Covan["tenLop"]."-K".$row_Covan["sttKhoa"]; ?></td>
 						  <td><?php //////Tổng qui đổi, nếu trung cấp hệ =2, cao đẳng hệ =1
 						  		$tongtam=62.4;
@@ -394,6 +412,7 @@
 						  <td>&nbsp;</td>	
 						  <td >&nbsp;</td>	
 						  <td >&nbsp;</td>	
+  						  <td >&nbsp;</td>	
 						  <td colspan="3"><?php echo $row_ChucVu["tenCv"]; ?></td>
 						  <td><?php //////Tổng qui đổi, nếu trung cấp hệ =2, cao đẳng hệ =1
 						  		$tongtam=$row_ChucVu["soTiet"];
@@ -415,10 +434,12 @@
 				
 				
 			  <tr>
-			  	<td colspan="5" align="center"> <b>Tổng số</b></td>
-				<td><b><?php echo $tongHk1 ?> </b></td>
+			  	<td colspan="4" align="center"> <b>Tổng số</b></td>
+				<td></td>
+				<td><b><?php echo $tongHk1?></b> </td>
 				<td><b><?php echo $tongHk2?></b> </td>
 				<td><b><?php echo $tongLt?> </b></td>
+				<td><b><?php echo $tongBt?> </b></td>
 				<td><b><?php echo $tongTh?></b> </td>
 				<td> </td>
 				<td> </td>
@@ -431,9 +452,9 @@
 			  </tr>				
 			  </tbody>
 			</table>	
-    	  
+</form>
       	</div>
- 
+
     	</div>	
 <?php 	require_once("footer.php");?>
 </div><!--end wrapper--> 

@@ -47,7 +47,7 @@ vertical-align:middle !important;
 	 	<div class="container">
       		<div class="row">	
 			<form action="" method="post" id="mummim">
-			<h3 class="style1">Phân công chuyên môn bộ môn: <font color="#c70000"></font> &nbsp;&nbsp;	Năm học: 
+			<h3 class="style1">Phân công thỉnh giảng: <font color="#c70000"></font> &nbsp;&nbsp;	Năm học: 
 							<input style="width:100px;" type="number" id="namhoc" name="namHoc"    value="<?php echo $namhoc; ?>"> - &nbsp;&nbsp;
 							<input style="width:100px;" type="number" id="namhoc2"  value="<?php echo $namhoc+1; ?>" readonly="true">
 							</form>

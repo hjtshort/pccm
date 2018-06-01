@@ -1,5 +1,6 @@
 <?php
-
+ob_start();
+		
 		function ThemPccm($conn, $address,$maCb,$maLop,$maMon,$hocKi,$namHoc)
 		{			
 			// Làm sạch chuổi nhập vào 	
@@ -45,6 +46,8 @@
 		function XoaPccm($conn, $address, $maCb,$maLop,$maMon,$hocKi,$namHoc)
 		{		
 		  //kiem tra co lien ket den k
+
+
 		 	 $sql 	= "DELETE FROM pcday where maCb = '". $maCb."'".
 			 			"and maLop='".$maLop."'".
 			 			"and maMon='".$maMon."'".
@@ -56,12 +59,19 @@
 			  }		
 			  else
 			  {			
+
 					header('Location: index.php?f='.$address.'&idMau='.$maCb." ".$namHoc." ".$maLop);						
 
 					exit;
 			  }				
 		}
 
+	function giao_an($macb,$mamon,$namhoc){
+				$db=new db();
+				$data=$db->mysql->query("select count(*) as sl from pcday where maCb='$macb' and maMon='$mamon' and namHoc=$namhoc")->fetch_assoc();//->num_rows;
+				return $data["sl"];
+				
+		}	
 
 	function Sua($conn, $address, $ma_old, $maMon, $tenMon, $soTC, $LT, $TH)
 		{			
