@@ -60,7 +60,7 @@ ob_start();
 			  else
 			  {			
 
-					header('Location: index.php?f='.$address.'&idMau='.$maCb." ".$namHoc." ".$maLop);						
+					header('Location: index.php?f='.$address.'&idMau='.$maCb." ".$namHoc);						
 
 					exit;
 			  }				

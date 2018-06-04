@@ -62,7 +62,7 @@
 
 			
 	isset($_POST["tim_lop"])? $tim_lop=trim($_POST["tim_lop"]):	$tim_lop= '';		
-	isset($_POST["maLop"]) 	? $maLop=trim($_POST["maLop"])	:	$maLop= $ma[2];	
+	//isset($_POST["maLop"]) 	? $maLop=trim($_POST["maLop"])	:	$maLop= $ma[2];	
 	isset($_POST["chon"])	? $chon=trim($_POST["chon"])	:	$chon= '';	
 	
 	/*if (isset($_POST["maCb"])) 
@@ -135,13 +135,13 @@
 	
 <div class="wrapper" style="background-color:#FFFFFF"> 
 <div>
-	     <form name="form1" method="POST" action='index.php?f=QuanTri_ChiTietGv&idMau=<?php echo $maCb." ".$namHoc." ".$maLop; ?>'>
+	     <form name="form1" method="POST" action='index.php?f=QuanTri_ChiTietGv&idMau=<?php echo $maCb." ".$namHoc; ?>'>
 	 	<div class="container">
       		<div class="row">	
 			<h3 class="style1">Chi tiết phân công cán bộ<font color="#990000">  <?php echo $data["ten"];	?></font> <font size="-1"></font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 			<font color="#FF00FF">Năm học:<?php echo $namHoc."-"; echo $namHoc+1;?> </font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<a href="index.php?f=QuanTri_Pccm&idMau=<?php $chuoi=$maCb." ".$namHoc." ".$maLop; echo $chuoi; ?>"> <img src="img/Re.jpg" width="20" height="20" title="Trở về" /></a></h3>
+			<a href="index.php?f=QuanTri_Pccm&idMau=<?php $chuoi=$maCb." ".$namHoc; echo $chuoi; ?>"> <img src="img/Re.jpg" width="20" height="20" title="Trở về" /></a></h3>
 
 			
 					
@@ -265,7 +265,7 @@
 					$query = mysqli_query($conn,$sql_hienThi);
 					while ($row = mysqli_fetch_array($query)) {		
 						$so=giao_an($maCb,$row["maMon"],$row["namHoc"]);
-						if($so>=3) $i=$i+1;;
+						if($so>=3) $i=$i+1;
 						if ($row["he"]==1) $he="CĐ";else $he="TC";						
 
 					?>

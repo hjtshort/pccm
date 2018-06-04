@@ -29,6 +29,7 @@ vertical-align:middle !important;
 <?php
 	require_once("lib/QuanTri_Pccm.php");	
 	require_once("ViewAdmin/header.php");
+	require_once("ViewAdmin/function.php");
 	$now=getdate();
 	$nh1=$now["year"];
 	$sql="select max(sttKhoa) as khoa from chuongtrinhhoc";
@@ -229,7 +230,8 @@ vertical-align:middle !important;
 					while ($row = mysqli_fetch_array($query)) {		
 						$tong=0;
 						$tongHk1=0;
-						$tongHk2=0;											 						 						 
+						$tongHk2=0;
+						$i=0;											 						 						 
 						////So tiết dạyh	
 						$sql_hienThi= "SELECT * FROM canbo cb, pcday d, monhoc mh, lop l".
 								" where cb.maCb='".$row["maCb"]."'".
@@ -239,14 +241,26 @@ vertical-align:middle !important;
 								" and l.malop=d.malop";
 						$query_hienThi = mysqli_query($conn,$sql_hienThi);		
 						while ($row_hienThi=mysqli_fetch_array($query_hienThi)){
-							if ($row_hienThi["he"]==2) $tong+=($row_hienThi["soTietLt"]+$row_hienThi["soTietTh"])*0.7;
-							else {
-									if ($row_hienThi["siSo"]<=50) $tong+=($row_hienThi["soTietLt"]+$row_hienThi["soTietTh"]);
-									else if ($row_hienThi["siSo"]<=80) $tong+=($row_hienThi["soTietLt"]*1.1+$row_hienThi["soTietTh"]);
-									else $tong+=($row_hienThi["soTietLt"]*1.2+$row_hienThi["soTietTh"]);
-							}
-							if ($row_hienThi["hocKi"]==1) $tongHk1+=$row_hienThi["soTietLt"]+$row_hienThi["soTietTh"];
-							if ($row_hienThi["hocKi"]==2) $tongHk2+=$row_hienThi["soTietLt"]+$row_hienThi["soTietTh"];
+						$so=giao_an($row_hienThi["maCb"],$row_hienThi["maMon"],$row_hienThi["namHoc"]);
+						if($so>=3) $i=$i+1;;
+							$tongtam=0;
+								$lt=$row_hienThi["soTietLt"];
+								if ($i>=3) $lt=	$row_hienThi["soTietLt"]*0.7;
+									if ($row_hienThi["siSo"]<=50) $tongtam=($lt+$row_hienThi["soTietTh"]+$row_hienThi["soTietBt"]+$row_hienThi["soTietKt"]);
+										else if ($row_hienThi["siSo"]<=70)
+											 $tongtam=($lt+$row_hienThi["soTietTh"]+$row_hienThi["soTietBt"]+$row_hienThi["soTietKt"])*1.1;												
+										else if ($row_hienThi["siSo"]<=90)
+											 $tongtam=($lt+$row_hienThi["soTietTh"]+$row_hienThi["soTietBt"]+$row_hienThi["soTietKt"])*1.2;
+										else if ($row_hienThi["siSo"]<=110)
+											 $tongtam=($lt+$row_hienThi["soTietTh"]+$row_hienThi["soTietBt"]+$row_hienThi["soTietKt"])*1.3;																								
+										else if ($row_hienThi["siSo"]<=130)
+											 $tongtam=($lt+$row_hienThi["soTietTh"]+$row_hienThi["soTietBt"]+$row_hienThi["soTietKt"])*1.4;												
+										else
+											 $tongtam=($lt+$row_hienThi["soTietTh"]+$row_hienThi["soTietBt"]+$row_hienThi["soTietKt"])*1.5;												
+
+								$tong+=$tongtam;	
+							if ($row_hienThi["hocKi"]==1) $tongHk1+=$row_hienThi["soTietLt"]+$row_hienThi["soTietTh"]+$row_hienThi["soTietBt"]+$row_hienThi["soTietKt"];
+							if ($row_hienThi["hocKi"]==2) $tongHk2+=$row_hienThi["soTietLt"]+$row_hienThi["soTietTh"]+$row_hienThi["soTietBt"]+$row_hienThi["soTietKt"];
 							
 								
 						}//end while row hien thi

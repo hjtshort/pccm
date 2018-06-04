@@ -1,4 +1,5 @@
 <?php
+ob_start();
 
 		function ThemMon($conn, $address, $maMon, $tenMon, $soTC, $LT, $BT,$TH,$KT)
 		{			

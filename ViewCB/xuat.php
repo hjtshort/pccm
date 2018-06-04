@@ -27,18 +27,24 @@
 	$objPHPExcel->getActiveSheet()->getColumnDimension('P')->setWidth(8);
 	$objPHPExcel->getActiveSheet()->getColumnDimension('Q')->setWidth(8);
 	
+	//chieu cao
+
 	
-	$objPHPExcel->getActiveSheet()->getStyle('F1:Q1')->getFont()->setBold(true);
-	$objPHPExcel->getActiveSheet()->getStyle('A2:Q2')->getFont()->setBold(true);
-	$objPHPExcel->getActiveSheet()->getStyle('A2:Q2')->getFont()->setUnderline(true);
-	$objPHPExcel->getActiveSheet()->getStyle('A5:Q5')->getFont()->setBold(true);
+	
+	$objPHPExcel->getActiveSheet()->getStyle('F1:R1')->getFont()->setBold(true);
+	$objPHPExcel->getActiveSheet()->getStyle('A2:R2')->getFont()->setBold(true);
+	$objPHPExcel->getActiveSheet()->getStyle('A2:R2')->getFont()->setUnderline(true);
+	$objPHPExcel->getActiveSheet()->getStyle('A5:R5')->getFont()->setBold(true);
+	$objPHPExcel->getActiveSheet()->getStyle('A6:R6')->getFont()->setBold(true);
+	$objPHPExcel->getActiveSheet()->getStyle('A8:R9')->getFont()->setBold(true);
 	
 	$objPHPExcel->getActiveSheet()->getStyle('A4:Q4')->getFont()->setItalic(true);
 
 	$objPHPExcel->getActiveSheet()->getStyle('B:F')->getAlignment()->setWrapText(true);
 	$objPHPExcel->getActiveSheet()->getStyle('B')->getAlignment()->setWrapText(true);
 	$objPHPExcel->getActiveSheet()->getStyle('K')->getAlignment()->setWrapText(true);
-	$objPHPExcel->getActiveSheet()->getStyle('F8:Q9')->getAlignment()->setWrapText(true);
+	$objPHPExcel->getActiveSheet()->getStyle('D8:Q9')->getAlignment()->setWrapText(true);
+	$objPHPExcel->getActiveSheet()->getStyle('R')->getAlignment()->setWrapText(true);
 	
 	//Cho phép cột ghi chú xuống hàng
 	$objPHPExcel->getActiveSheet()->getStyle('Q:Q')->getAlignment()->setWrapText(true);
@@ -74,14 +80,14 @@
 	$objPHPExcel->getActiveSheet()->getStyle('A:B')->getAlignment()
 				->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);		
 
-	$objPHPExcel->getActiveSheet()->getStyle('A8:Q9')->getAlignment()
+	$objPHPExcel->getActiveSheet()->getStyle('A8:R9')->getAlignment()
 				->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 
 				
-	$objPHPExcel->getActiveSheet()->getStyle('A8:Q9')->getAlignment()
+	$objPHPExcel->getActiveSheet()->getStyle('A8:R9')->getAlignment()
 				->setVertical(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);		
 			
-
+			
 
 	$objPHPExcel->getActiveSheet()->mergeCells('A1:D1'); // for example, mergeCells('A1:F1')
 	$objPHPExcel->getActiveSheet()->mergeCells('F1'  . ':' . 'Q1'); // for example, mergeCells('A1:F1')
@@ -106,6 +112,7 @@
 	$objPHPExcel->getActiveSheet()->mergeCells('O8:O9'); // for example, mergeCells('A1:F1')
 	$objPHPExcel->getActiveSheet()->mergeCells('P8:P9'); // for example, mergeCells('A1:F1')
 	$objPHPExcel->getActiveSheet()->mergeCells('Q8:Q9'); // for example, mergeCells('A1:F1')
+	$objPHPExcel->getActiveSheet()->mergeCells('R8:R9'); // for example, mergeCells('A1:F1')
 	
 
 
@@ -133,41 +140,42 @@
 
 
 	$objPHPExcel->setActiveSheetIndex(0)
-				->setCellValue('A1', strtoupper($data_Khoa["tenKhoa"]))
+				->setCellValue('A1', $data_Khoa["tenKhoa"])
 				->setCellValue('F1', 'CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM')
-				->setCellValue('A2', 'BỘ MÔN '.strtoupper($data_Bm["tenBm"]))
+				->setCellValue('A2', 'BỘ MÔN '.$data_Bm["tenBm"])
 				->setCellValue('F2', 'Độc lập - Tự do - Hạnh phúc')
 				->setCellValue('H4', 'Cần Thơ, ngày '.$ngay. ' tháng '.$thang. ' năm '. $nam)
-				->setCellValue('A5', 'PHÂN CÔNG CHUYÊN MÔN (HỆ CHÍNH QUY)')
+				->setCellValue('A5', 'PHÂN CÔNG CHUYÊN MÔN VÀ CÔNG TÁC')
 				->setCellValue('A6', 'NĂM HỌC: '.$namHoc.' -'. $namHoc1)	;
 				
 	$objPHPExcel->setActiveSheetIndex(0)
-				->setCellValue('A8', 'STT')
+				->setCellValue('A8', 'TT')
 				->setCellValue('B8', 'Họ và tên')
-				->setCellValue('C8', 'Lớp')
+				->setCellValue('C8', 'Môn dạy/Công tác')
 				->setCellValue('D8', 'Số lượng HSSV')
-				->setCellValue('E8', 'Môn học/Học phần')
-				->setCellValue('F8', 'TC/ ĐVHT')
-				->setCellValue('G8', 'Số tiết')
+				->setCellValue('E8', 'Lớp/Địa điểm')
+				->setCellValue('F8', 'Số TC/ ĐVHT')
+				->setCellValue('G8', 'Phân bổ')
 				->setCellValue('G9', 'HKI')
 				->setCellValue('H9', 'HKII')
 				->setCellValue('I8', 'Số tiết thực dạy')
 				->setCellValue('I9', 'LT')
-				->setCellValue('J9', 'TH')
+				->setCellValue('J9', 'TH,TT')
 
 				->setCellValue('K8', 'NCKH')
-				->setCellValue('L8', 'CN/ CVHT')
-				->setCellValue('M8', 'Đoàn thể')
-				->setCellValue('N8', 'Chức vụ')
-				->setCellValue('O8', 'Hoạt động khác')
-				->setCellValue('P8', 'Tổng qui đổi')
-				->setCellValue('Q8', 'Ghi chú')
+				->setCellValue('L8', 'TTGV (Th.te của GV')
+				->setCellValue('M8', 'CVHT/GVCN')
+				->setCellValue('N8', 'Đoàn thể')
+				->setCellValue('O8', 'Chức vụ')
+				->setCellValue('P8', 'Hoạt động khác')
+				->setCellValue('Q8', 'Tổng sau qui đổi')
+				->setCellValue('R8', 'Ghi chú')
 				
 				;
 				
 	
 			
-$objPHPExcel->getActiveSheet()->getStyle('A8:Q9')
+$objPHPExcel->getActiveSheet()->getStyle('A8:R9')
 ->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
 
 	
@@ -197,7 +205,7 @@ $objPHPExcel->getActiveSheet()->getStyle('A8:Q9')
 
 		$objPHPExcel->setActiveSheetIndex(0)
 				->setCellValue('A'.$i, $stt)
-				->setCellValue('Q'.$i, $chuoiGiam)
+				->setCellValue('R'.$i, $chuoiGiam)
 				->setCellValue('B'.$i, $row['hoCb']." ".$row['tenCb']);
 
 
@@ -263,13 +271,13 @@ $objPHPExcel->getActiveSheet()->getStyle('A8:Q9')
 		
 			
 		$objPHPExcel->setActiveSheetIndex(0)
-					->setCellValue('C'.$i,$he." ".$row_sl['tenLop'].' K '.$row_sl['sttKhoa'])
+					->setCellValue('C'.$i,$row_sl['tenMon'])
 					->setCellValue('D'.$i,$row_sl['siSo'])
-					->setCellValue('E'.$i,$row_sl['tenMon'])			
+					->setCellValue('E'.$i,$he." ".$row_sl['tenLop'].' K '.$row_sl['sttKhoa'])			
 					->setCellValue('F'.$i,$row_sl['soTc'])
 					->setCellValue('I'.$i,$row_sl['soTietLt'])
 					->setCellValue('J'.$i,$row_sl['soTietTh'])
-					->setCellValue('P'.$i,$tongtam);
+					->setCellValue('Q'.$i,$tongtam);
 					
 		$tong=$row_sl['soTietLt']+$row_sl['soTietTh'];			
 		if ($row_sl["hocKi"]==1){ 
@@ -297,8 +305,8 @@ $objPHPExcel->getActiveSheet()->getStyle('A8:Q9')
 		while ($row_Covan = mysqli_fetch_array($query_Covan)){
 				if ($row_Covan["he"]==1) $chuoi="Cao đẳng"; else $chuoi="Trung cấp";
 			$objPHPExcel->setActiveSheetIndex(0)
-						->setCellValue('L'.$i,$chuoi." ".$row_Covan["tenLop"]."-K".$row_Covan["sttKhoa"])
-						->setCellValue('P'.$i,'62.4');
+						->setCellValue('M'.$i,$chuoi." ".$row_Covan["tenLop"]."-K".$row_Covan["sttKhoa"])
+						->setCellValue('Q'.$i,'62.4');
 						
 			$tongTiet+=62.4;			
 			$i=$i+1;
@@ -313,7 +321,7 @@ $objPHPExcel->getActiveSheet()->getStyle('A8:Q9')
 			
 			$objPHPExcel->setActiveSheetIndex(0)
 						->setCellValue('M'.$i,$row_ChucVu["tenCv"])
-						->setCellValue('P'.$i,$row_ChucVu["soTiet"]);
+						->setCellValue('Q'.$i,$row_ChucVu["soTiet"]);
 						
 									$tongTiet+=$row_ChucVu["soTiet"];			
 						$i=$i+1;
@@ -344,12 +352,12 @@ $objPHPExcel->getActiveSheet()->getStyle('A8:Q9')
 						->setCellValue('C'.$i,"Tiết nghĩa vụ")
 						->setCellValue('D'.$i,$tc)
 						->setCellValue('N'.$i,"Tổng số")
-						->setCellValue('P'.$i,$tongTiet);
-				$objPHPExcel->getActiveSheet()->getStyle('C'.$i.':P'.$i)->getFont()->setBold(true);
+						->setCellValue('Q'.$i,$tongTiet);
+				$objPHPExcel->getActiveSheet()->getStyle('C'.$i.':Q'.$i)->getFont()->setBold(true);
 		$j1=$i;
 		$objPHPExcel->getActiveSheet()->mergeCells('B' . (string)($i1) . ':' . 'B' . (string)($j1)); // for example, mergeCells('A1:F1')				
 		$objPHPExcel->getActiveSheet()->mergeCells('A' . (string)($i1) . ':' . 'A' . (string)($j1)); // for example, mergeCells('A1:F1')				
-		$objPHPExcel->getActiveSheet()->mergeCells('Q' . (string)($i1) . ':' . 'Q' . (string)($j1)); // for example, mergeCells('A1:F1')				
+
 
 		
 
@@ -360,8 +368,8 @@ $BStyle = array(
     )
   )
 );
-$objPHPExcel->getActiveSheet()->getStyle('A8:Q9')->applyFromArray($BStyle);
-$objPHPExcel->getActiveSheet()->getStyle('A' . (string)($i1) . ':' . 'Q' . (string)($j1))->applyFromArray($BStyle);
+$objPHPExcel->getActiveSheet()->getStyle('A8:R9')->applyFromArray($BStyle);
+$objPHPExcel->getActiveSheet()->getStyle('A' . (string)($i1) . ':' . 'R' . (string)($j1))->applyFromArray($BStyle);
 
 		///thiết lập trang in
 		$objPHPExcel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
@@ -381,11 +389,12 @@ $objPHPExcel->getActiveSheet()->getStyle('A' . (string)($i1) . ':' . 'Q' . (stri
 	 $objPHPExcel->getActiveSheet()->mergeCells('A' . (string)($i) . ':' . 'B' . (string)($i)); // for example, mergeCells('A1:F1')				
  	 $objPHPExcel->getActiveSheet()->mergeCells('F' . (string)($i) . ':' . 'M' . (string)($i)); // for example, mergeCells('A1:F1')				
   	 $objPHPExcel->getActiveSheet()->mergeCells('N' . (string)($i) . ':' . 'Q' . (string)($i)); // for example, mergeCells('A1:F1')				
+	 
 	 $objPHPExcel->setActiveSheetIndex(0)
 						->setCellValue('A'.$i,"PHÓ HIỆU TRƯỞNG")
 						->setCellValue('E'.$i,"PHÒNG QL.ĐÀO TẠO")
-						->setCellValue('F'.$i, strtoupper($data_Khoa["tenKhoa"]))
-						->setCellValue('N'.$i,'BỘ MÔN '.strtoupper($data_Bm["tenBm"]));
+						->setCellValue('F'.$i, $data_Khoa["tenKhoa"])
+						->setCellValue('N'.$i,'BỘ MÔN '.$data_Bm["tenBm"]);
 	$objPHPExcel->getActiveSheet()->getStyle('A'.$i.':Q'.$i)->getFont()->setBold(true);
 	 $i=$i+1;
 
