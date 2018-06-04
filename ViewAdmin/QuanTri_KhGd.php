@@ -93,11 +93,11 @@
 					  </tr>
 					  <tr>
 						  <td>Tổng tc:</td>
-						  <td class='tc'>123</td>
+						  <td class='tc'></td>
 						  <td>Tổng bắt buộc:</td>
-						  <td class='batbuoc'>1</td>
-						  <td>Tổng tự chọn:</td>
-						  <td class='tuchon'>2</td>
+						  <td class='batbuoc'></td>
+						  <!-- <td>Tổng tự chọn:</td> -->
+						  <!-- <td class='tuchon'>2</td> -->
 					  </tr>
 					   <tr>
 							<td>&nbsp</td>
@@ -135,7 +135,7 @@
 			
 			
     	    <table class="table"  >
-          		<h3 class="style1">Danh sách môn học ngành: <a style="color:red;" id="tk"></a>-<a style="color:red;" id="namhoc"></a></h3>
+          		<h3 class="style1">Danh sách môn học ngành: <a style="color:red;" id="tk"></a>-<a style="color:red;" id="namhoc"></a>-<a style='color:red;' id='tuchon_bb'></a></h3>
 				
 
 	          	<thead>
@@ -365,6 +365,7 @@
 	 	gettable()		
 		 tk()
 		 get_namhoc()
+		 get_tc()
 	 });
 	 	//lấy lại dữ liệu bảng nếu năm học thay đổi
 	 //xóa môn học ra khỏi kế hoạch giản dạy của 1 lớp
@@ -511,6 +512,7 @@ function get_tc()
 	var nganh=$('#nganh').val()
 	var he=$('#he').val()
 	var sttKhoa=$('#sttKhoa').val()
+	var hocki=$('#hocky').val()
 	$.ajax({
 		type: "post",
 		url: "index.php?f=function",
@@ -518,14 +520,28 @@ function get_tc()
 			"action":'get_tc',
 			'nganh':nganh,
 			'he':he,
+			'hocki':hocki,
 			'sttKhoa':sttKhoa
 		},
 	
 		success: function (response) {
 			var obj = jQuery.parseJSON(response);
-			$('.tc').text(obj['tc']['tinchi'])
+			var t=0;
+			console.log(obj)
 			$('.batbuoc').text(obj['batbuoc']['bb'])
-			$('.tuchon').text(obj['tuchon']['tc'])
+			$('.tc').text(obj['tc']['tinchi'])
+			$('#tuchon_bb').text('Tự chọn: '+obj['tuchon_bb']['soTc'])
+			if(obj['tuchon']['tc']){
+				t=parseInt(obj['tuchon']['tc'])
+				$('.tc').text(parseInt(obj['tc']['tinchi'])+parseInt(t))
+			}
+			else{	
+			}
+			$('.tc').text(parseInt(obj['tc']['tinchi'])+parseInt(t))
+			
+			//$('.tuchon').text(obj['tuchon']['tc'])
+	
+			
 			
 		}
 	});

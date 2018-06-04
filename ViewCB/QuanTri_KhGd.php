@@ -90,7 +90,10 @@
 						</td>
 					             
                       </tr>
-					  
+					  <td>Tổng tc:</td>
+						  <td class='tc'></td>
+						  <td>Tổng bắt buộc:</td>
+						  <td class='batbuoc'></td>
 						
 					  <tr>
                         <td colspan="5" height="10"></td>
@@ -110,8 +113,7 @@
 			
 			
     	    <table class="table"  >
-          		<h3 class="style1">Danh sách môn học ngành: <a style="color:red;" id="tk"></a>-<a style="color:red;" id="namhoc"></a></h3>
-				
+			<h3 class="style1">Danh sách môn học ngành: <a style="color:red;" id="tk"></a>-<a style="color:red;" id="namhoc"></a>-<a style='color:red;' id='tuchon_bb'></a></h3>				
 
 	          	<thead>
 					<tr >
@@ -328,6 +330,7 @@ function get_khoa()
 		$('#hocky').val("0");
 		tk()
 		get_namhoc()
+		get_tc()
 	});
 		//lấy lại dữ liệu bảng nếu hệ thay đổi
 	$('#he').change(function (e) { 
@@ -344,7 +347,7 @@ function get_khoa()
 	
 		 tk()	
 		 get_namhoc()	
-		 console.log($('#sttKhoa').val())
+			get_tc()
 	
 	 });
 	 	//lấy lại dữ liệu bảng nếu học kỳ thay đổi
@@ -352,6 +355,7 @@ function get_khoa()
 	 	gettable()		
 		 tk()
 		 get_namhoc()
+		 get_tc()
 	 });
 	 	//lấy lại dữ liệu bảng nếu năm học thay đổi
 	 //xóa môn học ra khỏi kế hoạch giản dạy của 1 lớp
@@ -489,6 +493,44 @@ function tk(){
 	var t=$('#nganh option:selected').text()
 	$('#tk').text(t+'-Khóa '+$('#sttKhoa').val()+'(Học kì '+$('#hocky option:selected').text())	
 }
-
+function get_tc()
+{
+	var nganh=$('#nganh').val()
+	var he=$('#he').val()
+	var sttKhoa=$('#sttKhoa').val()
+	var hocki=$('#hocky').val()
+	$.ajax({
+		type: "post",
+		url: "index.php?f=function",
+		data:{
+			"action":'get_tc',
+			'nganh':nganh,
+			'he':he,
+			'hocki':hocki,
+			'sttKhoa':sttKhoa
+		},
+	
+		success: function (response) {
+			var obj = jQuery.parseJSON(response);
+			var t=0;
+			console.log(obj)
+			$('.batbuoc').text(obj['batbuoc']['bb'])
+			$('.tc').text(obj['tc']['tinchi'])
+			$('#tuchon_bb').text('Tự chọn: '+obj['tuchon_bb']['soTc'])
+			if(obj['tuchon']['tc']){
+				t=parseInt(obj['tuchon']['tc'])
+				$('.tc').text(parseInt(obj['tc']['tinchi'])+parseInt(t))
+			}
+			else{	
+			}
+			$('.tc').text(parseInt(obj['tc']['tinchi'])+parseInt(t))
+			
+			//$('.tuchon').text(obj['tuchon']['tc'])
+	
+			
+			
+		}
+	});
+}
 
 </script>

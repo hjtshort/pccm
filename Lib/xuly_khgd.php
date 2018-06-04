@@ -43,6 +43,7 @@ $ma_nghanh = "";
 $khoahoc = "";
 $tennghanh = "";
 $he = 0;
+$datatc=[];
 
 for ($i = 0; $i <= $Totalrow; $i++)
 {
@@ -78,6 +79,7 @@ for ($i = 0; $i <= $Totalrow; $i++)
 		{
 			preg_match("/[\d+]{2}|[\d+]{1}/", $matched[1],$tuchon);
 			$tuchon = intval($tuchon[0]);
+			$datatc[]=$tuchon;
 			
 		}
 
@@ -95,7 +97,7 @@ for ($i = 0; $i <= $Totalrow; $i++)
 		
 	}
 }
-    return  array("he"=>$he,"ma_nghanh" => trim($ma_nghanh),"khoahoc"=>$khoahoc,"tennghanh" => $tennghanh,"danhsach"=>$datadump);
+    return  array("he"=>$he,"ma_nghanh" => trim($ma_nghanh),"khoahoc"=>$khoahoc,"tennghanh" => $tennghanh,"danhsach"=>$datadump,"tuchon"=>$datatc);
        
         }
     }

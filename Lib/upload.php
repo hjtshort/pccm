@@ -26,7 +26,7 @@ if(isset($_FILES['file']))
 		$data=$xuly->mother_of_xl();
 		$db=new db();
 		$data['namhoc']=mb_substr(str_replace(' ','',$data['khoahoc']),10,4,'utf8');
-		$data['khoa']=mb_substr(str_replace(' ','',$data['khoahoc']),7,2,'utf8');
+		$data['khoa']=explode(' ',$data['khoahoc']);
 		$val=$db->mysql->query('select maNganh from nganh');
 		$hetbietgi=true;
 		while($row=$val->fetch_assoc())
@@ -49,8 +49,11 @@ if(isset($_FILES['file']))
 			}
 		}
 		// echo "<pre>";
+		// echo $data['khoa'][2];
 		// print_r($data);
+	
 		// echo "</pre>";
+
 		foreach($data['danhsach'] as $key=> $value){
 			$str="insert into monhoc values";
 			$str2="insert into monhocnganh values";
@@ -68,7 +71,11 @@ if(isset($_FILES['file']))
 			$value['sotietbt']!=''? $str.=",0,".$value['sotietbt'].",".$value['kiemtra'].")":$str.=",0,0,".$value['kiemtra'].")";
 			$str2.="('".$data['ma_nghanh']."','".str_replace(",",".",	$data['danhsach'][$key]['mamon'])."',".$data['he'].")";
 			$str3="insert into chuongtrinhhoc values";
-			$str3.="('".$data['ma_nghanh']."','".str_replace(",",".",	$data['danhsach'][$key]['mamon'])."',".$data['he'].",".$data['khoa']."";
+			$str3.="('".$data['ma_nghanh']."','".str_replace(",",".",	$data['danhsach'][$key]['mamon'])."',".$data['he'].",".$data['khoa'][2]."";
+
+			
+		
+		
 			$hocki=explode(" ",$value['hocki']);
 			switch (trim($hocki[2])){
 				case "I":
@@ -104,7 +111,21 @@ if(isset($_FILES['file']))
 		 	catch(Exception $e){
 		 		$checked = false;
 		 	}
-		}								
+		}
+		
+		foreach($data['tuchon'] as $key=>$value){
+			$str4='insert into tuchon values';
+			$hocki=$key+1;
+			$str4.="('".$data['ma_nghanh']."',".$data['khoa'][2].",".$data['he'].",".$hocki.",".$value.")";
+			try{
+
+				$db->mysql->query($str4);
+			}
+			catch(Exception $e)
+			{
+
+			}
+		}							
 		if($checked)
 		{
 			echo "<label class='label label-success'>Upload và xử lý thành công !</label>";

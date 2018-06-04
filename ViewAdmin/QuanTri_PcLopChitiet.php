@@ -164,8 +164,8 @@ vertical-align:middle !important;
 						  <td width="51"><center><?php echo $row['batbuoc']=='x'? "Bắt buộc":"Tự chọn"; ?></center></td>	
  						  <td width="30"><center><input style="width:30px;" class='nhom' value="1"></center></td>	
 						   <td width="30"><center><input style="width:30px;" class='heso' value="1"></center></td>	
-						  <?php echo  check_thinh_giang($malop,$row["maMon"],$row['hocKi'],$row['namHoc'])==1? "<td><label class='text-danger'>".get_name($malop,$row["maMon"],$row['hocKi'],$row['namHoc'])."</label></td>":check_phan_cong($malop,$row["maMon"],$row['hocKi'],$row['namHoc']); ?>
-  						  
+						  <?php //echo  check_thinh_giang($malop,$row["maMon"],$row['hocKi'],$row['namHoc'])==1? "<td><label class='text-danger'>".get_name($malop,$row["maMon"],$row['hocKi'],$row['namHoc'])."</label></td>":check_phan_cong($malop,$row["maMon"],$row['hocKi'],$row['namHoc']); ?>
+  						  <?php echo check_thinh_giang($malop,$row["maMon"],$row['hocKi'],$row['namHoc'])==1? '<td class="text-danger">Thỉnh giảng</td>': check_phan_cong($malop,$row["maMon"],$row['hocKi'],$row['namHoc']); ?>
 						</tr>	
                 <?php }?>				
 	

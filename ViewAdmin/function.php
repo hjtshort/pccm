@@ -143,19 +143,21 @@ else if(isset($_POST['action']) && trim($_POST['action'])=="get_namhoc")
 }
 else if(isset($_POST['action']) && trim($_POST['action'])=="get_tc")
 {
-	 get_tc($_POST['nganh'],$_POST['he'],$_POST['sttKhoa']);
+	get_tc($_POST['nganh'],$_POST['he'],$_POST['sttKhoa'],$_POST['hocki']);
+	//var_dump($_POST);
+	 
 }
 
 
-function get_tc($nganh,$he,$sttkhoa)
+function get_tc($nganh,$he,$sttkhoa,$hocki)
 {
 	$db=new db();
 	$data['tc']=$db->mysql->query("SELECT sum(soTc)  as tinchi FROM `chuongtrinhhoc` 
-	join monhoc on chuongtrinhhoc.maMon=monhoc.maMon WHERE maNganh='$nganh' and he=$he and sttKhoa=$sttkhoa")->fetch_assoc();
+	join monhoc on chuongtrinhhoc.maMon=monhoc.maMon WHERE maNganh='$nganh' and he=$he and sttKhoa=$sttkhoa and batbuoc='x'")->fetch_assoc();
 	$data['batbuoc']=$db->mysql->query("SELECT sum(soTc) as bb FROM `chuongtrinhhoc` 
 	join monhoc on chuongtrinhhoc.maMon=monhoc.maMon WHERE maNganh='$nganh' and he=$he and sttKhoa=$sttkhoa and batbuoc='x'")->fetch_assoc();
-	$data['tuchon']=$db->mysql->query("SELECT sum(soTc) as tc FROM `chuongtrinhhoc` 
-	join monhoc on chuongtrinhhoc.maMon=monhoc.maMon WHERE maNganh='$nganh' and he=$he and sttKhoa=$sttkhoa and tuchon='x'")->fetch_assoc();
+	$data['tuchon']=$db->mysql->query("SELECT sum(soTc) as tc FROM `tuchon` WHERE maNganh='$nganh' and he=$he and sttKhoa=$sttkhoa")->fetch_assoc();
+	$data['tuchon_bb']=$db->mysql->query("SELECT soTc FROM `tuchon`  WHERE maNganh='$nganh' and he=".intval($he)." and sttKhoa=".intval($sttkhoa)." and hocKi=".intval($hocki)."")->fetch_assoc();
 	echo json_encode($data);
 }
 
@@ -243,9 +245,23 @@ function check_phan_cong($malop,$mamon,$hocki,$namhoc)
 	}
 	else 
 	{
-		//$t=$malop."+".$mamon."+".$hocki."+".$namhoc;
-		return  '<td><button class="btn btn-success cc">Phân công</button></td>';
-		
+		return  '<td><button class="btn btn-success cc">Phân công</button></td>';	
+	}
+}
+function check_phan_cong_2($malop,$mamon,$hocki,$namhoc){
+	{
+		$db=new db();
+		$data1=$db->mysql->query("select * from pcday inner join canbo on pcday.maCb=canbo.maCb where maLop='".$malop."' and maMon='".$mamon."' and hocKiCTH=".$hocki."")->fetch_assoc();
+		if($data1!=false)
+		{
+			$t=$data1['maCb']."+".$malop."+".$mamon."+".$hocki."+".$data1['namHoc'];
+			return "<td>".$data1['hoCb'].$data1['tenCb']."(".$data1['maCb'].")".ahihi($data1['maCb'],$mamon,$hocki,$data1['namHoc']);
+			// "</td>"."<td><button class='btn btn-danger' onclick='del(\"".$t."\")'>Hủy</button></td>";
+		}
+		else 
+		{
+			return 1;	
+		}
 	}
 }
 function get_table($maNganh,$he,$sttKhoa,$malop,$hocki)
@@ -664,7 +680,7 @@ function get_table_class($malop,$hocki)
 function check_thinh_giang($malop,$mamon,$hocki,$namhoc)
 {
 	$db=new db();
-	$data=$db->mysql->query("select * from thinhgiang where maLop='$malop' and maMon='$mamon' and hocKi=$hocki and namHoc=$namhoc");
+	$data=$db->mysql->query("select * from thinhgiang where maLop='$malop' and maMon='$mamon' and hocKiCTH=$hocki ");
 	if($data->fetch_assoc())
 	{
 		return 1;
@@ -719,6 +735,7 @@ function xoa_thinh_giang($malop,$mamon,$hocki,$namhoc)
 	
 	$db=new db();
 	$data=$db->mysql->query("delete from thinhgiang where maLop='$malop' and maMon='$mamon' and hocKiCTH=$hocki");
+	$data2=$db->mysql->query("delete from pcday where maLop='$malop' and maMon='$mamon' and hocKiCTH=$hocki");
 	if($data)
 		echo "ok";
 	else
@@ -734,7 +751,7 @@ function get_name($malop,$mamon,$hocki,$namhoc)
 {
 	$db=new db();
 	$data1=$db->mysql->query("select * from pcday inner join canbo on pcday.maCb=canbo.maCb 
-	where maLop='".$malop."' and maMon='".$mamon."' and hocKi=".$hocki."")->fetch_assoc();
+	where maLop='".$malop."' and maMon='".$mamon."' and hocKiCTH=".$hocki."")->fetch_assoc();
 	if($data1!=false)
 	{
 		$t=$data1['maCb']."+".$malop."+".$mamon."+".$hocki."+".$data1['namHoc'];
@@ -743,7 +760,7 @@ function get_name($malop,$mamon,$hocki,$namhoc)
 	}
 	else 
 	{
-		return  'Thỉnh giảng';
+		return  '';
 		
 	}
 }

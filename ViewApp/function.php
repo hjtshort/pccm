@@ -102,21 +102,22 @@ else if(isset($_POST['action']) && trim($_POST['action'])=="get_khoa")
 }
 else if(isset($_POST['action']) && trim($_POST['action'])=="get_tc")
 {
-	 get_tc($_POST['nganh'],$_POST['he'],$_POST['sttKhoa']);
+	get_tc($_POST['nganh'],$_POST['he'],$_POST['sttKhoa'],$_POST['hocki']);
 }
 
 
-function get_tc($nganh,$he,$sttkhoa)
-{
-	$db=new db();
-	$data['tc']=$db->mysql->query("SELECT sum(soTc)  as tinchi FROM `chuongtrinhhoc` 
-	join monhoc on chuongtrinhhoc.maMon=monhoc.maMon WHERE maNganh='$nganh' and he=$he and sttKhoa=$sttkhoa")->fetch_assoc();
-	$data['batbuoc']=$db->mysql->query("SELECT sum(soTc) as bb FROM `chuongtrinhhoc` 
-	join monhoc on chuongtrinhhoc.maMon=monhoc.maMon WHERE maNganh='$nganh' and he=$he and sttKhoa=$sttkhoa and batbuoc='x'")->fetch_assoc();
-	$data['tuchon']=$db->mysql->query("SELECT sum(soTc) as tc FROM `chuongtrinhhoc` 
-	join monhoc on chuongtrinhhoc.maMon=monhoc.maMon WHERE maNganh='$nganh' and he=$he and sttKhoa=$sttkhoa and tuchon='x'")->fetch_assoc();
-	echo json_encode($data);
-}
+
+	function get_tc($nganh,$he,$sttkhoa,$hocki)
+	{
+		$db=new db();
+		$data['tc']=$db->mysql->query("SELECT sum(soTc)  as tinchi FROM `chuongtrinhhoc` 
+		join monhoc on chuongtrinhhoc.maMon=monhoc.maMon WHERE maNganh='$nganh' and he=$he and sttKhoa=$sttkhoa and batbuoc='x'")->fetch_assoc();
+		$data['batbuoc']=$db->mysql->query("SELECT sum(soTc) as bb FROM `chuongtrinhhoc` 
+		join monhoc on chuongtrinhhoc.maMon=monhoc.maMon WHERE maNganh='$nganh' and he=$he and sttKhoa=$sttkhoa and batbuoc='x'")->fetch_assoc();
+		$data['tuchon']=$db->mysql->query("SELECT sum(soTc) as tc FROM `tuchon` WHERE maNganh='$nganh' and he=$he and sttKhoa=$sttkhoa")->fetch_assoc();
+		$data['tuchon_bb']=$db->mysql->query("SELECT soTc FROM `tuchon`  WHERE maNganh='$nganh' and he=".intval($he)." and sttKhoa=".intval($sttkhoa)." and hocKi=".intval($hocki)."")->fetch_assoc();
+		echo json_encode($data);
+	}
 function get_max_khoa($maNganh)
 {
 	$db=new db();

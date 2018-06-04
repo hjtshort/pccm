@@ -145,7 +145,7 @@ vertical-align:middle !important;
 						  <td width="51" class="namhoc"><?php echo $row['namHoc']; ?></td>	
 						  <td width="51"><?php echo $row['sttKhoa']; ?></td>	
  						  <td width="40"><?php echo $row['he']==1? "Cao Đẳng":"Trung Cấp";?></center></td>	
-						  <?php echo check_phan_cong_thinh_giang($malop,$row["maMon"],$row['hocKi'],$row['namHoc']); ?>
+						  <?php echo check_phan_cong_2($malop,$row["maMon"],$row['hocKi'],$row['namHoc'])==1? check_phan_cong_thinh_giang($malop,$row["maMon"],$row['hocKi'],$row['namHoc']):'<td class="text-danger">Đã phân công</td>'; ?>
   						  
 						</tr>	
                 <?php }?>				
