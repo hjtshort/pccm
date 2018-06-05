@@ -37,17 +37,6 @@ function get_dsmon($hocki)
 	return $dt;
 }
 
-function get_tuchon($hocki)
-{
-	$db = new db();
-	
-	$dt = $db->mysql->query("select * from tuchon where sttKhoa = '{$this->sttk}' and maNganh='{$this->manganh}' and hocKi='{$hocki}' and he='{$this->he}'");
-	if($ex = $dt->fetch_assoc())
-	{
-		return $ex['soTc'];
-	}
-}
-
 
 function get_ten_ghanh()
 {
@@ -120,18 +109,16 @@ $excel->getActiveSheet()->getStyle('A6:J6')->getFont()->setBold(true);
 $working_start_row = "A8";
  $ds = array();
 
-array_push($ds,array('t1'=>'STT','t2'=> 'Mã học phần/ môn học','t3'=>'Tên học phần/ môn học','t4'=>'Số TC/ ĐVHT','t5' => 'Bắt buộc','t6' => 'Tự chọn','t7'=>'Tổng số tiết','t8'=>'Số tiết LT','t9'=>'Số tiết BT/TH','t10' => 'Kiểm tra'));
+array_push($ds,array('t1'=>'STT','t2'=> 'Mã học phần/ môn học','t3'=>'Tên học phần/ môn học','t4'=>'Số TC/ ĐVHT','t5' => 'Bắt buộc','t6' => 'Tự chọn','t7'=>'Tổng số tiết','t8'=>'Số tiết LT','t9'=>'Số tiết BT/TH','t10' => 'Số tiết kiểm tra'));
 
 $dimstart = 8;
 $hocki = $this->get_hocki();
-
 $next = 0;
 $rows = 0;
 if (is_array($hocki) || is_object($hocki))
 {
     foreach ($hocki as $hk) {
     $data = $this->get_dsmon($hk);
-    $tuchon = $this->get_tuchon($hk);
 	$rows = 1;
 	$tongsotc = 0;
 	$tongsotiet = 0;
@@ -139,7 +126,7 @@ if (is_array($hocki) || is_object($hocki))
 	$tongsotiet_bt = 0;
 	$tongsotiet_kt = 0;
 	// $excel->setActiveSheetIndex(0)->setCellValue('A'.$dimstart -1 ,'KẾ HOẠCH GIẢNG DẠY HỆ CAO ĐẲNG - KHÓA 42')->setCellValue('A5','Nghành đào tạo: Tin học ứng dụng    Mã Nghành: 6480205')->setCellValue('A6','Khóa học 42 (2017-2020)');
-	array_unshift($ds, array('t1'=>'HỌC KỲ '.$this->lama[$hk-1].': ………….. TC/ĐVHT (Bắt buộc: ………….TC/ ĐVHT, Tự chọn:…'.$tuchon.'…… TC/ ĐVHT)'));
+	array_unshift($ds, array('t1'=>'HỌC KỲ '.$this->lama[$hk-1].': ………….. TC/ĐVHT (Bắt buộc: ………….TC/ ĐVHT, Tự chọn:…0…… TC/ ĐVHT)'));
 	while ($row = $data->fetch_assoc() ) {
 		$ds[] = array('STT' => $rows,'mahocphan'=>$row['maMon'],'tenmon'=>$row['tenMon'],'sotc' =>$row['soTc'],'batbuoc'=>$row['batbuoc'],'tuchon'=>$row['tuchon'],'tongsotiet'=>($row['soTietLt']+$row['soTietTh']+$row['soTietKt']),'sotietlt'=>$row['soTietLt'],'sot_th' => $row['soTietTh'],'kt'=> $row['soTietKt']);
 		$tongsotc += $row['soTc'];
@@ -179,7 +166,7 @@ $excel->getActiveSheet()->fromArray($ds,NULL,$working_start_row);
 $working_start_row = "A".($next +=4);
 $ds = array();
 // array_push($ds,array('t1'=>'HỌC KỲ '.$lama[$hk+1].' : ……23…….. TC/ĐVHT (Bắt buộc: ……23…….TC/ ĐVHT, Tự chọn:…0…… TC/ ĐVHT)'));
-$ds[] =  array('t1'=>'STT','t2'=> 'Mã học phần/ môn học','t3'=>'Tên học phần/ môn học','t4'=>'Số TC/ ĐVHT','t5' => 'Bắt buộc','t6' => 'Tự chọn','t7'=>'Tổng số tiết','t8'=>'Số tiết LT','t9'=>'Số tiết BT/TH','t10' => 'Kiểm tra');
+$ds[] =  array('t1'=>'STT','t2'=> 'Mã học phần/ môn học','t3'=>'Tên học phần/ môn học','t4'=>'Số TC/ ĐVHT','t5' => 'Bắt buộc','t6' => 'Tự chọn','t7'=>'Tổng số tiết','t8'=>'Số tiết LT','t9'=>'Số tiết BT/TH','t10' => 'Số tiết kiểm tra');
 
 }
 }
