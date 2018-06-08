@@ -1,10 +1,18 @@
 <?php
 	require_once("lib/connection.php");
 	require_once("lib/UserInfo.php");
+	require_once("ViewAdmin/function.php");
+//	require_once("lib/QuanTri_Pccm.php");	
 	
 	include 'Classes/PHPExcel.php';
 	include 'Classes/PHPExcel/IOFactory.php';
 	
+	function giao_an($macb,$mamon,$namhoc){
+				$db=new db();
+				$data=$db->mysql->query("select count(*) as sl from pcday where maCb='$macb' and maMon='$mamon' and namHoc=$namhoc")->fetch_assoc();//->num_rows;
+				return $data["sl"];
+				
+		}
 	$objPHPExcel = new PHPExcel();
 	
 	$objPHPExcel->getDefaultStyle()->getFont()->setName('Times New Roman');
@@ -256,20 +264,27 @@ $objPHPExcel->getActiveSheet()->getStyle('A8:S8')
 		
 
 		
-		
-		
+		$ga3=0;
 
+	
 
 		while ($row_sl = mysqli_fetch_array($query)){
-			
+			$so=giao_an($row['maCb'],$row_sl['maMon'],$row_sl['namHoc']);		
+			if($so>=3) $ga3=$ga3+1;
 				$tongtam=0;
-						  		if ($row_sl["he"]==2) $tongtam=($row_sl["soTietLt"]+$row_sl["soTietTh"])*0.7;
-								else {
-										if ($row_sl["siSo"]<=50) $tongtam=($row_sl["soTietLt"]+$row_sl["soTietTh"]);
-										else if ($row_sl["siSo"]<=80)
-											 $tongtam=($row_sl["soTietLt"]*1.1+$row_sl["soTietTh"]);												
-										else 	 $tongtam=($row_sl["soTietLt"]*1.2+$row_sl["soTietTh"]);
-									}	
+					$lt=$row_sl["soTietLt"];
+					if ($ga3>=3) $lt=	$row_sl["soTietLt"]*0.7;
+						  		if ($row_sl["siSo"]<=50) $tongtam=($lt+$row_sl["soTietTh"]+$row_sl["soTietBt"]+$row_sl["soTietKt"]);
+										else if ($row_sl["siSo"]<=70)
+											 $tongtam=($lt+$row_sl["soTietTh"]+$row_sl["soTietBt"]+$row_sl["soTietKt"])*1.1;												
+										else if ($row_sl["siSo"]<=90)
+											 $tongtam=($lt+$row_sl["soTietTh"]+$row_sl["soTietBt"]+$row_sl["soTietKt"])*1.2;
+										else if ($row_sl["siSo"]<=110)
+											 $tongtam=($lt+$row_sl["soTietTh"]+$row_sl["soTietBt"]+$row_sl["soTietKt"])*1.3;																								
+										else if ($row["siSo"]<=130)
+											 $tongtam=($lt+$row_sl["soTietTh"]+$row_sl["soTietBt"]+$row_sl["soTietKt"])*1.4;												
+										else
+											 $tongtam=($lt+$row_sl["soTietTh"]+$row_sl["soTietBt"]+$row_sl["soTietKt"])*1.5;			
 								$tongTiet+=$tongtam;		//tong qui đổi
 					if ($row_sl["he"]==1) $he="CĐ"; else $he="TC";
 
@@ -284,6 +299,10 @@ $objPHPExcel->getActiveSheet()->getStyle('A8:S8')
 					->setCellValue('J'.$i,$row_sl['soTietBt'])
 					->setCellValue('K'.$i,$row_sl['soTietTh']+$row_sl['soTietKt'])
 					->setCellValue('R'.$i,$tongtam);
+//					->setCellValue('S'.$i,"GA3");
+		if ($ga3>=3)
+					$objPHPExcel->setActiveSheetIndex(0)
+					->setCellValue('S'.$i,"GA3");
 					
 		$tong=$row_sl['soTietLt']+$row_sl['soTietTh']+$row_sl['soTietBt']+$row_sl['soTietKt'];			
 		if ($row_sl["hocKi"]==1){ 

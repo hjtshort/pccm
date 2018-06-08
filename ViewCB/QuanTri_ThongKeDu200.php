@@ -287,7 +287,7 @@ vertical-align:middle !important;
 					$row_DtGiam = mysqli_fetch_array($query_DtGiam);
 					
 					//Tính tiết nghĩa vụ
-					$tc=390;
+					$tc=520;
 					if ($num_rows>0) $tc-=$row_nckh["soTiet"];
 					else if ($num_rows2>0) $tc-=$row_tbg["soTc"];
 					if ($num_DtGiam>0) $tc-=$row_DtGiam["soTietGiam"];	
