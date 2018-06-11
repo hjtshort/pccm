@@ -81,11 +81,13 @@ $excel->setActiveSheetIndex(0);
 
 $excel->getDefaultStyle()->getFont()->setName('Times New Roman');
 $excel->getDefaultStyle()->getFont()->setSize(13);
+$excel->getActiveSheet()->getColumnDimension('B')->setWidth(10);
 $excel->getActiveSheet()->setTitle('Bảng kế hoạch giảng dạy');
 
 
 $excel->getActiveSheet()->getStyle('A1:J1')->getFont()->setBold(true);
 $excel->getActiveSheet()->getStyle('A2:J2')->getFont()->setBold(true);
+
 
 $excel->setActiveSheetIndex(0)->setCellValue('A1','TRƯỜNG CAO ĐẲNG CẦN THƠ')->setCellValue('F1', 'CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM')->setCellValue('A2',$this->get_tenkhoa())->setCellValue('F2', 'Độc lập - Tự do - Hạnh phúc');
 
@@ -170,6 +172,20 @@ $ds[] =  array('t1'=>'STT','t2'=> 'Mã học phần/ môn học','t3'=>'Tên h�
 
 }
 }
+$under=$dimstart+4;
+$excel->getActiveSheet()->getStyle('G'.$under)->getFont()->setItalic( true );
+$excel->getActiveSheet()->setCellValue('G'.$under,'Cần Thơ,ngày '.date('d').' tháng '.date('m').' năm '.date('Y'));
+$under++;
+$styleArray = array(
+		'font' => array(
+			'bold'=>true
+		)
+  );
+  
+  $excel->getActiveSheet()->getStyle('B'.$under.':G'.$under)->applyFromArray($styleArray);
+$excel->getActiveSheet()->setCellValue('B'.$under,'PHÓ HIỆU TRƯỞNG');
+$excel->getActiveSheet()->setCellValue('D'.$under,'               PHÒNG QLDT');
+$excel->getActiveSheet()->setCellValue('G'.$under,'               KHOA KTCN-MT');
 
 
 

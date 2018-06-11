@@ -281,6 +281,7 @@ function get_table($maNganh,$he,$sttKhoa,$malop,$hocki)
 	$t="";
 	while($row=$data->fetch_assoc())
 	{
+		$k= check_thinh_giang($malop,$row["maMon"],$row['hocKi'],$row['namHoc'])==1? '<td class="text-danger">Thỉnh giảng</td>': check_phan_cong($malop,$row["maMon"],$row['hocKi'],$row['namHoc']); 
 		$check=$row['batbuoc']=='x'? "Bắt buộc":"<b style='color:red'>Tự chọn</b>";
 		$stt++;
 		$t.="<tr>
@@ -296,7 +297,7 @@ function get_table($maNganh,$he,$sttKhoa,$malop,$hocki)
 			<td><input style='width:40px;' class='nhom' value='1'></td>
 			<td><input style='width:40px;' class='heso' value='1'></td>
 			"
-		.check_phan_cong($malop,$row['maMon'],$row['hocKi'],$row['namHoc']).
+		.$k.
 		"</tr>";
 	}
 	echo $t;
@@ -360,7 +361,7 @@ function hienthitable($maNganh,$he,$sttKhoa,$hk)
 		$tongkt+=intval($row['soTietKt']);
 		$chuoi=$row["maNganh"]."+".$row["maMon"]."+".$row["he"]."+".$row["sttKhoa"]."+".$row["hocKi"]."+".$row["namHoc"]."+".$stt;	
 		$kk=checkmontienquyet($row["maNganh"],$row["he"],$row["maMon"],$row["hocKi"],$row["sttKhoa"])==false ? "<p><span style='color:red;'>Cần phải xóa vì môn tiên quyết chưa có trong chương trình</span></p>": "";
-		$loai= $row['batbuoc']=="x"? "<select id='bb_tc' kai-value=".$chuoi." class='chon'><option selected='selected' value='bb'>Bắt buộc</option><option value='tt' >Tự chọn</option></select>":"<select class='chon' kai-value=".$chuoi."><option value='bb'>Bắt buộc</option><option selected='selected' value='tt'>Tự chọn</option></select>";	
+		$loai= $row['batbuoc']=="x" ? "<select id='bb_tc' kai-value=".$chuoi." class='chon'><option selected='selected' value='bb'>Bắt buộc</option><option value='tt' >Tự chọn</option></select>":"<select class='chon' kai-value=".$chuoi."><option value='bb'>Bắt buộc</option><option selected='selected' value='tt'>Tự chọn</option></select>";	
 		$t.='<tr>
 				<td scope="row">'. $stt++ .'</td>
 				<td>'. $row["maMon"].'</td>
@@ -763,5 +764,18 @@ function get_name($malop,$mamon,$hocki,$namhoc)
 		return  '';
 		
 	}
+}
+function get_table_tuchon($manganh,$sttKhoa,$he){
+	$db=new db();
+	$data=$db->mysql->query("select * from tuchon where maNganh='$manganh' and 	sttKhoa=$sttKhoa and he=$he");
+	return $data;
+}
+function get_nganh($mabm){
+	$db=new db();
+	$data=$db->mysql->query("select * from nganh where maBm=$mabm and maNganh in(select maNganh from tuchon)");
+	if($data)
+		return $data;
+	else
+		return '';
 }
 ?>

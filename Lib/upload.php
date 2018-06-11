@@ -48,11 +48,12 @@ if(isset($_FILES['file']))
 				echo "<label class='label label-danger'>Thêm ngành mới thất bại !</label>";
 			}
 		}
-		// echo "<pre>";
-		// echo $data['khoa'][2];
-		// print_r($data);
+		echo "<pre>";
+		echo $data['khoa'][2];
+		var_dump($data);
 	
-		// echo "</pre>";
+		echo "</pre>";
+		die();
 
 		foreach($data['danhsach'] as $key=> $value){
 			$str="insert into monhoc values";
@@ -98,10 +99,11 @@ if(isset($_FILES['file']))
 					break;
 				default:
 			}
-			$value['tuchon']=="x" ? $str3.=",'x',' ')":$str3.=",' ','x')";
+			$value['batbuot']=="x" ? $str3.=",' ','x')":$str3.=",'x',' ')";
 			// echo $str;
 			// echo $str2;
 			//  echo $str3;
+			//  die();
 		 	try{
 		 		$db->mysql->query($str);
 				$db->mysql->query($str2);
