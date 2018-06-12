@@ -13,6 +13,7 @@
 	<link href="ViewAdmin/style.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
+	<script type="text/javascript" src="js/jquery.tabledit.js"></script>
 
    	<style type="text/css">
 		.style1 {
@@ -70,13 +71,14 @@ vertical-align:middle !important;
 			</center>		
 			
 			
-    	    <table class="table table-hover" border="1"  >
+    	    <table class="table table-hover" border="1" id='example5'  >
 
 	          	<thead>
 					<tr >
 					  <th width="29" ><center> STT</center> </th>
 					  <th width="30" valign="middle">Học kì</th>
- 					  <th width="100"  ><center>Số tín chỉ</center></th>
+ 					  <th width="50"  ><center>Số tín chỉ</center></th>
+					
 					</tr>
 											
 			  </thead>
@@ -91,9 +93,15 @@ vertical-align:middle !important;
 
 				?>
 							<tr>
+								
 									<td><?php echo $stt; ?></td>
+									<td hidden><?php echo $row['maNganh']; ?></td>
+									<td hidden><?php echo $row['sttKhoa']; ?></td>
+									<td hidden><?php echo $row['he']; ?></td>
 									<td><?php echo $row['hocKi']; ?></td>
 									<td><?php echo $row['soTc']; ?></td>
+									<td hidden><?php echo $row['hocKi']; ?></td>
+									
 							</tr>
 					<?php
 						}
@@ -144,4 +152,36 @@ $(document).ready(function () {
 				}
 			});
 	}
+	$('#example5').Tabledit({
+    url: 'index.php?f=QuanTri_edittuchon',
+    deleteButton: false,
+    saveButton: true,
+    autoFocus: false,
+    buttons: {
+        edit: {
+            class: 'btn btn-sm btn-primary',
+            html: '<span class="glyphicon glyphicon-pencil"></span> &nbsp EDIT',
+            action: 'edit'
+		},
+		save:{
+                    class: 'btn btn-success',
+                    html: '<span class="glyphicon glyphicon-pencil"></span> &nbsp SAVE',
+                    action:'save'
+                }
+    },
+    columns: {
+        identifier: [0, 'id'],
+        editable: [ [1, 'maNganh'],[2,'sttKhoa'],[3,'he'],[5,'sotc'],[6,'hocKi']]
+	},
+	 onSuccess: function(data, textStatus, jqXHR) {
+					
+               
+                },
+            onFail: function(jqXHR, textStatus, errorThrown) {
+                console.log('onFail(jqXHR, textStatus, errorThrown)');
+                console.log(jqXHR);
+                console.log(textStatus);
+                console.log(errorThrown);
+                    }
+             });
 </script>

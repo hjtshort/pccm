@@ -310,7 +310,9 @@ function create($nganh,$he,$khoa)
 	$sttKhoa=$db->mysql->escape_string($khoa);
 	$khoamoi=$sttKhoa+1;
 	$check=$db->mysql->query("select * from chuongtrinhhoc where maNganh='".$maNganh."' and he=".$He." and sttKhoa=".$sttKhoa."");
+	$check2=$db->mysql->query("select * from tuchon where maNganh='$maNganh' and he=$He and sttKhoa=$sttKhoa");
 	$insert="";
+	$insert2="";
 	while($row=$check->fetch_assoc())
 	{
 		$namhoc=$row['namHoc']+1;
@@ -319,7 +321,11 @@ function create($nganh,$he,$khoa)
 		$insert.="('".$row['maNganh']."','".$row['maMon']."',".$He.",".$khoamoi.",".$row['hocKi'].",".$namhoc.",'".$tuchon."','".$batbuoc."'),";
 	}
 	$query=$db->mysql->query("insert into chuongtrinhhoc value".substr($insert,0,strlen($insert)-1));
-	if($query)
+	while($row=$check2->fetch_assoc()){
+		$insert2.="('".$row['maNganh']."',".$khoamoi.",".$row['he'].",".$row['hocKi'].",".$row['soTc']."),";
+	}
+	$query2=$db->mysql->query("insert into tuchon values".substr($insert2,0,strlen($insert2)-1));
+	if($query && $query2)
 	{
 		echo "ok";
 	}

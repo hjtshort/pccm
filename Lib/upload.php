@@ -48,12 +48,12 @@ if(isset($_FILES['file']))
 				echo "<label class='label label-danger'>Thêm ngành mới thất bại !</label>";
 			}
 		}
-		echo "<pre>";
-		echo $data['khoa'][2];
-		var_dump($data);
+		// echo "<pre>";
+		// echo $data['khoa'][2];
+		// var_dump($data);
 	
-		echo "</pre>";
-		die();
+		// echo "</pre>";
+		// die();
 
 		foreach($data['danhsach'] as $key=> $value){
 			$str="insert into monhoc values";
