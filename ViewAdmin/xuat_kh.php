@@ -72,6 +72,15 @@ function get_tenkhoa()
 	return '';
 }
 
+function get_tuchon(String $hocki)
+{
+	$db = new db();
+	$ex = $db->mysql->query("select soTc from tuchon where hocKi='{$hocki}' and sttKhoa = '{$this->sttk}' and maNganh='{$this->manganh}' and he='{$this->he}'");
+	if($value = $ex->fetch_assoc()){
+		return $value['soTc'];
+	}
+}
+
 
 function xuly(){
 	
@@ -128,7 +137,7 @@ if (is_array($hocki) || is_object($hocki))
 	$tongsotiet_bt = 0;
 	$tongsotiet_kt = 0;
 	// $excel->setActiveSheetIndex(0)->setCellValue('A'.$dimstart -1 ,'KẾ HOẠCH GIẢNG DẠY HỆ CAO ĐẲNG - KHÓA 42')->setCellValue('A5','Nghành đào tạo: Tin học ứng dụng    Mã Nghành: 6480205')->setCellValue('A6','Khóa học 42 (2017-2020)');
-	array_unshift($ds, array('t1'=>'HỌC KỲ '.$this->lama[$hk-1].': ………….. TC/ĐVHT (Bắt buộc: ………….TC/ ĐVHT, Tự chọn:…0…… TC/ ĐVHT)'));
+	array_unshift($ds, array('t1'=>'HỌC KỲ '.$this->lama[$hk-1].': ………….. TC/ĐVHT (Bắt buộc: ………….TC/ ĐVHT, Tự chọn:…'.$this->get_tuchon($hk).'…… TC/ ĐVHT)'));
 	while ($row = $data->fetch_assoc() ) {
 		$ds[] = array('STT' => $rows,'mahocphan'=>$row['maMon'],'tenmon'=>$row['tenMon'],'sotc' =>$row['soTc'],'batbuoc'=>$row['batbuoc'],'tuchon'=>$row['tuchon'],'tongsotiet'=>($row['soTietLt']+$row['soTietTh']+$row['soTietKt']),'sotietlt'=>$row['soTietLt'],'sot_th' => $row['soTietTh'],'kt'=> $row['soTietKt']);
 		$tongsotc += $row['soTc'];
